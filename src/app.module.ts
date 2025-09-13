@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
-import { CoreModule } from './modules/shared/infraestructure/http/nestjs/core/core.module';
-import { AddTrackerIdMiddleware } from './modules/shared/infraestructure/http/nestjs/core/middlewares/add-tracker-id.middleware';
-import { LogsMiddleware } from './modules/shared/infraestructure/http/nestjs/core/middlewares/logs.middleware';
-import { SharedModule } from './modules/shared/infraestructure/http/nestjs/shared/shared.module';
+import { ItemsModule } from './modules/items/infraestructure/http/nestjs/items.module';
+import { SharedModule } from './modules/shared/infraestructure/http/nestjs/core.module';
+import { AddTrackerIdMiddleware } from './modules/shared/infraestructure/http/nestjs/middlewares/add-tracker-id.middleware';
+import { LogsMiddleware } from './modules/shared/infraestructure/http/nestjs/middlewares/logs.middleware';
 
 @Module({
-  imports: [CoreModule, SharedModule],
+  imports: [SharedModule, ItemsModule],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {
