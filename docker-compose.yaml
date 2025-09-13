@@ -1,0 +1,23 @@
+name: 'nest_graphql_anylist_db'
+
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+      - ${TYPE_ORM_PORT}:${TYPE_ORM_PORT}
+    container_name: 'postgres'
+    environment:
+      POSTGRES_USER: ${TYPE_ORM_USERNAME}
+      POSTGRES_PASSWORD: ${TYPE_ORM_PASSWORD}
+      POSTGRES_DB: ${TYPE_ORM_DATABASE}
+      POSTGRES_PORT: ${TYPE_ORM_PORT}
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+
+networks:
+  postgres_network:
+
+volumes:
+  postgres_volume:
