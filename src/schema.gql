@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Esquema de los items"""
+type ItemSchema {
+  """ID del item"""
+  id: ID!
+
+  """Nombre del item"""
+  name: String!
+
+  """Cantidad disponible del item"""
+  quantity: Int!
+
+  """Unidad del item"""
+  quantityUnits: Int!
+}
+
+type Query {
+  """Obtener el listado completo de items"""
+  GetAllItems: [ItemSchema!]!
+
+  """Obtener un item por su id"""
+  GetItemById(
+    """Id del item a obtener"""
+    id: String!
+  ): ItemSchema!
+}
