@@ -5,5 +5,5 @@ export interface ItemDto {
 
   quantity: number;
 
-  quantityUnits: number;
+  quantityUnits: string;
 }
