@@ -2,7 +2,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import enviroments from './modules/shared/infraestructure/config/enviroments';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +18,7 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
-  await app.listen(enviroments.PORT);
+  await app.listen(process.env['PORT'] ?? 3000);
 
   Logger.log(`App is running on ${await app.getUrl()}`, 'Bootstrap');
 }
