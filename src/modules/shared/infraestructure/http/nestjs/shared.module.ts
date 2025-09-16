@@ -7,6 +7,8 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+import { ItemModel } from 'src/modules/items/infraestructure/persitence/typeorm/item.model';
+
 import { FallbackController } from './controllers/fallback.controller';
 import { HealthCheckController } from './controllers/health-check.controller';
 
@@ -29,6 +31,7 @@ import { HealthCheckController } from './controllers/health-check.controller';
         migrations: [
           `${process.cwd()}/dist/src/modules/shared/infraestructure/persitence/typeorm/migrations/**`,
         ],
+        entities: [ItemModel],
         migrationsRun: false,
         useUTC: true,
         logging: true,
