@@ -1,4 +1,4 @@
-import { ErrorObject } from '../errors/base.error';
+import { ErrorObject } from '../base.error';
 
 export abstract class DomainException extends Error {
   readonly layer = 'Domain';

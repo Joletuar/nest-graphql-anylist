@@ -1,4 +1,4 @@
-import { ErrorObject } from '../errors/base.error';
+import { ErrorObject } from '../base.error';
 
 interface InfraestructureErrorObject extends ErrorObject {
   originalError: unknown;
