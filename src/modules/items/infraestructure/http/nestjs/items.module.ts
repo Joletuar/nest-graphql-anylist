@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { FinItemByIdQueryHandler } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query-handler';
+import { GetAllItemsQueryHandler } from 'src/modules/items/application/queries/get-all-items/get-all-items.query-handler';
 import { ItemRepository } from 'src/modules/items/domain/item.repository';
 
-import { GetAllItemsQueryHandler } from '../../../application/queries/get-all-items/get-all-items.query-handler';
-import { GetItemByIdQueryHandler } from '../../../application/queries/get-item-by-id/get-item-by-id.query-handler';
+import { ItemTypeOrmRepository } from '../../persitence/typeorm/item-typeorm.repository';
 import { ItemModel } from '../../persitence/typeorm/item.model';
 import { ItemsResolver } from './items.resolver';
 
@@ -14,19 +15,17 @@ import { ItemsResolver } from './items.resolver';
   providers: [
     ItemsResolver,
 
+    ItemTypeOrmRepository,
+
     // Repositories
     {
       provide: ItemRepository,
-      useValue: {
-        getAll: () => [],
-
-        getById: (id: string) => null,
-      },
+      useClass: ItemTypeOrmRepository,
     },
 
     // Query Handlers
     GetAllItemsQueryHandler,
-    GetItemByIdQueryHandler,
+    FinItemByIdQueryHandler,
   ],
 })
 export class ItemsModule {}
