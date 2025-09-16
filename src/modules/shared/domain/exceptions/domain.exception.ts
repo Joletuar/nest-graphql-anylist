@@ -10,12 +10,4 @@ export abstract class DomainException extends Error {
 
     this.name = this.constructor.name;
   }
-
-  get error(): ErrorObject & { layer: string } {
-    return {
-      message: this.message,
-      layer: this.layer,
-      details: this.errorObject.details,
-    };
-  }
 }
