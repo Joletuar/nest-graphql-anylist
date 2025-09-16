@@ -15,9 +15,9 @@ import { ItemsResolver } from './items.resolver';
   providers: [
     ItemsResolver,
 
+    // Repositories
     ItemTypeOrmRepository,
 
-    // Repositories
     {
       provide: ItemRepository,
       useClass: ItemTypeOrmRepository,
