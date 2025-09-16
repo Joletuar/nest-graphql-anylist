@@ -1,14 +1,6 @@
-interface ErrorObject {
-  readonly message: string;
+import { ErrorObject } from '../errors/base.error';
 
-  readonly details: Detail[];
-}
-
-interface Detail {
-  cause: string;
-}
-
-export class DomainException extends Error {
+export abstract class DomainException extends Error {
   readonly layer = 'Domain';
 
   constructor(readonly errorObject: ErrorObject) {
