@@ -3,8 +3,8 @@ import { QueryBus } from '@nestjs/cqrs';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
 import { ItemDto } from 'src/modules/items/application/item.dto';
+import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
 import { GetAllItemsQuery } from 'src/modules/items/application/queries/get-all-items/get-all-items.query';
-import { GetItemByIdQuery } from 'src/modules/items/application/queries/get-item-by-id/get-item-by-id.query';
 
 import { ItemSchema } from './item.schema';
 
@@ -38,7 +38,7 @@ export class ItemsResolver {
     )
     id: string,
   ): Promise<ItemDto> {
-    const item = await this.queryBus.execute(new GetItemByIdQuery(id));
+    const item = await this.queryBus.execute(new FindItemByIdQuery(id));
 
     return item;
   }
