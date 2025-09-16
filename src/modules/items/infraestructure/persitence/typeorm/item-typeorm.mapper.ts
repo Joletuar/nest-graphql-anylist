@@ -1,0 +1,20 @@
+import { Item } from 'src/modules/items/domain/item.entity';
+
+import { ItemModel } from './item.model';
+
+export class ItemTypeOrmMapper {
+  static toDomain(model: ItemModel): Item {
+    const { id, name, quantity, quantityUnits } = model;
+
+    return {
+      id,
+      name,
+      quantity,
+      quantityUnits,
+    };
+  }
+
+  static toDomainList(models: ItemModel[]): Item[] {
+    return models.map((model) => this.toDomain(model));
+  }
+}
