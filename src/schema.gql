@@ -24,6 +24,47 @@ type Query {
   """Obtener un item por su id"""
   GetItemById(
     """Id del item a obtener"""
-    id: String!
+    id: ID!
   ): ItemSchema!
+}
+
+type Mutation {
+  """Create new item"""
+  CreateItem(
+    """Args to create new Item"""
+    input: CreateItemInput!
+  ): ItemSchema!
+
+  """Update an existing item"""
+  UpdateItem(
+    """Id del item a obtener"""
+    id: ID!
+
+    """Input to update item"""
+    input: UpdateItemInput!
+  ): ItemSchema!
+}
+
+"""Input to create new item"""
+input CreateItemInput {
+  """Item name"""
+  name: String!
+
+  """Item quantity"""
+  quantity: Int!
+
+  """Item quantityUnits"""
+  quantityUnits: String!
+}
+
+"""Input to update an item"""
+input UpdateItemInput {
+  """Item name"""
+  name: String
+
+  """Item quantity"""
+  quantity: Int
+
+  """Item quantityUnits"""
+  quantityUnits: String
 }
