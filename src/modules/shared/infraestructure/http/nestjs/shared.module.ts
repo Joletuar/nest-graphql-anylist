@@ -11,6 +11,7 @@ import { ItemModel } from 'src/modules/items/infraestructure/persitence/typeorm/
 
 import { FallbackController } from './controllers/fallback.controller';
 import { HealthCheckController } from './controllers/health-check.controller';
+import { ParseUlidPipe } from './pipes/parse-ulid.pipe';
 
 @Module({
   imports: [
@@ -58,7 +59,7 @@ import { HealthCheckController } from './controllers/health-check.controller';
     CqrsModule.forRoot({ rethrowUnhandled: true }),
   ],
 
-  providers: [],
+  providers: [ParseUlidPipe],
 
   controllers: [HealthCheckController, FallbackController],
 
