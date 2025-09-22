@@ -2,7 +2,7 @@ import { Item } from 'src/modules/items/domain/item.entity';
 
 import { ItemModel } from './item.model';
 
-export class ItemTypeOrmMapper {
+export class TypeOrmItemMapper {
   static toDomain(model: ItemModel): Item {
     const { id, name, quantity, quantityUnits } = model;
 
