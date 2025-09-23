@@ -8,6 +8,9 @@ import {
 } from '@nestjs/common';
 
 import { GraphQLError } from 'graphql';
+import { DomainException } from 'src/modules/shared/domain/exceptions/domain.exception';
+import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
+import { ulid } from 'ulidx';
 
 type FormattedError = {
   message: string;
@@ -52,6 +55,26 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           details: [{ cause: res.message }],
         };
       }
+    }
+
+    if (exception instanceof DomainException) {
+      const { errorObject, message } = exception;
+
+      formattedError = {
+        message,
+        statusCode: HttpStatus.BAD_REQUEST,
+        details: errorObject.details,
+      };
+    }
+
+    if (exception instanceof InfraestructureException) {
+      const { errorObject, message } = exception;
+
+      formattedError = {
+        message,
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        details: errorObject.details,
+      };
     }
 
     throw new GraphQLError(formattedError.message, {
