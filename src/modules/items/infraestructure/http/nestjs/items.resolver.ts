@@ -26,7 +26,7 @@ export class ItemsResolver {
 
   @Query(() => [ItemSchema], {
     name: 'GetAllItems',
-    description: 'Obtener el listado completo de items',
+    description: 'Get an items list',
   })
   async getAllItems(): Promise<ItemDto[]> {
     const items = await this.queryBus.execute(new GetAllItemsQuery());
@@ -35,14 +35,14 @@ export class ItemsResolver {
   }
 
   @Query(() => ItemSchema, {
-    name: 'GetItemById',
-    description: 'Obtener un item por su id',
+    name: 'FindItemById',
+    description: 'Find an item by id',
   })
-  async getItemById(
+  async findItemById(
     @Args(
       'id',
       {
-        description: 'Id del item a obtener',
+        description: 'Item id',
         type: () => ID,
         nullable: false,
       },
@@ -94,7 +94,7 @@ export class ItemsResolver {
     @Args(
       'id',
       {
-        description: 'Id del item a obtener',
+        description: 'Item id',
         type: () => ID,
         nullable: false,
       },
