@@ -24,12 +24,6 @@ export class UserSchema {
   })
   email: string;
 
-  @Field(() => String, {
-    nullable: false,
-    description: 'User password',
-  })
-  password: string;
-
   @Field(() => [Role], {
     nullable: false,
     description: 'User roles',
