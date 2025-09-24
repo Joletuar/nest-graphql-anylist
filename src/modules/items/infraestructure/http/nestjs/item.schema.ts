@@ -1,30 +1,30 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType({
-  description: 'Esquema de los items',
+  description: 'Schema items',
 })
 export class ItemSchema {
   @Field(() => ID, {
     name: 'id',
-    description: 'ID del item',
+    description: 'Item id',
   })
   id: string;
 
   @Field(() => String, {
     name: 'name',
-    description: 'Nombre del item',
+    description: 'Item name',
   })
   name: string;
 
   @Field(() => Int, {
     name: 'quantity',
-    description: 'Cantidad disponible del item',
+    description: 'Item quantity',
   })
   quantity: number;
 
   @Field(() => Int, {
     name: 'quantityUnits',
-    description: 'Unidad del item',
+    description: 'Item unit',
   })
-  quantityUnits: number;
+  quantityUnits: string;
 }
