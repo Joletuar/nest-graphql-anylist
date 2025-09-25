@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { UserNotFoundException } from 'src/modules/user/domain/exceptions/user-not-found.exception';
-import { Role } from 'src/modules/user/domain/roles.enum';
-import { User } from 'src/modules/user/domain/user.entity';
-import { UserRepository } from 'src/modules/user/domain/user.repository';
+import { UserNotFoundException } from 'src/modules/users/domain/exceptions/user-not-found.exception';
+import { Role } from 'src/modules/users/domain/roles.enum';
+import { User } from 'src/modules/users/domain/user.entity';
+import { UserRepository } from 'src/modules/users/domain/user.repository';
 
 import { UserDto } from '../../user.dto';
 import { UserMapper } from '../../user.mapper';
