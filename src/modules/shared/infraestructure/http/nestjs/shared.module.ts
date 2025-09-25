@@ -8,6 +8,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { ItemModel } from 'src/modules/items/infraestructure/persitence/typeorm/item.model';
+import { UserModel } from 'src/modules/users/infraestructure/persitence/typeorm/user.model';
 
 import { FallbackController } from './controllers/fallback.controller';
 import { HealthCheckController } from './controllers/health-check.controller';
@@ -32,7 +33,7 @@ import { ParseUlidPipe } from './pipes/parse-ulid.pipe';
         migrations: [
           `${process.cwd()}/dist/src/modules/shared/infraestructure/persitence/typeorm/migrations/**`,
         ],
-        entities: [ItemModel],
+        entities: [ItemModel, UserModel],
         migrationsRun: false,
         useUTC: true,
         logging: true,
