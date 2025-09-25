@@ -27,7 +27,7 @@ export class TypeOrmItemRepository
 
   async getAll(): Promise<Item[]> {
     try {
-      const items = await this.getRepository().find();
+      const items = await this.repository.find();
 
       return TypeOrmItemMapper.toDomainList(items);
     } catch (error) {
@@ -37,7 +37,7 @@ export class TypeOrmItemRepository
 
   async findById(id: string): Promise<Nullable<Item>> {
     try {
-      const item = await this.getRepository().findOneBy({
+      const item = await this.repository.findOneBy({
         id,
       });
 
@@ -51,11 +51,11 @@ export class TypeOrmItemRepository
 
   async create(item: Item): Promise<Item> {
     try {
-      const instance = this.getRepository().create(item);
+      const instance = this.repository.create(item);
 
-      await this.getRepository().insert(instance);
+      await this.repository.insert(instance);
 
-      const createdItem = await this.getRepository().findOneBy({
+      const createdItem = await this.repository.findOneBy({
         id: item.id,
       });
 
@@ -69,13 +69,13 @@ export class TypeOrmItemRepository
 
   async update(item: Item): Promise<Item> {
     try {
-      const itemToUpdate = await this.getRepository().preload(item);
+      const itemToUpdate = await this.repository.preload(item);
 
       if (!itemToUpdate) throw new NotFoundItemModelException(item.id);
 
-      await this.getRepository().update(itemToUpdate.id, itemToUpdate);
+      await this.repository.update(itemToUpdate.id, itemToUpdate);
 
-      const updatedItem = await this.getRepository().findOneBy({
+      const updatedItem = await this.repository.findOneBy({
         id: item.id,
       });
 
