@@ -16,6 +16,14 @@ declare global {
 declare module 'express' {
   interface Request {
     trackId?: string;
+    user?: {
+      id: string;
+      fullName: string;
+      email: string;
+      password: string;
+      roles: Role[];
+      isActive: boolean;
+    };
   }
 }
 
