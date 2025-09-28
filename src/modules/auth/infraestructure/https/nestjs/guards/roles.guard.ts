@@ -10,7 +10,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { Request } from 'express';
 
-import { ROLE_METADATA_KEY } from '../decorators/role.decorator';
+import { ROLE_METADATA_KEY } from '../decorators/roles.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
