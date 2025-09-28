@@ -2,30 +2,63 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Esquema de los items"""
-type ItemSchema {
-  """ID del item"""
+"""User schema"""
+type UserSchema {
+  """User id"""
   id: ID!
 
-  """Nombre del item"""
+  """User fullName"""
+  fullName: String!
+
+  """User email"""
+  email: String!
+
+  """User roles"""
+  roles: [Role!]!
+
+  """Flag to indicate if the user is block or not"""
+  isActive: Boolean!
+}
+
+"""User roles"""
+enum Role {
+  ADMIN
+  GUEST
+}
+
+"""Schema items"""
+type ItemSchema {
+  """Item id"""
+  id: ID!
+
+  """Item name"""
   name: String!
 
-  """Cantidad disponible del item"""
+  """Item quantity"""
   quantity: Int!
 
-  """Unidad del item"""
+  """Item unit"""
   quantityUnits: Int!
 }
 
 type Query {
-  """Obtener el listado completo de items"""
+  """Get an items list"""
   GetAllItems: [ItemSchema!]!
 
-  """Obtener un item por su id"""
-  GetItemById(
-    """Id del item a obtener"""
+  """Find an item by id"""
+  FindItemById(
+    """Item id"""
     id: ID!
   ): ItemSchema!
+
+  """Get users list"""
+  GetAllUsers: [UserSchema!]!
+
+  """Find an user by id"""
+  FindUserById(
+    """User id"""
+    id: ID!
+  ): UserSchema!
 }
 
 type Mutation {
@@ -37,12 +70,27 @@ type Mutation {
 
   """Update an existing item"""
   UpdateItem(
-    """Id del item a obtener"""
+    """Item id"""
     id: ID!
 
     """Input to update item"""
     input: UpdateItemInput!
   ): ItemSchema!
+
+  """Create new user"""
+  CreateUser(
+    """Args to create new User"""
+    input: CreateUserInput!
+  ): UserSchema!
+
+  """Update an existing user"""
+  UpdateUser(
+    """User id"""
+    id: ID!
+
+    """Input to update User"""
+    input: UpdateUserInput!
+  ): UserSchema!
 }
 
 """Input to create new item"""
@@ -67,4 +115,40 @@ input UpdateItemInput {
 
   """Item quantityUnits"""
   quantityUnits: String
+}
+
+"""Input to create new user"""
+input CreateUserInput {
+  """User fullName"""
+  fullName: String!
+
+  """User email"""
+  email: String!
+
+  """User password"""
+  password: String!
+
+  """User roles"""
+  roles: [Role!]!
+
+  """Flag to indicate if the user is block or not"""
+  isActive: Boolean!
+}
+
+"""Input to update an user"""
+input UpdateUserInput {
+  """User fullName"""
+  fullName: String
+
+  """User email"""
+  email: String
+
+  """User password"""
+  password: String
+
+  """User roles"""
+  roles: [Role!]
+
+  """Flag to indicate if the user is block or not"""
+  isActive: Boolean
 }
