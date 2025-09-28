@@ -1,98 +1,83 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS GraphQL Anylist
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este proyecto es una aplicación backend desarrollada con **NestJS** y **GraphQL**, diseñada para gestionar listas de elementos personalizables (AnyList). Permite a los usuarios crear, actualizar y consultar elementos en listas, con autenticación de usuarios y un sistema de roles.
 
-## Description
+El proyecto sigue una arquitectura modular y limpia, utilizando Command Query Responsibility Segregation (CQRS) y TypeORM para la persistencia de datos.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Estado del proyecto:** Este proyecto está actualmente en proceso de desarrollo y no está terminado. Algunas funcionalidades pueden estar incompletas o sujetas a cambios.
 
-## Project setup
+## Características
 
-```bash
-$ pnpm install
-```
+- **Autenticación y Autorización:** Sistema de registro e inicio de sesión con JWT.
+- **Gestión de Usuarios:** CRUD de usuarios con roles (ej. admin, user).
+- **Gestión de Elementos:** Crear, actualizar, consultar y eliminar elementos en listas.
+- **GraphQL API:** Esquema GraphQL para consultas y mutaciones.
+- **Persistencia:** Base de datos con TypeORM (configurada para PostgreSQL u otros).
+- **Arquitectura Modular:** Separación en capas (application, domain, infrastructure).
+- **CQRS:** Separación de comandos y consultas para mejor escalabilidad.
 
-## Compile and run the project
+## Estructura del Proyecto
 
-```bash
-# development
-$ pnpm run start
+El proyecto está organizado en módulos principales:
 
-# watch mode
-$ pnpm run start:dev
+- **Auth:** Manejo de autenticación (sign-in, sign-up), hashing de contraseñas y tokens JWT.
+- **Items:** Gestión de elementos (CRUD con comandos y consultas).
+- **Users:** Gestión de usuarios (CRUD, búsqueda por criterios).
+- **Shared:** Utilidades compartidas como excepciones, criterios de búsqueda, paginación, etc.
 
-# production mode
-$ pnpm run start:prod
-```
+Cada módulo sigue la estructura:
 
-## Run tests
+- `application/`: DTOs, mappers, comandos y consultas.
+- `domain/`: Entidades, repositorios, excepciones de dominio.
+- `infrastructure/`: Implementaciones concretas (HTTP con NestJS, persistencia con TypeORM).
 
-```bash
-# unit tests
-$ pnpm run test
+## Instalación
 
-# e2e tests
-$ pnpm run test:e2e
+1. Clona el repositorio:
 
-# test coverage
-$ pnpm run test:cov
-```
+   ```bash
+   git clone https://github.com/Joletuar/nest-graphql-anylist.git
+   cd nest-graphql-anylist
+   ```
 
-## Deployment
+2. Instala las dependencias:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+   ```bash
+   pnpm install
+   ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+3. Configura la base de datos (ej. PostgreSQL) en el archivo de configuración.
+
+## Ejecución
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Modo desarrollo
+pnpm run start:dev
+
+# Producción
+pnpm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Pruebas
 
-## Resources
+```bash
+# Pruebas unitarias
+pnpm run test
 
-Check out a few resources that may come in handy when working with NestJS:
+# Pruebas e2e
+pnpm run test:e2e
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Cobertura
+pnpm run test:cov
+```
 
-## Support
+## Tecnologías Utilizadas
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- **NestJS:** Framework para Node.js.
+- **GraphQL:** Para la API.
+- **TypeORM:** ORM para bases de datos.
+- **JWT:** Para autenticación.
+- **TypeScript:** Lenguaje principal.
+- **Docker:** Para contenedorización (ver docker-compose.yaml).
