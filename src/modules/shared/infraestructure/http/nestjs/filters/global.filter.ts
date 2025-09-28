@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Catch,
   ExceptionFilter,
+  HttpException,
   HttpStatus,
   Logger,
   ValidationError,
@@ -33,6 +34,27 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         },
       ],
     };
+
+    if (exception instanceof HttpException) {
+      const res = exception.getResponse();
+
+      if (typeof res === 'object') {
+        const { message, statusCode } = res as {
+          message: string;
+          statusCode: number;
+        };
+
+        formattedError = {
+          message,
+          statusCode,
+          details: [
+            {
+              cause: message,
+            },
+          ],
+        };
+      }
+    }
 
     if (exception instanceof BadRequestException) {
       const res = exception.getResponse() as {
