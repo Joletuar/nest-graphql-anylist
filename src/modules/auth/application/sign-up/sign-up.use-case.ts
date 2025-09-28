@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
 import { HashRepository } from 'src/modules/auth/domain/hash.repository';
-import { TokenRespository } from 'src/modules/auth/domain/token.repository';
+import { TokenRepository } from 'src/modules/auth/domain/token.repository';
 import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
 import { UserDto } from 'src/modules/users/application/user.dto';
 
@@ -13,7 +13,7 @@ export class SignUp {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly hasRepository: HashRepository,
-    private readonly tokenRepository: TokenRespository,
+    private readonly tokenRepository: TokenRepository,
   ) {}
 
   async execute(signUpDto: SignUpDto): Promise<string> {

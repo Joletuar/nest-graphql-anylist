@@ -6,7 +6,7 @@ import { ItemRepository } from 'src/modules/items/domain/item.repository';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from 'src/modules/shared/domain/nullable.type';
 import { BaseTypeOrmRepository } from 'src/modules/shared/infraestructure/persitence/typeorm/base-typeorm.repository';
-import { TypeOrmException } from 'src/modules/shared/infraestructure/persitence/typeorm/exceptions/typeorm.exceptions';
+import { TypeOrmException } from 'src/modules/shared/infraestructure/persitence/typeorm/exceptions/typeorm.exception';
 import { Repository } from 'typeorm';
 
 import { NotFoundItemModelException } from './exceptions/not-found-item-model.exception';

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JwtService } from '@nestjs/jwt';
 
-import { TokenRespository } from 'src/modules/auth/domain/token.repository';
+import { TokenRepository } from 'src/modules/auth/domain/token.repository';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 
 import { JwtException } from './exceptions/jwt.exception';
 
-export class JwtTokenRepository implements TokenRespository {
+export class JwtTokenRepository implements TokenRepository {
   constructor(private readonly jwtService: JwtService) {}
 
   async generate(payload: Record<string, any>): Promise<string> {
