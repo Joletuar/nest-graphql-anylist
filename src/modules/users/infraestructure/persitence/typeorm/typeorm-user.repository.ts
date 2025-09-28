@@ -1,9 +1,12 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from 'src/modules/shared/domain/nullable.type';
+import { Paginated } from 'src/modules/shared/domain/paginated.entity';
 import { BaseTypeOrmRepository } from 'src/modules/shared/infraestructure/persitence/typeorm/base-typeorm.repository';
-import { TypeOrmException } from 'src/modules/shared/infraestructure/persitence/typeorm/exceptions/typeorm.exceptions';
+import { TypeOrmException } from 'src/modules/shared/infraestructure/persitence/typeorm/exceptions/typeorm.exception';
+import { TypeOrmCriteriaConverter } from 'src/modules/shared/infraestructure/persitence/typeorm/typeorm-criteria-converter';
 import { User } from 'src/modules/users/domain/user.entity';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { Repository } from 'typeorm';
@@ -76,6 +79,29 @@ export class TypeOrmUserRepository
       if (!user) return null;
 
       return TypeOrmUserMapper.toDomain(user);
+    } catch (error) {
+      this.handlerError(error);
+    }
+  }
+
+  async search(criteria: Criteria): Promise<Paginated<User>> {
+    try {
+      const where = TypeOrmCriteriaConverter.convert<UserModel>(criteria);
+
+      const [users, total] = await this.repository.findAndCount(where);
+
+      const {
+        pagination: { page, perPage },
+      } = criteria;
+
+      return {
+        data: TypeOrmUserMapper.toDomainList(users),
+        pagination: {
+          page,
+          perPage,
+          total,
+        },
+      };
     } catch (error) {
       this.handlerError(error);
     }

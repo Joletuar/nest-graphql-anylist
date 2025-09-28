@@ -4,6 +4,7 @@ import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
+import { Auth } from 'src/modules/auth/infraestructure/https/nestjs/decorators/auth.decorator';
 import { ParseUlidPipe } from 'src/modules/shared/infraestructure/http/nestjs/pipes/parse-ulid.pipe';
 import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
 import { UpdateUserCommand } from 'src/modules/users/application/commands/update-user/update-user.command';
@@ -24,6 +25,7 @@ export class UsersResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
+  @Auth('user')
   @Query(() => [UserSchema], {
     name: 'GetAllUsers',
     description: 'Get users list',

@@ -24,6 +24,7 @@ export class UserModel extends BaseModel {
   @Column({
     name: 'roles',
     enum: Object.values(Role).map((v) => v),
+    type: 'simple-array',
   })
   roles: Role[];
 
