@@ -67,6 +67,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     RolesGuard,
   ],
 
-  exports: [],
+  exports: [PassportModule, JwtModule, JwtStrategy],
 })
 export class AuthModule {}
