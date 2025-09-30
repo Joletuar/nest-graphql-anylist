@@ -4,7 +4,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import { HashRepository } from 'src/modules/auth/domain/hash.repository';
 import { TokenRepository } from 'src/modules/auth/domain/token.repository';
 import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
-import { UserDto } from 'src/modules/users/application/user.dto';
+import { CreatedUserDto } from 'src/modules/users/application/commands/create-user/created-user.dto';
 
 import { SignUpDto } from './sign-up.dto';
 
@@ -33,7 +33,7 @@ export class SignUp {
     return token;
   }
 
-  private async createUser(signUpDto: SignUpDto): Promise<UserDto> {
+  private async createUser(signUpDto: SignUpDto): Promise<CreatedUserDto> {
     const { fullName, email, password, roles } = signUpDto;
 
     const createdUser = await this.commandBus.execute(
