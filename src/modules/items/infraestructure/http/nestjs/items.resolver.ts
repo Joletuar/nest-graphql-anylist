@@ -4,12 +4,14 @@ import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
+import { Auth } from 'src/modules/auth/infraestructure/https/nestjs/decorators/auth.decorator';
 import { CreateItemCommand } from 'src/modules/items/application/commands/create-item/create-item.command';
 import { UpdateItemCommand } from 'src/modules/items/application/commands/update-item/update-item.command';
 import { ItemDto } from 'src/modules/items/application/item.dto';
 import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
 import { GetAllItemsQuery } from 'src/modules/items/application/queries/get-all-items/get-all-items.query';
 import { ParseUlidPipe } from 'src/modules/shared/infraestructure/http/nestjs/pipes/parse-ulid.pipe';
+import { Role } from 'src/modules/users/domain/roles.enum';
 
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
@@ -24,6 +26,7 @@ export class ItemsResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
+  @Auth(Role.ADMIN)
   @Query(() => [ItemSchema], {
     name: 'GetAllItems',
     description: 'Get an items list',
@@ -55,6 +58,7 @@ export class ItemsResolver {
     return item;
   }
 
+  @Auth(Role.ADMIN)
   @Mutation(() => ItemSchema, {
     name: 'CreateItem',
     description: 'Create new item',

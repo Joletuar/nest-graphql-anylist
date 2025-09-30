@@ -11,6 +11,7 @@ import { UpdateUserCommand } from 'src/modules/users/application/commands/update
 import { FindUserByIdQuery } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query';
 import { GetAllUsersQuery } from 'src/modules/users/application/queries/get-all-user/get-all-user.query';
 import { UserDto } from 'src/modules/users/application/user.dto';
+import { Role } from 'src/modules/users/domain/roles.enum';
 
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -25,7 +26,7 @@ export class UsersResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Auth('user')
+  @Auth(Role.GUEST)
   @Query(() => [UserSchema], {
     name: 'GetAllUsers',
     description: 'Get users list',
