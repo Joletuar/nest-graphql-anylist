@@ -12,7 +12,6 @@ import { UserModel } from 'src/modules/users/infraestructure/persitence/typeorm/
 
 import { FallbackController } from './controllers/fallback.controller';
 import { HealthCheckController } from './controllers/health-check.controller';
-import { ParseUlidPipe } from './pipes/parse-ulid.pipe';
 
 @Module({
   imports: [

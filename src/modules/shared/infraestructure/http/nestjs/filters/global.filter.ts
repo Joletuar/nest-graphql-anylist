@@ -11,7 +11,6 @@ import {
 import { GraphQLError } from 'graphql';
 import { DomainException } from 'src/modules/shared/domain/exceptions/domain.exception';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
-import { ulid } from 'ulidx';
 
 type FormattedError = {
   message: string;
