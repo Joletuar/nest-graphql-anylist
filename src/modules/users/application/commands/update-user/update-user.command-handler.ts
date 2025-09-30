@@ -5,9 +5,9 @@ import { Role } from 'src/modules/users/domain/roles.enum';
 import { User } from 'src/modules/users/domain/user.entity';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 
-import { UserDto } from '../../user.dto';
 import { UserMapper } from '../../user.mapper';
 import { UpdateUserCommand } from './update-user.command';
+import { UpdatedUserDto } from './updated-user.dto';
 
 @CommandHandler(UpdateUserCommand)
 export class UpdateUserCommandHanlder
@@ -15,8 +15,8 @@ export class UpdateUserCommandHanlder
 {
   constructor(private readonly repository: UserRepository) {}
 
-  async execute(command: UpdateUserCommand): Promise<UserDto> {
-    const { id, email, fullName, password, roles, isActive } = command;
+  async execute(command: UpdateUserCommand): Promise<UpdatedUserDto> {
+    const { id, email, fullName, roles, isActive } = command;
 
     const currentUser = await this.ensureExistsUser(id);
 
@@ -24,7 +24,7 @@ export class UpdateUserCommandHanlder
       id,
       email: email || currentUser.email,
       fullName: fullName || currentUser.fullName,
-      password: password || currentUser.password,
+      password: currentUser.password,
       roles: roles && roles.length > 0 ? (roles as Role[]) : currentUser.roles,
       isActive:
         isActive !== undefined && isActive !== null
@@ -34,7 +34,7 @@ export class UpdateUserCommandHanlder
 
     const updatedUser = await this.repository.update(userToUpdate);
 
-    return UserMapper.toDto(updatedUser);
+    return UserMapper.toDtoWithoutPassword(updatedUser);
   }
 
   private async ensureExistsUser(id: string): Promise<User> {

@@ -30,4 +30,28 @@ export class UserMapper {
       pagination,
     };
   }
+
+  static toDtoWithoutPassword(user: User): Omit<UserDto, 'password'> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userWithoutPassword } = user;
+
+    return {
+      ...userWithoutPassword,
+    };
+  }
+
+  static toDtoListWithoutPassword(users: User[]): Omit<UserDto, 'password'>[] {
+    return users.map((user) => this.toDtoWithoutPassword(user));
+  }
+
+  static toPaginatedDtoWithoutPassword(
+    result: Paginated<User>,
+  ): Omit<PaginatedUserDto, 'users'> & { users: Omit<UserDto, 'password'>[] } {
+    const { data, pagination } = result;
+
+    return {
+      users: this.toDtoListWithoutPassword(data),
+      pagination,
+    };
+  }
 }

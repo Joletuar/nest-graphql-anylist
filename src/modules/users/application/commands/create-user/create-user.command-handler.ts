@@ -6,9 +6,9 @@ import { User } from 'src/modules/users/domain/user.entity';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { ulid } from 'ulidx';
 
-import { UserDto } from '../../user.dto';
 import { UserMapper } from '../../user.mapper';
 import { CreateUserCommand } from './create-user.command';
+import { CreatedUserDto } from './created-user.dto';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHanlder
@@ -16,7 +16,7 @@ export class CreateUserCommandHanlder
 {
   constructor(private readonly repository: UserRepository) {}
 
-  async execute(command: CreateUserCommand): Promise<UserDto> {
+  async execute(command: CreateUserCommand): Promise<CreatedUserDto> {
     const { email, fullName, password, roles, isActive } = command;
 
     const userAlreadyExists = await this.findUserByEmail(email);
@@ -32,7 +32,7 @@ export class CreateUserCommandHanlder
       isActive,
     });
 
-    return UserMapper.toDto(createdUser);
+    return UserMapper.toDtoWithoutPassword(createdUser);
   }
 
   async findUserByEmail(email: string): Promise<User | null> {

@@ -7,7 +7,9 @@ import { validate } from 'class-validator';
 import { Auth } from 'src/modules/auth/infraestructure/https/nestjs/decorators/auth.decorator';
 import { ParseUlidPipe } from 'src/modules/shared/infraestructure/http/nestjs/pipes/parse-ulid.pipe';
 import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
+import { CreatedUserDto } from 'src/modules/users/application/commands/create-user/created-user.dto';
 import { UpdateUserCommand } from 'src/modules/users/application/commands/update-user/update-user.command';
+import { UpdatedUserDto } from 'src/modules/users/application/commands/update-user/updated-user.dto';
 import { FindUserByIdQuery } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query';
 import { GetAllUsersQuery } from 'src/modules/users/application/queries/get-all-user/get-all-user.query';
 import { UserDto } from 'src/modules/users/application/user.dto';
@@ -19,6 +21,7 @@ import { CreateUserInput } from './inputs/create-user.input';
 import { UpdateUserInput } from './inputs/update-user.input';
 import { UserSchema } from './user.schema';
 
+@Auth(Role.ADMIN)
 @Resolver(() => UserSchema)
 export class UsersResolver {
   constructor(
@@ -26,7 +29,6 @@ export class UsersResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Auth(Role.GUEST)
   @Query(() => [UserSchema], {
     name: 'GetAllUsers',
     description: 'Get users list',
@@ -70,7 +72,7 @@ export class UsersResolver {
       description: 'Args to create new User',
     })
     createUserInput: CreateUserInput,
-  ): Promise<UserDto> {
+  ): Promise<CreatedUserDto> {
     const instance = plainToInstance(CreateUserDto, createUserInput);
 
     const errors = await validate(instance);
@@ -110,17 +112,17 @@ export class UsersResolver {
       description: 'Input to update User',
     })
     updateUserInput: UpdateUserInput,
-  ): Promise<UserDto> {
+  ): Promise<UpdatedUserDto> {
     const instance = plainToInstance(UpdateUserDto, updateUserInput);
 
     const errors = await validate(instance);
 
     if (errors.length > 0) throw new BadRequestException(errors);
 
-    const { fullName, email, password, roles, isActive } = updateUserInput;
+    const { fullName, email, roles, isActive } = updateUserInput;
 
     const updatedUser = await this.commandBus.execute(
-      new UpdateUserCommand(id, fullName, email, password, roles, isActive),
+      new UpdateUserCommand(id, fullName, email, roles, isActive),
     );
 
     return updatedUser;

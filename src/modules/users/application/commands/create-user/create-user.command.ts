@@ -2,9 +2,9 @@ import { Command } from '@nestjs/cqrs';
 
 import { Role } from 'src/modules/users/domain/roles.enum';
 
-import { UserDto } from '../../user.dto';
+import { CreatedUserDto } from './created-user.dto';
 
-export class CreateUserCommand extends Command<UserDto> {
+export class CreateUserCommand extends Command<CreatedUserDto> {
   constructor(
     readonly fullName: string,
     readonly email: string,
