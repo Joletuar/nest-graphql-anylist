@@ -1,8 +1,7 @@
-import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import { BadRequestException, PipeTransform } from '@nestjs/common';
 
 import { isValid } from 'ulidx';
 
-@Injectable()
 export class ParseUlidPipe<TData extends object = object>
   implements PipeTransform
 {

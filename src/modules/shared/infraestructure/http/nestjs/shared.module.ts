@@ -60,7 +60,7 @@ import { ParseUlidPipe } from './pipes/parse-ulid.pipe';
     CqrsModule.forRoot({ rethrowUnhandled: true }),
   ],
 
-  providers: [ParseUlidPipe],
+  providers: [],
 
   controllers: [HealthCheckController, FallbackController],
 
