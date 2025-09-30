@@ -11,7 +11,7 @@ import { TokenRepository } from 'src/modules/auth/domain/token.repository';
 import { UsersModule } from 'src/modules/users/infraestructure/http/nestjs/users.module';
 
 import { BcryptHashRepository } from '../../hash/bcrypt/bcrypt-hash.repository';
-import { JwtTokenRepository } from '../../token/jwt/jwt-repository.repository';
+import { JwtTokenRepository } from '../../token/jwt/jwt-token-repository.repository';
 import { GqlJwtAuthGuard } from './guards/gql-jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { NestAuthenticationService } from './services/nest-authentication.service';
