@@ -1,7 +1,6 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthModule } from 'src/modules/auth/infraestructure/https/nestjs/auth.module';
 import { CreateUserCommandHanlder } from 'src/modules/users/application/commands/create-user/create-user.command-handler';
 import { UpdateUserCommandHanlder } from 'src/modules/users/application/commands/update-user/update-user.command-handler';
 import { FindUserByIdQueryHandler } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query-handler';
@@ -14,10 +13,7 @@ import { UserModel } from '../../persitence/typeorm/user.model';
 import { UsersResolver } from './users.resolver';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserModel]),
-    forwardRef(() => AuthModule),
-  ],
+  imports: [TypeOrmModule.forFeature([UserModel])],
 
   providers: [
     // Resolvers
