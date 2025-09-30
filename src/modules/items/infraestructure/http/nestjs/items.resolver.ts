@@ -19,6 +19,7 @@ import { CreateItemInput } from './inputs/create-item.input';
 import { UpdateItemInput } from './inputs/update-item.input';
 import { ItemSchema } from './item.schema';
 
+@Auth(Role.GUEST)
 @Resolver(() => ItemSchema)
 export class ItemsResolver {
   constructor(
@@ -26,7 +27,6 @@ export class ItemsResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Auth(Role.ADMIN)
   @Query(() => [ItemSchema], {
     name: 'GetAllItems',
     description: 'Get an items list',
@@ -58,7 +58,6 @@ export class ItemsResolver {
     return item;
   }
 
-  @Auth(Role.ADMIN)
   @Mutation(() => ItemSchema, {
     name: 'CreateItem',
     description: 'Create new item',
