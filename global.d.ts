@@ -20,7 +20,6 @@ declare module 'express' {
       id: string;
       fullName: string;
       email: string;
-      password: string;
       roles: Role[];
       isActive: boolean;
     };

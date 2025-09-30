@@ -29,9 +29,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: UserTokenPayload): Promise<User> {
+  async validate(payload: UserTokenPayload): Promise<Omit<User, 'password'>> {
     try {
-      return await this.authenticationService.validateUserFromPayload(payload);
+      const user =
+        await this.authenticationService.validateUserFromPayload(payload);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...userWithoutPassword } = user;
+
+      return userWithoutPassword;
     } catch {
       throw new UnauthorizedException('Invalid token or user not found');
     }

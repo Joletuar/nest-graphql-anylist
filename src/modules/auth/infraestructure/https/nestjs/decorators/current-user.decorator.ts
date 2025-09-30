@@ -10,7 +10,7 @@ import { Request } from 'express';
 import { User } from 'src/modules/users/domain/user.entity';
 
 export const CurrentUser = createParamDecorator(
-  (_: unknown, context: ExecutionContext): User => {
+  (_: unknown, context: ExecutionContext): Omit<User, 'password'> => {
     const ctx = GqlExecutionContext.create(context);
     const req = ctx.getContext().req as Request;
 
