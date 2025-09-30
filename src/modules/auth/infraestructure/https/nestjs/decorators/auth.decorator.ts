@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { applyDecorators, UseGuards } from '@nestjs/common';
 
+import { GqlJwtAuthGuard } from '../guards/gql-jwt-auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
-import { TokenGuard } from '../guards/token.guard';
 import { Roles } from './roles.decorator';
 
 export const Auth = (...roles: string[]) =>
-  applyDecorators(Roles(...roles), UseGuards(TokenGuard, RolesGuard));
+  applyDecorators(Roles(...roles), UseGuards(GqlJwtAuthGuard, RolesGuard));

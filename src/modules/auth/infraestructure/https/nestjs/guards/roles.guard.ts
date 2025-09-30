@@ -21,7 +21,7 @@ export class RolesGuard implements CanActivate {
     const req = gqlCtx.switchToHttp().getRequest<Request>();
     const user = req?.user;
 
-    if (!user) throw new ForbiddenException();
+    if (!user) throw new ForbiddenException("User doestn't exist in request");
 
     const roles = this.reflector.get<string[]>(
       ROLE_METADATA_KEY,
