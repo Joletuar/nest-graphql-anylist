@@ -1,6 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Role } from 'src/modules/users/domain/roles.enum';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { ulid } from 'ulidx';
 
@@ -22,7 +21,7 @@ export class CreateUserCommandHanlder
       fullName,
       email,
       password,
-      roles: roles as Role[],
+      roles,
       isActive,
     });
 

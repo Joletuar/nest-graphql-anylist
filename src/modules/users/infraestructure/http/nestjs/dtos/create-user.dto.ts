@@ -31,7 +31,7 @@ export class CreateUserDto {
   @IsEnum(Role, {
     each: true,
   })
-  roles: string[];
+  roles: Role[];
 
   @IsBoolean()
   @IsNotEmpty()

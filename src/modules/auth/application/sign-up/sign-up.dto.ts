@@ -1,3 +1,5 @@
+import { Role as UserRole } from 'src/modules/users/domain/roles.enum';
+
 export interface SignUpDto {
   fullName: string;
 
@@ -5,5 +7,7 @@ export interface SignUpDto {
 
   password: string;
 
-  roles: string[];
+  roles: Role[];
 }
+
+type Role = UserRole;
