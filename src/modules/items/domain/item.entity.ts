@@ -6,4 +6,5 @@ export interface Item {
   quantity: number;
 
   quantityUnits: string;
+  userId: string;
 }
