@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@nestjs/apollo';
 import {
   ArgumentsHost,
   BadRequestException,
@@ -6,6 +7,7 @@ import {
   HttpException,
   HttpStatus,
   Logger,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 import { ValidationError } from 'class-validator';
@@ -75,6 +77,26 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             details: [{ cause: message }],
           };
         }
+      }
+
+      if (exception instanceof UnauthorizedException) {
+        const { message } = res as { message: string };
+
+        formattedError = {
+          message: 'Unauthorized',
+          statusCode: HttpStatus.UNAUTHORIZED,
+          details: [{ cause: message }],
+        };
+      }
+
+      if (exception instanceof ForbiddenError) {
+        const { message } = res as { message: string };
+
+        formattedError = {
+          message: 'Forbidden',
+          statusCode: HttpStatus.FORBIDDEN,
+          details: [{ cause: message }],
+        };
       }
     }
 
