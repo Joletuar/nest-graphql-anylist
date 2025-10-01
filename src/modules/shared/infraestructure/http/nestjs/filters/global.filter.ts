@@ -128,16 +128,16 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           error: formattedError,
         },
       });
-    } else {
-      const ctx = host.switchToHttp();
-      const response = ctx.getResponse<Response>();
-
-      response.status(formattedError.statusCode).json({
-        statusCode: formattedError.statusCode,
-        message: formattedError.message,
-        details: formattedError.details,
-        timestamp: new Date().toISOString(),
-      });
     }
+
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+
+    response.status(formattedError.statusCode).json({
+      statusCode: formattedError.statusCode,
+      message: formattedError.message,
+      details: formattedError.details,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
