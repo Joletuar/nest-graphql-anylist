@@ -36,7 +36,7 @@ export class RolesGuard implements CanActivate {
   }
 
   private ensureUserHasEnoughRoles(userRoles: string[], roles: string[]): void {
-    const hasEnoughRoles = roles.every((role) =>
+    const hasEnoughRoles = roles.some((role) =>
       userRoles.some((userRole) => userRole === role),
     );
 
