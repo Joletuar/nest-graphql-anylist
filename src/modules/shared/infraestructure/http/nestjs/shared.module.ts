@@ -10,7 +10,6 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ItemModel } from 'src/modules/items/infraestructure/persitence/typeorm/item.model';
 import { UserModel } from 'src/modules/users/infraestructure/persitence/typeorm/user.model';
 
-import { FallbackController } from './controllers/fallback.controller';
 import { HealthCheckController } from './controllers/health-check.controller';
 
 @Module({
@@ -61,7 +60,7 @@ import { HealthCheckController } from './controllers/health-check.controller';
 
   providers: [],
 
-  controllers: [HealthCheckController, FallbackController],
+  controllers: [HealthCheckController],
 
   exports: [],
 })
