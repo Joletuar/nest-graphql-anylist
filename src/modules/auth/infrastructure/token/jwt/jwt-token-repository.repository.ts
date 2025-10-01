@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { TokenRepository } from 'src/modules/auth/domain/token.repository';
@@ -6,6 +7,7 @@ import { InfraestructureException } from 'src/modules/shared/domain/exceptions/i
 
 import { JwtException } from './exceptions/jwt.exception';
 
+@Injectable()
 export class JwtTokenRepository implements TokenRepository {
   constructor(private readonly jwtService: JwtService) {}
 

@@ -3,6 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { SignIn } from 'src/modules/auth/application/sign-in/sign-in.use-case';
 import { SignUp } from 'src/modules/auth/application/sign-up/sign-up.use-case';
 
+import { AuthResponseDto } from './dtos/auth-response.dto';
 import { SignInDto } from './dtos/sign-in.dto';
 import { SignUpDto } from './dtos/sign-up.dto';
 
@@ -14,16 +15,20 @@ export class AuthController {
   ) {}
 
   @Post('sign-in')
-  async login(@Body() signInDto: SignInDto): Promise<string> {
+  async login(@Body() signInDto: SignInDto): Promise<AuthResponseDto> {
     const token = await this.signIn.execute(signInDto);
 
-    return token;
+    return {
+      token,
+    };
   }
 
   @Post('sign-up')
-  async register(@Body() signUpDto: SignUpDto): Promise<string> {
+  async register(@Body() signUpDto: SignUpDto): Promise<AuthResponseDto> {
     const token = await this.signUp.execute(signUpDto);
 
-    return token;
+    return {
+      token,
+    };
   }
 }

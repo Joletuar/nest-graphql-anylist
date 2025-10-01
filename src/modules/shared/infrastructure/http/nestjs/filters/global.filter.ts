@@ -1,9 +1,9 @@
-import { ForbiddenError } from '@nestjs/apollo';
 import {
   ArgumentsHost,
   BadRequestException,
   Catch,
   ExceptionFilter,
+  ForbiddenException,
   HttpException,
   HttpStatus,
   Logger,
@@ -89,7 +89,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         };
       }
 
-      if (exception instanceof ForbiddenError) {
+      if (exception instanceof ForbiddenException) {
         const { message } = res as { message: string };
 
         formattedError = {

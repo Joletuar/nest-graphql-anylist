@@ -1,9 +1,12 @@
+import { Injectable } from '@nestjs/common';
+
 import * as bcrypt from 'bcrypt';
 import { HashRepository } from 'src/modules/auth/domain/hash.repository';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 
 import { BcryptException } from './exceptions/bcrypt.exception';
 
+@Injectable()
 export class BcryptHashRepository implements HashRepository {
   private readonly SALT_ROUNDS = 10;
 
