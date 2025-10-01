@@ -1,31 +1,25 @@
 import { join } from 'node:path';
 
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import 'dotenv/config';
 
-import { ItemModel } from 'src/modules/items/infrastructure/persistence/typeorm/item.model';
-import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
-const getDataSourceOptions = (): DataSourceOptions => {
-  return {
-    applicationName: 'NEST_GRAPHQL_ANYLIST',
-    type: 'postgres',
-    host: process.env.TYPE_ORM_HOST,
-    port: Number(process.env.TYPE_ORM_PORT),
-    username: process.env.TYPE_ORM_USERNAME,
-    password: process.env.TYPE_ORM_PASSWORD,
-    database: process.env.TYPE_ORM_DATABASE,
-    migrations: [join(__dirname, './migrations/**/*.{ts,js}')],
-    entities: [ItemModel, UserModel],
-    useUTC: true,
-    logging: true,
-    synchronize: false,
-  };
+import { DataSourceOptions } from 'typeorm';
+
+import { ItemModel } from '../../../../items/infrastructure/persistence/typeorm/item.model';
+import { UserModel } from '../../../../users/infrastructure/persistence/typeorm/user.model';
+
+export const typeOrmConfig: TypeOrmOptionsFactory | DataSourceOptions = {
+  applicationName: 'NEST_GRAPHQL_ANYLIST',
+  type: 'postgres',
+  host: process.env.TYPE_ORM_HOST,
+  port: Number(process.env.TYPE_ORM_PORT),
+  username: process.env.TYPE_ORM_USERNAME,
+  password: process.env.TYPE_ORM_PASSWORD,
+  database: process.env.TYPE_ORM_DATABASE,
+  migrations: [join(__dirname, './migrations/*.{ts,js}')],
+  entities: [ItemModel, UserModel],
+  useUTC: true,
+  logging: true,
+  synchronize: false,
 };
-
-export const createTypeOrmConfig = (): TypeOrmModuleOptions => ({
-  ...getDataSourceOptions(),
-});
-
-export const AppDataSource = new DataSource(getDataSourceOptions());
-export default AppDataSource;
