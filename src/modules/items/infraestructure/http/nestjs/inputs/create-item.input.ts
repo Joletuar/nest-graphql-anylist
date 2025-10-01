@@ -21,4 +21,10 @@ export class CreateItemInput {
     nullable: false,
   })
   quantityUnits: string;
+
+  @Field(() => String, {
+    description: 'Item userId',
+    nullable: false,
+  })
+  userId: string;
 }

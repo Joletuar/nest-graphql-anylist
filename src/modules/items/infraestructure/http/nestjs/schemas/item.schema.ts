@@ -27,4 +27,10 @@ export class ItemSchema {
     description: 'Item unit',
   })
   quantityUnits: string;
+
+  @Field(() => ID, {
+    name: 'userId',
+    description: 'User id who created the item',
+  })
+  userId: string;
 }

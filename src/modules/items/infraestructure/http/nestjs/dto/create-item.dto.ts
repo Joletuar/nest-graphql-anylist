@@ -21,4 +21,8 @@ export class CreateItemDto {
   @IsNotEmpty()
   @MinLength(3)
   quantityUnits: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }
