@@ -10,6 +10,11 @@ import { UpdateItemCommand } from 'src/modules/items/application/commands/update
 import { ItemDto } from 'src/modules/items/application/item.dto';
 import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
 import { GetAllItemsQuery } from 'src/modules/items/application/queries/get-all-items/get-all-items.query';
+import { QueryItemDto } from 'src/modules/items/application/queries/query-item.dto';
+import { PaginatedItemsDto } from 'src/modules/items/application/queries/search-items-by-criteria/paginated-items.dto';
+import { SearchItemsByCriteriaQuery } from 'src/modules/items/application/queries/search-items-by-criteria/search-items-by-criteria.query';
+import { CriteriaDto } from 'src/modules/shared/infraestructure/http/nestjs/dtos/criteria.dto';
+import { CriteriaInput } from 'src/modules/shared/infraestructure/http/nestjs/inputs/criteria.input';
 import { ParseUlidPipe } from 'src/modules/shared/infraestructure/http/nestjs/pipes/parse-ulid.pipe';
 import { Role } from 'src/modules/users/domain/roles.enum';
 
@@ -17,7 +22,9 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { CreateItemInput } from './inputs/create-item.input';
 import { UpdateItemInput } from './inputs/update-item.input';
-import { ItemSchema } from './item.schema';
+import { ItemSchema } from './schemas/item.schema';
+import { PaginatedItemsSchema } from './schemas/paginated-items.schema';
+import { QueryItemSchema } from './schemas/query-item.schema';
 
 @Auth(Role.GUEST)
 @Resolver(() => ItemSchema)
@@ -27,17 +34,17 @@ export class ItemsResolver {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Query(() => [ItemSchema], {
+  @Query(() => [QueryItemSchema], {
     name: 'GetAllItems',
     description: 'Get an items list',
   })
-  async getAllItems(): Promise<ItemDto[]> {
+  async getAllItems(): Promise<QueryItemDto[]> {
     const items = await this.queryBus.execute(new GetAllItemsQuery());
 
     return items;
   }
 
-  @Query(() => ItemSchema, {
+  @Query(() => QueryItemSchema, {
     name: 'FindItemById',
     description: 'Find an item by id',
   })
@@ -52,7 +59,7 @@ export class ItemsResolver {
       ParseUlidPipe,
     )
     id: string,
-  ): Promise<ItemDto> {
+  ): Promise<QueryItemDto> {
     const item = await this.queryBus.execute(new FindItemByIdQuery(id));
 
     return item;
@@ -79,10 +86,10 @@ export class ItemsResolver {
       throw new BadRequestException(errors);
     }
 
-    const { name, quantity, quantityUnits } = instance;
+    const { name, quantity, quantityUnits, userId } = instance;
 
     const createdItem = await this.commandBus.execute(
-      new CreateItemCommand(name, quantity, quantityUnits),
+      new CreateItemCommand(name, quantity, quantityUnits, userId),
     );
 
     return createdItem;
@@ -117,12 +124,39 @@ export class ItemsResolver {
 
     if (errors.length > 0) throw new BadRequestException(errors);
 
-    const { name, quantity, quantityUnits } = updateItemInput;
+    const { name, quantity, quantityUnits, userId } = updateItemInput;
 
     const updatedItem = await this.commandBus.execute(
-      new UpdateItemCommand(id, name, quantity, quantityUnits),
+      new UpdateItemCommand(id, name, quantity, quantityUnits, userId),
     );
 
     return updatedItem;
+  }
+
+  @Query(() => PaginatedItemsSchema, {
+    name: 'SearchItems',
+    description: 'Search items with filters, pagination and sort',
+  })
+  async searchItems(
+    @Args('criteria', {
+      type: () => CriteriaInput,
+      description: 'Criteria to filter, paginate and sort',
+    })
+    input: CriteriaInput,
+  ): Promise<PaginatedItemsDto> {
+    // TODO: solve the problem with nested objects in CriteriaInput
+    const instance = plainToInstance(CriteriaDto, input);
+
+    const errors = await validate(instance);
+
+    if (errors.length > 0) throw new BadRequestException(errors);
+
+    const { filters, pagination, sort } = instance;
+
+    const { items, pagination: paginationInfo } = await this.queryBus.execute(
+      new SearchItemsByCriteriaQuery({ filters, pagination, sort }),
+    );
+
+    return { items, pagination: paginationInfo };
   }
 }
