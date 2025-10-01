@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { Role } from 'src/modules/users/domain/roles.enum';
 import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
 import { Repository } from 'typeorm';
+import { ulid } from 'ulidx';
 
 import { Seeder } from './seeder.abstract';
 
@@ -18,8 +19,9 @@ export class UserSeeder extends Seeder {
       return;
     }
 
-    const usersData = [
+    const usersData: Partial<UserModel>[] = [
       {
+        id: ulid(),
         email: 'admin@example.com',
         password: await bcrypt.hash('ABCD1234', 10),
         fullName: 'Administrador',
@@ -27,6 +29,7 @@ export class UserSeeder extends Seeder {
         isActive: true,
       },
       {
+        id: ulid(),
         email: 'user@example.com',
         password: await bcrypt.hash('ABCD1234', 10),
         fullName: 'Usuario de Prueba',
@@ -36,7 +39,7 @@ export class UserSeeder extends Seeder {
     ];
 
     const users = userRepository.create(usersData);
-    await userRepository.save(users);
+    await userRepository.insert(users);
 
     console.log(`Se crearon ${users.length} usuarios de ejemplo`);
   }

@@ -1,15 +1,11 @@
 import 'reflect-metadata';
 
-import { AppDataSource } from '../typeorm.config';
+import AppDataSource from '../typeorm-datasource';
+import { ItemSeeder } from './item.seeder';
 import { SeederConstructor } from './seeder.abstract';
 import { UserSeeder } from './user.seeder';
 
-// import { ItemSeeder } from './item.seeder';
-
-const seeders: SeederConstructor[] = [
-  UserSeeder,
-  // ItemSeeder,
-];
+const seeders: SeederConstructor[] = [UserSeeder, ItemSeeder];
 
 async function runSeeds(): Promise<void> {
   try {
@@ -24,7 +20,9 @@ async function runSeeds(): Promise<void> {
       const seederName = SeederClass.name;
 
       console.log(`Ejecutando ${seederName}...`);
+
       await seederInstance.run();
+
       console.log(`${seederName} completado`);
     }
 
@@ -41,9 +39,6 @@ async function runSeeds(): Promise<void> {
   }
 }
 
-// Ejecutar si es llamado directamente
 if (require.main === module) {
   void runSeeds();
 }
-
-export { runSeeds };

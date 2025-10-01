@@ -24,7 +24,8 @@
     "migration:generate": "npm run typeorm -- migration:generate -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts ./src/modules/shared/infrastructure/persistence/typeorm/migrations/migration",
     "migration:run": "npm run typeorm -- migration:run -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts",
-    "migration:show": "npm run typeorm -- migration:show -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts"
+    "migration:show": "npm run typeorm -- migration:show -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts",
+    "seed:run": "ts-node -r tsconfig-paths/register src/modules/shared/infrastructure/persistence/typeorm/seeds/run-seeds.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.12.2",
