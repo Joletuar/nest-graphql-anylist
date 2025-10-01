@@ -143,9 +143,6 @@ input UpdateUserInput {
   """User email"""
   email: String
 
-  """User password"""
-  password: String
-
   """User roles"""
   roles: [Role!]
 
