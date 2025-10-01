@@ -5,9 +5,9 @@ import {
   HttpException,
   HttpStatus,
   Logger,
-  ValidationError,
 } from '@nestjs/common';
 
+import { ValidationError } from 'class-validator';
 import { GraphQLError } from 'graphql';
 import { DomainException } from 'src/modules/shared/domain/exceptions/domain.exception';
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
@@ -57,23 +57,40 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof BadRequestException) {
       const res = exception.getResponse() as {
-        message: ValidationError[] | string;
+        message: ValidationError[] | string[] | string;
         error: string;
         statusCode: number;
       };
 
-      if (Array.isArray(res.message)) {
+      if (
+        Array.isArray(res.message) &&
+        res.message[0] instanceof ValidationError
+      ) {
+        const { message } = res as { message: ValidationError[] };
+
         formattedError = {
           ...formattedError,
-          details: res.message.map(({ property, constraints }) => ({
+          details: message.map(({ property, constraints }) => ({
             field: property,
             cause: Object.values(constraints!).map((value) => value),
           })),
         };
-      } else {
+      } else if (
+        Array.isArray(res.message) &&
+        typeof res.message[0] === 'string'
+      ) {
+        const { message } = res as { message: string[] };
+
         formattedError = {
           ...formattedError,
-          details: [{ cause: res.message }],
+          details: message.map((message) => ({ cause: message })),
+        };
+      } else {
+        const { message } = res as { message: string };
+
+        formattedError = {
+          ...formattedError,
+          details: [{ cause: message }],
         };
       }
     }
