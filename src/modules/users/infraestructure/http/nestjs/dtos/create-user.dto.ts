@@ -1,4 +1,5 @@
 import {
+  ArrayMinSize,
   IsArray,
   IsBoolean,
   IsEmail,
@@ -25,15 +26,13 @@ export class CreateUserDto {
   @MinLength(5)
   password: string;
 
-  @IsString()
-  @IsNotEmpty()
   @IsArray()
   @IsEnum(Role, {
     each: true,
   })
+  @ArrayMinSize(1)
   roles: Role[];
 
   @IsBoolean()
-  @IsNotEmpty()
   isActive: boolean;
 }
