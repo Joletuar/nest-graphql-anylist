@@ -1,5 +1,5 @@
-import { BaseModel } from 'src/modules/shared/infrastructure/persitence/typeorm/base.model';
-import { UserModel } from 'src/modules/users/infrastructure/persitence/typeorm/user.model';
+import { BaseModel } from 'src/modules/shared/infrastructure/persistence/typeorm/base.model';
+import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'items' })

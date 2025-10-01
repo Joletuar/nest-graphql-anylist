@@ -4,9 +4,9 @@ import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface'
 import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from 'src/modules/shared/domain/nullable.type';
 import { Paginated } from 'src/modules/shared/domain/paginated.entity';
-import { BaseTypeOrmRepository } from 'src/modules/shared/infrastructure/persitence/typeorm/base-typeorm.repository';
-import { TypeOrmException } from 'src/modules/shared/infrastructure/persitence/typeorm/exceptions/typeorm.exception';
-import { TypeOrmCriteriaConverter } from 'src/modules/shared/infrastructure/persitence/typeorm/typeorm-criteria-converter';
+import { BaseTypeOrmRepository } from 'src/modules/shared/infrastructure/persistence/typeorm/base-typeorm.repository';
+import { TypeOrmException } from 'src/modules/shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
+import { TypeOrmCriteriaConverter } from 'src/modules/shared/infrastructure/persistence/typeorm/typeorm-criteria-converter';
 import { User } from 'src/modules/users/domain/user.entity';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { Repository } from 'typeorm';

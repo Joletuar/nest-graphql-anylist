@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/modules/users/domain/roles.enum';
-import { UserModel } from 'src/modules/users/infrastructure/persitence/typeorm/user.model';
+import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
 import { Repository } from 'typeorm';
 
 import { Seeder } from './seeder.abstract';

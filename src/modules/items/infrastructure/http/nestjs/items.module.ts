@@ -9,8 +9,8 @@ import { SearchItemsByCriteriaQueryHandler } from 'src/modules/items/application
 import { ItemRepository } from 'src/modules/items/domain/item.repository';
 import { UsersModule } from 'src/modules/users/infrastructure/http/nestjs/users.module';
 
-import { ItemModel } from '../../persitence/typeorm/item.model';
-import { TypeOrmItemRepository } from '../../persitence/typeorm/typeorm-item.repository';
+import { ItemModel } from '../../persistence/typeorm/item.model';
+import { TypeOrmItemRepository } from '../../persistence/typeorm/typeorm-item.repository';
 import { ItemsResolver } from './items.resolver';
 
 @Module({

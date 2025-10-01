@@ -8,8 +8,8 @@ import { GetAllUsersQueryHandler } from 'src/modules/users/application/queries/g
 import { SearchUserByCriteriaQueryHandler } from 'src/modules/users/application/queries/search-user-by-criteria/search-user.query-handler';
 import { UserRepository } from 'src/modules/users/domain/user.repository';
 
-import { TypeOrmUserRepository } from '../../persitence/typeorm/typeorm-user.repository';
-import { UserModel } from '../../persitence/typeorm/user.model';
+import { TypeOrmUserRepository } from '../../persistence/typeorm/typeorm-user.repository';
+import { UserModel } from '../../persistence/typeorm/user.model';
 import { UsersResolver } from './users.resolver';
 
 @Module({

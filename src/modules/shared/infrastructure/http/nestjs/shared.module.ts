@@ -7,7 +7,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { createTypeOrmConfig } from 'src/modules/shared/infrastructure/persitence/typeorm/typeorm.config';
+import { createTypeOrmConfig } from 'src/modules/shared/infrastructure/persistence/typeorm/typeorm.config';
 
 import { HealthCheckController } from './controllers/health-check.controller';
 

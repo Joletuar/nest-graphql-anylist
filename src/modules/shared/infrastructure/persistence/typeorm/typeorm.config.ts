@@ -2,8 +2,8 @@ import { join } from 'node:path';
 
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { ItemModel } from 'src/modules/items/infrastructure/persitence/typeorm/item.model';
-import { UserModel } from 'src/modules/users/infrastructure/persitence/typeorm/user.model';
+import { ItemModel } from 'src/modules/items/infrastructure/persistence/typeorm/item.model';
+import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 const getDataSourceOptions = (): DataSourceOptions => {

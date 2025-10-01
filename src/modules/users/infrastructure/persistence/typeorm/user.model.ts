@@ -1,5 +1,5 @@
-import { ItemModel } from 'src/modules/items/infrastructure/persitence/typeorm/item.model';
-import { BaseModel } from 'src/modules/shared/infrastructure/persitence/typeorm/base.model';
+import { ItemModel } from 'src/modules/items/infrastructure/persistence/typeorm/item.model';
+import { BaseModel } from 'src/modules/shared/infrastructure/persistence/typeorm/base.model';
 import { Role } from 'src/modules/users/domain/roles.enum';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
