@@ -1,6 +1,7 @@
+import { ItemModel } from 'src/modules/items/infraestructure/persitence/typeorm/item.model';
 import { BaseModel } from 'src/modules/shared/infraestructure/persitence/typeorm/base.model';
 import { Role } from 'src/modules/users/domain/roles.enum';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 @Entity({
   name: 'users',
@@ -14,6 +15,7 @@ export class UserModel extends BaseModel {
   @Column({
     name: 'email',
   })
+  @Index({ unique: true })
   email: string;
 
   @Column({
@@ -32,4 +34,7 @@ export class UserModel extends BaseModel {
     name: 'is_active',
   })
   isActive: boolean;
+
+  @OneToMany(() => ItemModel, (item) => item.user, { lazy: true })
+  items: Promise<ItemModel[]>;
 }

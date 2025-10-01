@@ -1,5 +1,6 @@
 import { BaseModel } from 'src/modules/shared/infraestructure/persitence/typeorm/base.model';
-import { Column, Entity } from 'typeorm';
+import { UserModel } from 'src/modules/users/infraestructure/persitence/typeorm/user.model';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity({ name: 'items' })
 export class ItemModel extends BaseModel {
@@ -17,4 +18,11 @@ export class ItemModel extends BaseModel {
     name: 'quantity_units',
   })
   quantityUnits: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => UserModel, (user) => user.items, { lazy: true })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: Promise<UserModel>;
 }
