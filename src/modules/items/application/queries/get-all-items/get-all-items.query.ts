@@ -1,5 +1,5 @@
 import { Query } from '@nestjs/cqrs';
 
-import { ItemDto } from '../../item.dto';
+import { QueryItemDto } from '../query-item.dto';
 
-export class GetAllItemsQuery extends Query<ItemDto[]> {}
+export class GetAllItemsQuery extends Query<QueryItemDto[]> {}

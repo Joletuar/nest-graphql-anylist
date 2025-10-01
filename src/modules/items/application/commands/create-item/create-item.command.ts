@@ -7,6 +7,7 @@ export class CreateItemCommand extends Command<ItemDto> {
     readonly name: string,
     readonly quantity: number,
     readonly quantityUnits: string,
+    readonly userId: string,
   ) {
     super();
   }

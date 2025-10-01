@@ -6,4 +6,6 @@ export interface ItemDto {
   quantity: number;
 
   quantityUnits: string;
+
+  userId: string;
 }
