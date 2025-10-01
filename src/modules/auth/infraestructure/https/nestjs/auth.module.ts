@@ -12,6 +12,7 @@ import { UsersModule } from 'src/modules/users/infraestructure/http/nestjs/users
 
 import { BcryptHashRepository } from '../../hash/bcrypt/bcrypt-hash.repository';
 import { JwtTokenRepository } from '../../token/jwt/jwt-token-repository.repository';
+import { AuthController } from './auth.controller';
 import { GqlJwtAuthGuard } from './guards/gql-jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { NestAuthenticationService } from './services/nest-authentication.service';
@@ -36,7 +37,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     forwardRef(() => UsersModule),
   ],
 
-  controllers: [],
+  controllers: [AuthController],
 
   providers: [
     // Use cases
