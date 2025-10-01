@@ -26,7 +26,7 @@ import { ItemSchema } from './schemas/item.schema';
 import { PaginatedItemsSchema } from './schemas/paginated-items.schema';
 import { QueryItemSchema } from './schemas/query-item.schema';
 
-@Auth(Role.GUEST)
+@Auth(Role.GUEST, Role.ADMIN)
 @Resolver(() => ItemSchema)
 export class ItemsResolver {
   constructor(

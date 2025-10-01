@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   CanActivate,
@@ -8,9 +10,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
-import { Request } from 'express';
-
-import { ROLE_METADATA_KEY } from '../decorators/roles.decorator';
+import { Role } from 'src/modules/users/domain/roles.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -18,15 +18,12 @@ export class RolesGuard implements CanActivate {
 
   canActivate(ctx: ExecutionContext): boolean {
     const gqlCtx = GqlExecutionContext.create(ctx);
-    const req = gqlCtx.switchToHttp().getRequest<Request>();
+    const req = gqlCtx.getContext().req;
     const user = req?.user;
 
     if (!user) throw new ForbiddenException("User doestn't exist in request");
 
-    const roles = this.reflector.get<string[]>(
-      ROLE_METADATA_KEY,
-      ctx.getHandler(),
-    );
+    const roles = this.reflector.get<string[]>(Role, ctx.getClass());
 
     this.ensureUserHasEnoughRoles(user.roles, roles);
 

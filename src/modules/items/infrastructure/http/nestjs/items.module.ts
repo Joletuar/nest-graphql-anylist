@@ -1,4 +1,4 @@
-import { Module, Search } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CreateItemCommandHandler } from 'src/modules/items/application/commands/create-item/create-item.command-handler';
