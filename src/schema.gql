@@ -39,17 +39,65 @@ type ItemSchema {
 
   """Item unit"""
   quantityUnits: Int!
+
+  """User id who created the item"""
+  userId: ID!
+}
+
+"""Pagination info"""
+type PaginationSchema {
+  """Current page number"""
+  page: Int!
+
+  """Number of items per page"""
+  perPage: Int!
+
+  """Total number of items"""
+  total: Int!
+}
+
+"""Schema for querying items"""
+type QueryItemSchema {
+  """Item id"""
+  id: ID!
+
+  """Item name"""
+  name: String!
+
+  """Item quantity"""
+  quantity: Int!
+
+  """Item unit"""
+  quantityUnits: Int!
+
+  """User who owns the item"""
+  user: UserSchema!
+}
+
+"""Paginated items"""
+type PaginatedItemsSchema {
+  """Items list"""
+  items: [QueryItemSchema!]!
+
+  """Pagination info"""
+  pagination: PaginationSchema!
 }
 
 type Query {
   """Get an items list"""
-  GetAllItems: [ItemSchema!]!
+  GetAllItems: [QueryItemSchema!]!
 
   """Find an item by id"""
   FindItemById(
     """Item id"""
     id: ID!
-  ): ItemSchema!
+  ): QueryItemSchema!
+
+  """Search items with filters, pagination and sort"""
+  SearchItems(
+    """Criteria to filter, paginate and sort"""
+    criteria: CriteriaInput!
+  ): PaginatedItemsSchema!
 
   """Get users list"""
   GetAllUsers: [UserSchema!]!
@@ -59,6 +107,56 @@ type Query {
     """User id"""
     id: ID!
   ): UserSchema!
+}
+
+"""Criteria to filter, paginate and sort"""
+input CriteriaInput {
+  """Filters to apply to the search"""
+  filters: [FilterInput!]!
+
+  """Pagination options"""
+  pagination: PaginationInput!
+
+  """Sort options"""
+  sort: SortInput
+}
+
+"""Input type for filtering"""
+input FilterInput {
+  """Field to filter"""
+  field: String!
+
+  """Value to filter"""
+  value: String!
+
+  """Operator to use for filtering"""
+  operator: FilterOperator!
+}
+
+"""Filter operator"""
+enum FilterOperator {
+  EQUAL
+  NOT_EQUAL
+  GREATER_THAN
+  GREATER_THAN_OR_EQUAL
+  LESS_THAN
+  LESS_THAN_OR_EQUAL
+  CONTAINS
+}
+
+"""Pagination input"""
+input PaginationInput {
+  page: Int = 1
+  perPage: Int = 10
+}
+
+"""Sorting input"""
+input SortInput {
+  """Sort order (asc or desc)"""
+  order: String!
+
+  """Sort field"""
+  field: String!
 }
 
 type Mutation {
@@ -103,6 +201,9 @@ input CreateItemInput {
 
   """Item quantityUnits"""
   quantityUnits: String!
+
+  """Item userId"""
+  userId: String!
 }
 
 """Input to update an item"""
@@ -115,6 +216,9 @@ input UpdateItemInput {
 
   """Item quantityUnits"""
   quantityUnits: String
+
+  """Item userId"""
+  userId: String
 }
 
 """Input to create new user"""
