@@ -10,7 +10,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Roles } from '../decorators/roles.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -23,7 +23,12 @@ export class RolesGuard implements CanActivate {
 
     if (!user) throw new ForbiddenException("User doestn't exist in request");
 
-    const roles = this.reflector.get<string[]>(Role, ctx.getClass());
+    const roles = this.reflector.getAllAndOverride<string[]>(Roles, [
+      ctx.getHandler(),
+      ctx.getClass(),
+    ]);
+
+    if (!roles || roles.length === 0) return false;
 
     this.ensureUserHasEnoughRoles(user.roles, roles);
 
