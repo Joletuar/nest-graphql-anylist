@@ -1,7 +1,7 @@
 import { Paginated } from 'src/modules/shared/domain/paginated.entity';
 
 import { User } from '../domain/user.entity';
-import { PaginatedUserDto } from './queries/search-user-by-criteria/paginated-user.dto';
+import { PaginatedUsersDto } from './queries/search-user-by-criteria/paginated-users.dto';
 import { UserDto } from './user.dto';
 
 export class UserMapper {
@@ -22,7 +22,7 @@ export class UserMapper {
     return users.map((user) => this.toDto(user));
   }
 
-  static toPaginatedDto(result: Paginated<User>): PaginatedUserDto {
+  static toPaginatedDto(result: Paginated<User>): PaginatedUsersDto {
     const { data, pagination } = result;
 
     return {
@@ -46,7 +46,7 @@ export class UserMapper {
 
   static toPaginatedDtoWithoutPassword(
     result: Paginated<User>,
-  ): Omit<PaginatedUserDto, 'users'> & { users: Omit<UserDto, 'password'>[] } {
+  ): Omit<PaginatedUsersDto, 'users'> & { users: Omit<UserDto, 'password'>[] } {
     const { data, pagination } = result;
 
     return {

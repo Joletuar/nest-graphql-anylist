@@ -2,9 +2,9 @@ import { Query } from '@nestjs/cqrs';
 
 import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface';
 
-import { PaginatedUserDto } from './paginated-user.dto';
+import { PaginatedUsersDto } from './paginated-users.dto';
 
-export class SearchUserByCriteriaQuery extends Query<PaginatedUserDto> {
+export class SearchUserByCriteriaQuery extends Query<PaginatedUsersDto> {
   constructor(readonly criteria: Criteria) {
     super();
   }

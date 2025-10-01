@@ -22,8 +22,8 @@ export class UpdateUserCommandHanlder
 
     const userToUpdate: User = {
       id,
-      email: email || currentUser.email,
-      fullName: fullName || currentUser.fullName,
+      email: email ?? currentUser.email,
+      fullName: fullName ?? currentUser.fullName,
       password: currentUser.password,
       roles: roles && roles.length > 0 ? (roles as Role[]) : currentUser.roles,
       isActive:

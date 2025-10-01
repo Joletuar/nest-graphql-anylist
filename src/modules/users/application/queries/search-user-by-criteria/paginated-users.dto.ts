@@ -1,6 +1,6 @@
 import { UserDto } from '../../user.dto';
 
-export interface PaginatedUserDto {
+export interface PaginatedUsersDto {
   users: UserDto[];
   pagination: Pagination;
 }
