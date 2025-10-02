@@ -1,9 +1,6 @@
-import { BadRequestException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
 import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
 import { CreateItemCommand } from 'src/modules/items/application/commands/create-item/create-item.command';
 import { UpdateItemCommand } from 'src/modules/items/application/commands/update-item/update-item.command';
@@ -76,17 +73,9 @@ export class ItemsResolver {
       nullable: false,
       description: 'Args to create new Item',
     })
-    createItemInput: CreateItemInput,
+    createItemInput: CreateItemDto,
   ): Promise<ItemDto> {
-    const instance = plainToInstance(CreateItemDto, createItemInput);
-
-    const errors = await validate(instance);
-
-    if (errors.length > 0) {
-      throw new BadRequestException(errors);
-    }
-
-    const { name, quantity, quantityUnits, userId } = instance;
+    const { name, quantity, quantityUnits, userId } = createItemInput;
 
     const createdItem = await this.commandBus.execute(
       new CreateItemCommand(name, quantity, quantityUnits, userId),
@@ -116,14 +105,8 @@ export class ItemsResolver {
       type: () => UpdateItemInput,
       description: 'Input to update item',
     })
-    updateItemInput: UpdateItemInput,
+    updateItemInput: UpdateItemDto,
   ): Promise<ItemDto> {
-    const instance = plainToInstance(UpdateItemDto, updateItemInput);
-
-    const errors = await validate(instance);
-
-    if (errors.length > 0) throw new BadRequestException(errors);
-
     const { name, quantity, quantityUnits, userId } = updateItemInput;
 
     const updatedItem = await this.commandBus.execute(
@@ -142,16 +125,9 @@ export class ItemsResolver {
       type: () => CriteriaInput,
       description: 'Criteria to filter, paginate and sort',
     })
-    input: CriteriaInput,
+    criteriaInput: CriteriaDto,
   ): Promise<PaginatedItemsDto> {
-    // TODO: solve the problem with nested objects in CriteriaInput
-    const instance = plainToInstance(CriteriaDto, input);
-
-    const errors = await validate(instance);
-
-    if (errors.length > 0) throw new BadRequestException(errors);
-
-    const { filters, pagination, sort } = instance;
+    const { filters, pagination, sort } = criteriaInput;
 
     const { items, pagination: paginationInfo } = await this.queryBus.execute(
       new SearchItemsByCriteriaQuery({ filters, pagination, sort }),
