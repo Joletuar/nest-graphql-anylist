@@ -1,9 +1,6 @@
-import { BadRequestException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
 import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
 import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
 import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
@@ -71,17 +68,9 @@ export class UsersResolver {
       nullable: false,
       description: 'Args to create new User',
     })
-    createUserInput: CreateUserInput,
+    createUserInput: CreateUserDto,
   ): Promise<CreatedUserDto> {
-    const instance = plainToInstance(CreateUserDto, createUserInput);
-
-    const errors = await validate(instance);
-
-    if (errors.length > 0) {
-      throw new BadRequestException(errors);
-    }
-
-    const { fullName, email, password, roles, isActive } = instance;
+    const { fullName, email, password, roles, isActive } = createUserInput;
 
     const createdUser = await this.commandBus.execute(
       new CreateUserCommand(fullName, email, password, roles, isActive),
@@ -111,14 +100,8 @@ export class UsersResolver {
       type: () => UpdateUserInput,
       description: 'Input to update User',
     })
-    updateUserInput: UpdateUserInput,
+    updateUserInput: UpdateUserDto,
   ): Promise<UpdatedUserDto> {
-    const instance = plainToInstance(UpdateUserDto, updateUserInput);
-
-    const errors = await validate(instance);
-
-    if (errors.length > 0) throw new BadRequestException(errors);
-
     const { fullName, email, roles, isActive } = updateUserInput;
 
     const updatedUser = await this.commandBus.execute(
