@@ -10,6 +10,8 @@ import {
 } from '../../../../domain/authentication.service';
 import { TokenRepository } from '../../../../domain/token.repository';
 
+// TODO: implement caching for user retrieval to enhance performance
+
 @Injectable()
 export class NestAuthenticationService extends AuthenticationService {
   constructor(
