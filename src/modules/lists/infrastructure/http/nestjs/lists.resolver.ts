@@ -10,8 +10,8 @@ import { GetAllListsQuery } from 'src/modules/lists/application/queries/get-all-
 import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
 import { Role } from 'src/modules/users/domain/roles.enum';
 
-import { CreateListDto } from './dto/create-list.dto';
-import { UpdateListDto } from './dto/update-list.dto';
+import { CreateListDto } from './dto/request/create-list.dto';
+import { UpdateListDto } from './dto/request/update-list.dto';
 import { CreateListInput } from './inputs/create-list.input';
 import { UpdateListInput } from './inputs/update-list.input';
 import { ListSchema } from './schemas/list.schema';
