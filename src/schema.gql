@@ -83,6 +83,33 @@ type PaginatedItemsSchema {
   pagination: PaginationSchema!
 }
 
+"""Schema list items"""
+type ListItemSchema {
+  """List item id"""
+  id: ID!
+
+  """Item information"""
+  item: ItemSchema!
+
+  """Item quantity in the list"""
+  quantity: Int!
+}
+
+"""Schema lists"""
+type ListSchema {
+  """List id"""
+  id: ID!
+
+  """List name"""
+  name: String!
+
+  """User who created the list"""
+  user: UserSchema!
+
+  """List items"""
+  items: [ListItemSchema!]!
+}
+
 type Query {
   """Get an items list"""
   GetAllItems: [QueryItemSchema!]!
@@ -107,6 +134,15 @@ type Query {
     """User id"""
     id: ID!
   ): UserSchema!
+
+  """Get all lists"""
+  GetAllLists: [ListSchema!]!
+
+  """Find a list by id"""
+  FindListById(
+    """List id"""
+    id: ID!
+  ): ListSchema!
 }
 
 """Criteria to filter, paginate and sort"""
@@ -189,6 +225,21 @@ type Mutation {
     """Input to update User"""
     input: UpdateUserInput!
   ): UserSchema!
+
+  """Create new list"""
+  CreateList(
+    """Args to create new List"""
+    input: CreateListInput!
+  ): ListSchema!
+
+  """Update an existing list"""
+  UpdateList(
+    """List id"""
+    id: ID!
+
+    """Input to update list"""
+    input: UpdateListInput!
+  ): ListSchema!
 }
 
 """Input to create new item"""
@@ -252,4 +303,49 @@ input UpdateUserInput {
 
   """Flag to indicate if the user is block or not"""
   isActive: Boolean
+}
+
+"""Input to create new list"""
+input CreateListInput {
+  """List name"""
+  name: String!
+
+  """List userId"""
+  userId: ID!
+
+  """List items"""
+  items: [CreateListItemInput!]!
+}
+
+"""Input to create new list item"""
+input CreateListItemInput {
+  """Item id"""
+  itemId: ID!
+
+  """Item quantity"""
+  quantity: Int!
+}
+
+"""Input to update list"""
+input UpdateListInput {
+  """List name"""
+  name: String
+
+  """List userId"""
+  userId: ID!
+
+  """List items"""
+  items: [UpdateListItemInput!]
+}
+
+"""Input to update list item"""
+input UpdateListItemInput {
+  """List item id"""
+  id: ID!
+
+  """Item id"""
+  itemId: ID!
+
+  """Item quantity"""
+  quantity: Int!
 }
