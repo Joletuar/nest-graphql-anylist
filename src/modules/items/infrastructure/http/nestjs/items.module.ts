@@ -37,5 +37,7 @@ import { ItemsResolver } from './items.resolver';
     CreateItemCommandHandler,
     UpdateItemCommandHandler,
   ],
+
+  exports: [ItemRepository],
 })
 export class ItemsModule {}
