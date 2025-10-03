@@ -20,7 +20,9 @@ export class ItemModel extends BaseModel {
   })
   quantityUnits: string;
 
-  @Column()
+  @Column({
+    name: 'user_id',
+  })
   userId: string;
 
   @ManyToOne(() => UserModel, (user) => user.items, { lazy: true })
