@@ -1,0 +1,49 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ItemsModule } from 'src/modules/items/infrastructure/http/nestjs/items.module';
+import { CreateListCommandHandler } from 'src/modules/lists/application/commands/create-list/create-list.command-handler';
+import { UpdateListCommandHandler } from 'src/modules/lists/application/commands/update-list/update-list.command-handler';
+import { FindListByIdQueryHandler } from 'src/modules/lists/application/queries/find-list-by-id/find-list-by-id.query-handler';
+import { GetAllListsQueryHandler } from 'src/modules/lists/application/queries/get-all-lists/get-all-lists.query-handler';
+import { FindListByIdService } from 'src/modules/lists/application/services/find-list-by-id.service';
+import { ListRespository } from 'src/modules/lists/domain/list.repository';
+import { UsersModule } from 'src/modules/users/infrastructure/http/nestjs/users.module';
+
+import { ListItemModel } from '../../persistence/typeorm/list-item.model';
+import { ListModel } from '../../persistence/typeorm/list.model';
+import { TypeOrmListRepository } from '../../persistence/typeorm/typeorm-list.repository';
+import { ListsResolver } from './lists.resolver';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([ListModel, ListItemModel]),
+    UsersModule,
+    ItemsModule,
+  ],
+
+  providers: [
+    // Resolvers
+    ListsResolver,
+
+    // Repositories
+    TypeOrmListRepository,
+
+    // Services
+    FindListByIdService,
+
+    {
+      provide: ListRespository,
+      useClass: TypeOrmListRepository,
+    },
+
+    // Query Handlers
+    GetAllListsQueryHandler,
+    FindListByIdQueryHandler,
+
+    // Command Handlers
+    CreateListCommandHandler,
+    UpdateListCommandHandler,
+  ],
+})
+export class ListsModule {}

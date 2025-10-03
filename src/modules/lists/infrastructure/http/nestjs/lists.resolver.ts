@@ -1,0 +1,112 @@
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { CreateListCommand } from 'src/modules/lists/application/commands/create-list/create-list.command';
+import { UpdateListCommand } from 'src/modules/lists/application/commands/update-list/update-list.command';
+import { ListDto } from 'src/modules/lists/application/list.dto';
+import { FindListByIdQuery } from 'src/modules/lists/application/queries/find-list-by-id/find-list-by-id.query';
+import { GetAllListsQuery } from 'src/modules/lists/application/queries/get-all-lists/get-all-lists.query';
+import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
+import { Role } from 'src/modules/users/domain/roles.enum';
+
+import { CreateListDto } from './dto/create-list.dto';
+import { UpdateListDto } from './dto/update-list.dto';
+import { CreateListInput } from './inputs/create-list.input';
+import { UpdateListInput } from './inputs/update-list.input';
+import { ListSchema } from './schemas/list.schema';
+
+@Auth(Role.GUEST, Role.ADMIN)
+@Resolver(() => ListSchema)
+export class ListsResolver {
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
+
+  @Query(() => [ListSchema], {
+    name: 'GetAllLists',
+    description: 'Get all lists',
+    nullable: false,
+  })
+  async getAllLists(): Promise<ListDto[]> {
+    const lists = await this.queryBus.execute(new GetAllListsQuery());
+
+    return lists;
+  }
+
+  @Query(() => ListSchema, {
+    name: 'FindListById',
+    description: 'Find a list by id',
+  })
+  async findListById(
+    @Args(
+      'id',
+      {
+        description: 'List id',
+        type: () => ID,
+        nullable: false,
+      },
+      ParseUlidPipe,
+    )
+    id: string,
+  ): Promise<ListDto> {
+    const list = await this.queryBus.execute(new FindListByIdQuery(id));
+
+    return list;
+  }
+
+  @Mutation(() => ListSchema, {
+    name: 'CreateList',
+    description: 'Create new list',
+    nullable: false,
+  })
+  async createList(
+    @Args('input', {
+      type: () => CreateListInput,
+      nullable: false,
+      description: 'Args to create new List',
+    })
+    createListInput: CreateListDto,
+  ): Promise<ListDto> {
+    const { name, userId, items } = createListInput;
+
+    const createdList = await this.commandBus.execute(
+      new CreateListCommand(name, userId, items),
+    );
+
+    return createdList;
+  }
+
+  @Mutation(() => ListSchema, {
+    name: 'UpdateList',
+    nullable: false,
+    description: 'Update an existing list',
+  })
+  async updateList(
+    @Args(
+      'id',
+      {
+        description: 'List id',
+        type: () => ID,
+        nullable: false,
+      },
+      ParseUlidPipe,
+    )
+    id: string,
+    @Args('input', {
+      nullable: false,
+      type: () => UpdateListInput,
+      description: 'Input to update list',
+    })
+    updateListInput: UpdateListDto,
+  ): Promise<ListDto> {
+    const { name, userId, items } = updateListInput;
+
+    const updatedList = await this.commandBus.execute(
+      new UpdateListCommand(id, name, userId, items),
+    );
+
+    return updatedList;
+  }
+}
