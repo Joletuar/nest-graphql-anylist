@@ -6,12 +6,12 @@ import { QueryItemDto } from './queries/query-item.dto';
 
 export class ItemMapper {
   static toDto(entity: Item): ItemDto {
-    const { id, name, quantity, quantityUnits, userId } = entity;
+    const { id, name, stock, quantityUnits, userId } = entity;
 
     return {
       id,
       name,
-      quantity,
+      stock,
       quantityUnits,
       userId,
     };
@@ -22,12 +22,12 @@ export class ItemMapper {
   }
 
   static toQueryDto(entity: Item, user: UserDto): QueryItemDto {
-    const { id, name, quantity, quantityUnits } = entity;
+    const { id, name, stock, quantityUnits } = entity;
 
     return {
       id,
       name,
-      quantity,
+      stock,
       quantityUnits,
       user: {
         id: user.id,

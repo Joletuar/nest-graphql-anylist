@@ -3,8 +3,9 @@ export interface Item {
 
   name: string;
 
-  quantity: number;
+  stock: number;
 
   quantityUnits: string;
+
   userId: string;
 }

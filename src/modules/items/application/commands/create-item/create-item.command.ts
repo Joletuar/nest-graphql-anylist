@@ -5,7 +5,7 @@ import { ItemDto } from '../../item.dto';
 export class CreateItemCommand extends Command<ItemDto> {
   constructor(
     readonly name: string,
-    readonly quantity: number,
+    readonly stock: number,
     readonly quantityUnits: string,
     readonly userId: string,
   ) {

@@ -6,7 +6,7 @@ export class UpdateItemCommand extends Command<ItemDto> {
   constructor(
     readonly id: string,
     readonly name?: string,
-    readonly quantity?: number,
+    readonly stock?: number,
     readonly quantityUnits?: string,
     readonly userId?: string,
   ) {

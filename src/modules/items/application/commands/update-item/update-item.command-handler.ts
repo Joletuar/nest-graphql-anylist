@@ -15,14 +15,14 @@ export class UpdateItemCommandHandler
   constructor(private readonly repository: ItemRepository) {}
 
   async execute(command: UpdateItemCommand): Promise<ItemDto> {
-    const { id, name, quantity, quantityUnits, userId } = command;
+    const { id, name, stock, quantityUnits, userId } = command;
 
     const currentItem = await this.ensureExistsItem(id);
 
     const itemToUpdate: Item = {
       id,
       name: name ?? currentItem.name,
-      quantity: quantity ?? currentItem.quantity,
+      stock: stock ?? currentItem.stock,
       quantityUnits: quantityUnits ?? currentItem.quantityUnits,
       userId: userId ?? currentItem.userId,
     };

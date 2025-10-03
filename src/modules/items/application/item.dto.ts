@@ -3,7 +3,7 @@ export interface ItemDto {
 
   name: string;
 
-  quantity: number; // TODO: rename to stock
+  stock: number;
 
   quantityUnits: string;
 

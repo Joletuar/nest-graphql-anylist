@@ -15,12 +15,12 @@ export class CreateItemCommandHandler
   constructor(private readonly repository: ItemRepository) {}
 
   async execute(command: CreateItemCommand): Promise<ItemDto> {
-    const { name, quantity, quantityUnits, userId } = command;
+    const { name, stock, quantityUnits, userId } = command;
 
     const item: Item = {
       id: ulid(),
       name,
-      quantity,
+      stock,
       quantityUnits,
       userId,
     };

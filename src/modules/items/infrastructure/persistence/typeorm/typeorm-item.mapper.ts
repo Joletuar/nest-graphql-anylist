@@ -4,12 +4,12 @@ import { ItemModel } from './item.model';
 
 export class TypeOrmItemMapper {
   static toDomain(model: ItemModel): Item {
-    const { id, name, quantity, quantityUnits, userId } = model;
+    const { id, name, stock, quantityUnits, userId } = model;
 
     return {
       id,
       name,
-      quantity,
+      stock,
       quantityUnits,
       userId,
     };

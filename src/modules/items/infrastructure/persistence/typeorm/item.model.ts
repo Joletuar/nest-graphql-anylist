@@ -11,9 +11,9 @@ export class ItemModel extends BaseModel {
   name: string;
 
   @Column({
-    name: 'quantity',
+    name: 'stock',
   })
-  quantity: number;
+  stock: number;
 
   @Column({
     name: 'quantity_units',
