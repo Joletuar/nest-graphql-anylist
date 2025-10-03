@@ -34,8 +34,8 @@ type ItemSchema {
   """Item name"""
   name: String!
 
-  """Item quantity"""
-  quantity: Int!
+  """Item stock"""
+  stock: Int!
 
   """Item unit"""
   quantityUnits: Int!
@@ -64,8 +64,8 @@ type QueryItemSchema {
   """Item name"""
   name: String!
 
-  """Item quantity"""
-  quantity: Int!
+  """Item stock"""
+  stock: Int!
 
   """Item unit"""
   quantityUnits: Int!

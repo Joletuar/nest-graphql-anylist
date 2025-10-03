@@ -17,10 +17,10 @@ export class ItemSchema {
   name: string;
 
   @Field(() => Int, {
-    name: 'quantity',
-    description: 'Item quantity',
+    name: 'stock',
+    description: 'Item stock',
   })
-  quantity: number;
+  stock: number;
 
   @Field(() => Int, {
     name: 'quantityUnits',
