@@ -15,8 +15,8 @@ import { CriteriaInput } from 'src/modules/shared/infrastructure/http/nestjs/inp
 import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
 import { Role } from 'src/modules/users/domain/roles.enum';
 
-import { CreateItemDto } from './dto/create-item.dto';
-import { UpdateItemDto } from './dto/update-item.dto';
+import { CreateItemDto } from './dtos/create-item.dto';
+import { UpdateItemDto } from './dtos/update-item.dto';
 import { CreateItemInput } from './inputs/create-item.input';
 import { UpdateItemInput } from './inputs/update-item.input';
 import { ItemSchema } from './schemas/item.schema';
