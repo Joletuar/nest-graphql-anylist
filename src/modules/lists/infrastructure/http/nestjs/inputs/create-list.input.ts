@@ -20,7 +20,7 @@ export class CreateListInput {
 
   @Field(() => [CreateListItemInput], {
     description: 'List items',
-    nullable: false,
+    nullable: true,
   })
-  items: CreateListItemInput[];
+  items?: CreateListItemInput[];
 }

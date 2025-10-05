@@ -6,7 +6,7 @@ export class CreateListCommand extends Command<ListDto> {
   constructor(
     readonly name: string,
     readonly userId: string,
-    readonly items: { itemId: string; quantity: number }[],
+    readonly items?: { itemId: string; quantity: number }[],
   ) {
     super();
   }

@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import {
   IsArray,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
   ValidateNested,
@@ -19,8 +20,9 @@ export class CreateListDto {
   @IsNotEmpty()
   userId: string;
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateListItemDto)
-  items: CreateListItemDto[];
+  items?: CreateListItemDto[];
 }

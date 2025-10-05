@@ -24,7 +24,7 @@ export class CreateListCommandHandler
   ) {}
 
   async execute(command: CreateListCommand): Promise<ListDto> {
-    const { userId, items: itemsInput, name } = command;
+    const { userId, items: itemsInput = [], name } = command;
 
     const user = await this.ensureExistsUser(userId);
 

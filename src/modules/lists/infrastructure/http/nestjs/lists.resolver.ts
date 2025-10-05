@@ -75,7 +75,7 @@ export class ListsResolver {
     })
     createListInput: CreateListDto,
   ): Promise<ListDto> {
-    const { name, userId, items } = createListInput;
+    const { name, userId, items = [] } = createListInput;
 
     const createdList = await this.commandBus.execute(
       new CreateListCommand(name, userId, items),
