@@ -1,83 +1,168 @@
-# NestJS GraphQL Anylist
+# NestJS GraphQL AnyList
 
-## Descripción
+> Sistema de gestión de listas personalizable con NestJS, GraphQL y autenticación JWT
 
-Este proyecto es una aplicación backend desarrollada con **NestJS** y **GraphQL**, diseñada para gestionar listas de elementos personalizables (AnyList). Permite a los usuarios crear, actualizar y consultar elementos en listas, con autenticación de usuarios y un sistema de roles.
+## 🚀 Características
 
-El proyecto sigue una arquitectura modular y limpia, utilizando Command Query Responsibility Segregation (CQRS) y TypeORM para la persistencia de datos.
+- **API GraphQL** completa con consultas y mutaciones
+- **Autenticación JWT** con sistema de roles (Admin/Guest)
+- **Gestión de elementos** con inventario y unidades
+- **Listas personalizables** con elementos y cantidades
+- **Arquitectura hexagonal** con CQRS
+- **Base de datos PostgreSQL** con TypeORM
 
-**Estado del proyecto:** Este proyecto está actualmente en proceso de desarrollo y no está terminado. Algunas funcionalidades pueden estar incompletas o sujetas a cambios.
+## 📁 Arquitectura
 
-## Características
+```
+src/modules/
+├── auth/         # Autenticación (sign-up, sign-in, JWT)
+├── users/        # Gestión de usuarios y roles
+├── items/        # CRUD de elementos con inventario
+├── lists/        # Listas con elementos y cantidades
+└── shared/       # Utilidades, excepciones, paginación
+```
 
-- **Autenticación y Autorización:** Sistema de registro e inicio de sesión con JWT.
-- **Gestión de Usuarios:** CRUD de usuarios con roles (ej. admin, user).
-- **Gestión de Elementos:** Crear, actualizar, consultar y eliminar elementos en listas.
-- **GraphQL API:** Esquema GraphQL para consultas y mutaciones.
-- **Persistencia:** Base de datos con TypeORM (configurada para PostgreSQL u otros).
-- **Arquitectura Modular:** Separación en capas (application, domain, infrastructure).
-- **CQRS:** Separación de comandos y consultas para mejor escalabilidad.
+Cada módulo implementa **Clean Architecture**:
 
-## Estructura del Proyecto
+- `application/`: DTOs, casos de uso (comandos/consultas)
+- `domain/`: Entidades, repositorios, excepciones
+- `infrastructure/`: Implementaciones (HTTP, base de datos)
 
-El proyecto está organizado en módulos principales:
-
-- **Auth:** Manejo de autenticación (sign-in, sign-up), hashing de contraseñas y tokens JWT.
-- **Items:** Gestión de elementos (CRUD con comandos y consultas).
-- **Users:** Gestión de usuarios (CRUD, búsqueda por criterios).
-- **Shared:** Utilidades compartidas como excepciones, criterios de búsqueda, paginación, etc.
-
-Cada módulo sigue la estructura:
-
-- `application/`: DTOs, mappers, comandos y consultas.
-- `domain/`: Entidades, repositorios, excepciones de dominio.
-- `infrastructure/`: Implementaciones concretas (HTTP con NestJS, persistencia con TypeORM).
-
-## Instalación
-
-1. Clona el repositorio:
-
-   ```bash
-   git clone https://github.com/Joletuar/nest-graphql-anylist.git
-   cd nest-graphql-anylist
-   ```
-
-2. Instala las dependencias:
-
-   ```bash
-   pnpm install
-   ```
-
-3. Configura la base de datos (ej. PostgreSQL) en el archivo de configuración.
-
-## Ejecución
+## 🛠️ Instalación
 
 ```bash
-# Modo desarrollo
+# Clonar repositorio
+git clone https://github.com/Joletuar/nest-graphql-anylist.git
+cd nest-graphql-anylist
+
+# Instalar dependencias
+pnpm install
+
+# Configurar variables de entorno
+cp .env.example .env
+
+# Iniciar base de datos
+docker-compose up -d
+
+# Ejecutar migraciones
+pnpm run migration:run
+```
+
+## 🚦 Comandos
+
+```bash
+# Desarrollo
 pnpm run start:dev
 
 # Producción
 pnpm run start:prod
-```
 
-## Pruebas
+# Base de datos
+pnpm run migration:generate <nombre>
+pnpm run migration:run
+pnpm run seed:run
 
-```bash
-# Pruebas unitarias
+# Pruebas
 pnpm run test
-
-# Pruebas e2e
 pnpm run test:e2e
-
-# Cobertura
-pnpm run test:cov
 ```
 
-## Tecnologías Utilizadas
+## � Funcionalidades
 
-- **NestJS:** Framework para Node.js.
-- **GraphQL:** Para la API.
-- **TypeORM:** ORM para bases de datos.
-- **JWT:** Para autenticación.
-- **TypeScript:** Lenguaje principal.
-- **Docker:** Para contenedorización (ver docker-compose.yaml).
+### Usuarios y Autenticación
+
+- Registro e inicio de sesión con validación
+- Roles: `ADMIN` y `GUEST` con permisos diferenciados
+- Tokens JWT con expiración configurable
+
+### Gestión de Items
+
+- CRUD completo con validaciones
+- Control de stock e inventario
+- Búsqueda avanzada con filtros y paginación
+- Unidades de medida personalizables
+
+### Sistema de Listas
+
+- Creación de listas personalizadas
+- Asignación de items con cantidades específicas
+- Gestión colaborativa por usuario
+
+## 🔧 Configuración
+
+### Variables de Entorno
+
+```env
+# Base de datos
+TYPE_ORM_HOST=localhost
+TYPE_ORM_PORT=5432
+TYPE_ORM_USERNAME=postgres
+TYPE_ORM_PASSWORD=postgres
+TYPE_ORM_DATABASE=anylist_db
+
+# JWT
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=7d
+```
+
+### GraphQL Playground
+
+Una vez iniciado el servidor, accede a:
+
+- **Desarrollo**: `http://localhost:3000/graphql`
+- Explorar schema, ejecutar queries y mutations
+
+## �🛡️ Stack Tecnológico
+
+| Categoría         | Tecnologías                 |
+| ----------------- | --------------------------- |
+| **Backend**       | NestJS, TypeScript, GraphQL |
+| **Base de datos** | PostgreSQL, TypeORM         |
+| **Autenticación** | JWT, Passport, Bcrypt       |
+| **Arquitectura**  | CQRS, Clean Architecture    |
+| **Desarrollo**    | Docker, ESLint, Prettier    |
+
+## 📚 API Examples
+
+### Crear Usuario
+
+```graphql
+mutation {
+  CreateUser(
+    input: {
+      fullName: "Juan Pérez"
+      email: "juan@example.com"
+      password: "123456"
+      roles: [GUEST]
+      isActive: true
+    }
+  ) {
+    id
+    fullName
+    email
+  }
+}
+```
+
+### Buscar Items
+
+```graphql
+query {
+  SearchItems(
+    criteria: {
+      filters: [{ field: "name", value: "laptop", operator: CONTAINS }]
+      pagination: { page: 1, perPage: 10 }
+    }
+  ) {
+    items {
+      id
+      name
+      stock
+    }
+    pagination {
+      total
+      page
+    }
+  }
+}
+```

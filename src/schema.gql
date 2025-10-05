@@ -240,6 +240,24 @@ type Mutation {
     """Input to update list"""
     input: UpdateListInput!
   ): ListSchema!
+
+  """Add item to an existing list"""
+  AddItemToList(
+    """Input to add item to list"""
+    input: AddItemToListInput!
+  ): ListSchema!
+
+  """Remove item from an existing list"""
+  RemoveItemFromList(
+    """Input to remove item from list"""
+    input: RemoveItemFromListInput!
+  ): ListSchema!
+
+  """Update quantity of an item in a list"""
+  UpdateListItemQuantity(
+    """Input to update list item quantity"""
+    input: UpdateListItemQuantityInput!
+  ): ListSchema!
 }
 
 """Input to create new item"""
@@ -314,7 +332,7 @@ input CreateListInput {
   userId: ID!
 
   """List items"""
-  items: [CreateListItemInput!]!
+  items: [CreateListItemInput!]
 }
 
 """Input to create new list item"""
@@ -347,5 +365,38 @@ input UpdateListItemInput {
   itemId: ID!
 
   """Item quantity"""
+  quantity: Int!
+}
+
+"""Input to add item to list"""
+input AddItemToListInput {
+  """List id"""
+  listId: ID!
+
+  """Item id"""
+  itemId: ID!
+
+  """Item quantity"""
+  quantity: Int!
+}
+
+"""Input to remove item from list"""
+input RemoveItemFromListInput {
+  """List id"""
+  listId: ID!
+
+  """Item id"""
+  itemId: ID!
+}
+
+"""Input to update list item quantity"""
+input UpdateListItemQuantityInput {
+  """List id"""
+  listId: ID!
+
+  """Item id"""
+  itemId: ID!
+
+  """New quantity"""
   quantity: Int!
 }
