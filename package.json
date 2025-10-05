@@ -104,7 +104,8 @@
       "@users/(.*)": "<rootDir>/modules/users/$1",
       "@auth/(.*)": "<rootDir>/modules/auth/$1",
       "@lists/(.*)": "<rootDir>/modules/lists/$1",
-      "@items/(.*)": "<rootDir>/modules/items/$1"
+      "@items/(.*)": "<rootDir>/modules/items/$1",
+      "@shared/(.*)": "<rootDir>/modules/shared/$1"
     }
   }
 }
