@@ -3,9 +3,5 @@ export interface ListItemDto {
 
   itemId: string;
 
-  itemName: string;
-
-  itemQuantityUnits: string;
-
   quantity: number;
 }

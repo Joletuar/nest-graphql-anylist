@@ -3,10 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Item } from 'src/modules/items/domain/item.entity';
 import { ItemRepository } from 'src/modules/items/domain/item.repository';
 import { ItemNotFoundException } from 'src/modules/lists/domain/exceptions/item-not-found.exception';
-import { UserNotFoundException } from 'src/modules/lists/domain/exceptions/user-not-found.exception';
 import { ListRespository } from 'src/modules/lists/domain/list.repository';
-import { User } from 'src/modules/users/domain/user.entity';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { ulid } from 'ulidx';
 
 import { ListDto } from '../../list.dto';
@@ -18,15 +15,12 @@ export class CreateListCommandHandler
   implements ICommandHandler<CreateListCommand>
 {
   constructor(
-    private readonly userRepository: UserRepository,
     private readonly itemRepository: ItemRepository,
     private readonly listRepository: ListRespository,
   ) {}
 
   async execute(command: CreateListCommand): Promise<ListDto> {
     const { userId, items: itemsInput = [], name } = command;
-
-    const user = await this.ensureExistsUser(userId);
 
     const items: Item[] = [];
 
@@ -47,15 +41,7 @@ export class CreateListCommandHandler
       })),
     });
 
-    return ListMapper.toDto(createdList, user, items);
-  }
-
-  async ensureExistsUser(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
-
-    if (!user) throw new UserNotFoundException(id);
-
-    return user;
+    return ListMapper.toDto(createdList);
   }
 
   async ensureExistsItem(id: string): Promise<Item> {

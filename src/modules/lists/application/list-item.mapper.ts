@@ -8,10 +8,8 @@ export class ListItemMapper {
   static toDto(listItem: ListItem, item: Item): ListItemDto {
     return {
       id: listItem.id,
-      quantity: listItem.quantity,
       itemId: item.id,
-      itemName: item.name,
-      itemQuantityUnits: item.quantityUnits,
+      quantity: listItem.quantity,
     };
   }
 

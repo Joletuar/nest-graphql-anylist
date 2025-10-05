@@ -4,11 +4,8 @@ import { Item } from 'src/modules/items/domain/item.entity';
 import { ItemRepository } from 'src/modules/items/domain/item.repository';
 import { ItemNotFoundException } from 'src/modules/lists/domain/exceptions/item-not-found.exception';
 import { ListNotFoundException } from 'src/modules/lists/domain/exceptions/list-not-found.exception';
-import { UserNotFoundException } from 'src/modules/lists/domain/exceptions/user-not-found.exception';
 import { List } from 'src/modules/lists/domain/list.entity';
 import { ListRespository } from 'src/modules/lists/domain/list.repository';
-import { User } from 'src/modules/users/domain/user.entity';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
 import { ulid } from 'ulidx';
 
 import { ListDto } from '../../list.dto';
@@ -22,7 +19,6 @@ export class AddItemToListCommandHandler
   constructor(
     private readonly listRepository: ListRespository,
     private readonly itemRepository: ItemRepository,
-    private readonly userRepository: UserRepository,
   ) {}
 
   async execute(command: AddItemToListCommand): Promise<ListDto> {
@@ -48,7 +44,6 @@ export class AddItemToListCommandHandler
 
     const updatedList = await this.listRepository.update(existingList);
 
-    const user = await this.ensureExistsUser(existingList.userId);
     const items: Item[] = [];
 
     for (const listItem of updatedList.items) {
@@ -57,7 +52,7 @@ export class AddItemToListCommandHandler
       if (itemEntity) items.push(itemEntity);
     }
 
-    return ListMapper.toDto(updatedList, user, items);
+    return ListMapper.toDto(updatedList);
   }
 
   private async ensureExistsList(id: string): Promise<List> {
@@ -74,13 +69,5 @@ export class AddItemToListCommandHandler
     if (!item) throw new ItemNotFoundException(id);
 
     return item;
-  }
-
-  private async ensureExistsUser(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
-
-    if (!user) throw new UserNotFoundException(id);
-
-    return user;
   }
 }

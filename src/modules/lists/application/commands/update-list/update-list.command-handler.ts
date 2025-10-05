@@ -55,7 +55,7 @@ export class UpdateListCommandHandler
 
     const updatedList = await this.listRepository.update(listToUpdate);
 
-    return ListMapper.toDto(updatedList, user!, items);
+    return ListMapper.toDto(updatedList);
   }
 
   async ensureExistsList(id: string): Promise<List> {
