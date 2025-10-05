@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common';
+
 import { Item } from 'src/modules/items/domain/item.entity';
 import { ItemRepository } from 'src/modules/items/domain/item.repository';
 
@@ -7,6 +9,7 @@ import { ListRespository } from '../../domain/list.repository';
 import { ListDto } from '../list.dto';
 import { ListMapper } from '../list.mapper';
 
+@Injectable()
 export class FindListByIdService {
   constructor(
     private readonly listRepository: ListRespository,

@@ -103,11 +103,16 @@ type ListSchema {
   """List name"""
   name: String!
 
-  """User who created the list"""
-  user: UserSchema!
+  """The user that owns the list"""
+  user: UserSchema
+  items(
+    """The page number to retrieve (starting from 1)."""
+    page: Int = 1
 
-  """List items"""
-  items: [ListItemSchema!]!
+    """The maximum number of items to return."""
+    limit: Int = 10
+  ): ListItemSchema!
+  item: ItemSchema!
 }
 
 type Query {

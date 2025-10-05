@@ -1,25 +1,16 @@
-import { Item } from 'src/modules/items/domain/item.entity';
-
-import { ItemNotFoundException } from '../domain/exceptions/item-not-found.exception';
 import { ListItem } from '../domain/list-item.entity';
 import { ListItemDto } from './list-item.dto';
 
 export class ListItemMapper {
-  static toDto(listItem: ListItem, item: Item): ListItemDto {
+  static toDto(listItem: ListItem): ListItemDto {
     return {
       id: listItem.id,
-      itemId: item.id,
+      itemId: listItem.itemId,
       quantity: listItem.quantity,
     };
   }
 
-  static toDtoList(listItems: ListItem[], items: Item[]): ListItemDto[] {
-    return listItems.map((listItem) => {
-      const item = items.find((i) => i.id === listItem.itemId);
-
-      if (!item) throw new ItemNotFoundException(listItem.itemId);
-
-      return this.toDto(listItem, item);
-    });
+  static toDtoList(listItems: ListItem[]): ListItemDto[] {
+    return listItems.map((item) => this.toDto(item));
   }
 }
