@@ -9,24 +9,24 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 
-import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
-import { AddItemToListCommand } from 'src/modules/lists/application/commands/add-item-to-list/add-item-to-list.command';
-import { CreateListCommand } from 'src/modules/lists/application/commands/create-list/create-list.command';
-import { RemoveItemFromListCommand } from 'src/modules/lists/application/commands/remove-item-from-list/remove-item-from-list.command';
-import { UpdateListItemQuantityCommand } from 'src/modules/lists/application/commands/update-list-item-quantity/update-list-item-quantity.command';
-import { UpdateListCommand } from 'src/modules/lists/application/commands/update-list/update-list.command';
-import { ListItemDto } from 'src/modules/lists/application/list-item.dto';
-import { ListDto } from 'src/modules/lists/application/list.dto';
-import { FindListByIdQuery } from 'src/modules/lists/application/queries/find-list-by-id/find-list-by-id.query';
-import { GetAllListsQuery } from 'src/modules/lists/application/queries/get-all-lists/get-all-lists.query';
-import { SearchListItemsByCriteriaQuery } from 'src/modules/lists/application/queries/search-list-items-by-criteria/search-list-items-by-criteria.query';
-import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface';
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
-import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
-import { FindUserByIdQuery } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query';
-import { UserDto } from 'src/modules/users/application/user.dto';
-import { Role } from 'src/modules/users/domain/roles.enum';
-import { UserSchema } from 'src/modules/users/infrastructure/http/nestjs/user.schema';
+import { Auth } from '@auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { AddItemToListCommand } from '@lists/application/commands/add-item-to-list/add-item-to-list.command';
+import { CreateListCommand } from '@lists/application/commands/create-list/create-list.command';
+import { RemoveItemFromListCommand } from '@lists/application/commands/remove-item-from-list/remove-item-from-list.command';
+import { UpdateListItemQuantityCommand } from '@lists/application/commands/update-list-item-quantity/update-list-item-quantity.command';
+import { UpdateListCommand } from '@lists/application/commands/update-list/update-list.command';
+import { ListItemDto } from '@lists/application/list-item.dto';
+import { ListDto } from '@lists/application/list.dto';
+import { FindListByIdQuery } from '@lists/application/queries/find-list-by-id/find-list-by-id.query';
+import { GetAllListsQuery } from '@lists/application/queries/get-all-lists/get-all-lists.query';
+import { SearchListItemsByCriteriaQuery } from '@lists/application/queries/search-list-items-by-criteria/search-list-items-by-criteria.query';
+import { Criteria } from '@shared/domain/criteria/criteria.interface';
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
+import { ParseUlidPipe } from '@shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
+import { FindUserByIdQuery } from '@users/application/queries/find-user-by-id/find-user-by-id.query';
+import { UserDto } from '@users/application/user.dto';
+import { Role } from '@users/domain/roles.enum';
+import { UserSchema } from '@users/infrastructure/http/nestjs/user.schema';
 
 import { GetListItemsArgs } from './args/get-list-items.args';
 import { CreateListDto } from './dto/request/create-list.dto';

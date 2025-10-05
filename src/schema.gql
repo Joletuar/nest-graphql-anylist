@@ -2,180 +2,294 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""User schema"""
+"""
+User schema
+"""
 type UserSchema {
-  """User id"""
+  """
+  User id
+  """
   id: ID!
 
-  """User fullName"""
+  """
+  User fullName
+  """
   fullName: String!
 
-  """User email"""
+  """
+  User email
+  """
   email: String!
 
-  """User roles"""
+  """
+  User roles
+  """
   roles: [Role!]!
 
-  """Flag to indicate if the user is block or not"""
+  """
+  Flag to indicate if the user is block or not
+  """
   isActive: Boolean!
 }
 
-"""User roles"""
+"""
+User roles
+"""
 enum Role {
   ADMIN
   GUEST
 }
 
-"""Schema items"""
+"""
+Schema items
+"""
 type ItemSchema {
-  """Item id"""
+  """
+  Item id
+  """
   id: ID!
 
-  """Item name"""
+  """
+  Item name
+  """
   name: String!
 
-  """Item stock"""
+  """
+  Item stock
+  """
   stock: Int!
 
-  """Item unit"""
+  """
+  Item unit
+  """
   quantityUnits: Int!
 
-  """User id who created the item"""
+  """
+  User id who created the item
+  """
   userId: ID!
 }
 
-"""Pagination info"""
+"""
+Pagination info
+"""
 type PaginationSchema {
-  """Current page number"""
+  """
+  Current page number
+  """
   page: Int!
 
-  """Number of items per page"""
+  """
+  Number of items per page
+  """
   perPage: Int!
 
-  """Total number of items"""
+  """
+  Total number of items
+  """
   total: Int!
 }
 
-"""Schema for querying items"""
+"""
+Schema for querying items
+"""
 type QueryItemSchema {
-  """Item id"""
+  """
+  Item id
+  """
   id: ID!
 
-  """Item name"""
+  """
+  Item name
+  """
   name: String!
 
-  """Item stock"""
+  """
+  Item stock
+  """
   stock: Int!
 
-  """Item unit"""
+  """
+  Item unit
+  """
   quantityUnits: Int!
 
-  """User who owns the item"""
+  """
+  User who owns the item
+  """
   user: UserSchema!
 }
 
-"""Paginated items"""
+"""
+Paginated items
+"""
 type PaginatedItemsSchema {
-  """Items list"""
+  """
+  Items list
+  """
   items: [QueryItemSchema!]!
 
-  """Pagination info"""
+  """
+  Pagination info
+  """
   pagination: PaginationSchema!
 }
 
-"""Schema list items"""
+"""
+Schema list items
+"""
 type ListItemSchema {
-  """List item id"""
+  """
+  List item id
+  """
   id: ID!
 
-  """Item quantity in the list"""
+  """
+  Item quantity in the list
+  """
   quantity: Int!
 
-  """The item associated with the list item"""
+  """
+  The item associated with the list item
+  """
   item: ItemSchema!
 }
 
-"""Schema lists"""
+"""
+Schema lists
+"""
 type ListSchema {
-  """List id"""
+  """
+  List id
+  """
   id: ID!
 
-  """List name"""
+  """
+  List name
+  """
   name: String!
 
-  """The user that owns the list"""
+  """
+  The user that owns the list
+  """
   user: UserSchema
 
-  """Items in the list"""
+  """
+  Items in the list
+  """
   items(
-    """The page number to retrieve (starting from 1)."""
+    """
+    The page number to retrieve (starting from 1).
+    """
     page: Int = 1
 
-    """The maximum number of items to return."""
+    """
+    The maximum number of items to return.
+    """
     limit: Int = 10
   ): [ListItemSchema!]!
 }
 
 type Query {
-  """Get an items list"""
+  """
+  Get an items list
+  """
   GetAllItems: [QueryItemSchema!]!
 
-  """Find an item by id"""
+  """
+  Find an item by id
+  """
   FindItemById(
-    """Item id"""
+    """
+    Item id
+    """
     id: ID!
   ): QueryItemSchema!
 
-  """Search items with filters, pagination and sort"""
+  """
+  Search items with filters, pagination and sort
+  """
   SearchItems(
-    """Criteria to filter, paginate and sort"""
+    """
+    Criteria to filter, paginate and sort
+    """
     criteria: CriteriaInput!
   ): PaginatedItemsSchema!
 
-  """Get users list"""
+  """
+  Get users list
+  """
   GetAllUsers: [UserSchema!]!
 
-  """Find an user by id"""
+  """
+  Find an user by id
+  """
   FindUserById(
-    """User id"""
+    """
+    User id
+    """
     id: ID!
   ): UserSchema!
 
-  """Get all lists"""
+  """
+  Get all lists
+  """
   GetAllLists: [ListSchema!]!
 
-  """Find a list by id"""
+  """
+  Find a list by id
+  """
   FindListById(
-    """List id"""
+    """
+    List id
+    """
     id: ID!
   ): ListSchema!
 }
 
-"""Criteria to filter, paginate and sort"""
+"""
+Criteria to filter, paginate and sort
+"""
 input CriteriaInput {
-  """Filters to apply to the search"""
+  """
+  Filters to apply to the search
+  """
   filters: [FilterInput!]!
 
-  """Pagination options"""
+  """
+  Pagination options
+  """
   pagination: PaginationInput!
 
-  """Sort options"""
+  """
+  Sort options
+  """
   sort: SortInput
 }
 
-"""Input type for filtering"""
+"""
+Input type for filtering
+"""
 input FilterInput {
-  """Field to filter"""
+  """
+  Field to filter
+  """
   field: String!
 
-  """Value to filter"""
+  """
+  Value to filter
+  """
   value: String!
 
-  """Operator to use for filtering"""
+  """
+  Operator to use for filtering
+  """
   operator: FilterOperator!
 }
 
-"""Filter operator"""
+"""
+Filter operator
+"""
 enum FilterOperator {
   EQUAL
   NOT_EQUAL
@@ -186,223 +300,367 @@ enum FilterOperator {
   CONTAINS
 }
 
-"""Pagination input"""
+"""
+Pagination input
+"""
 input PaginationInput {
   page: Int = 1
   perPage: Int = 10
 }
 
-"""Sorting input"""
+"""
+Sorting input
+"""
 input SortInput {
-  """Sort order (asc or desc)"""
+  """
+  Sort order (asc or desc)
+  """
   order: String!
 
-  """Sort field"""
+  """
+  Sort field
+  """
   field: String!
 }
 
 type Mutation {
-  """Create new item"""
+  """
+  Create new item
+  """
   CreateItem(
-    """Args to create new Item"""
+    """
+    Args to create new Item
+    """
     input: CreateItemInput!
   ): ItemSchema!
 
-  """Update an existing item"""
+  """
+  Update an existing item
+  """
   UpdateItem(
-    """Item id"""
+    """
+    Item id
+    """
     id: ID!
 
-    """Input to update item"""
+    """
+    Input to update item
+    """
     input: UpdateItemInput!
   ): ItemSchema!
 
-  """Create new user"""
+  """
+  Create new user
+  """
   CreateUser(
-    """Args to create new User"""
+    """
+    Args to create new User
+    """
     input: CreateUserInput!
   ): UserSchema!
 
-  """Update an existing user"""
+  """
+  Update an existing user
+  """
   UpdateUser(
-    """User id"""
+    """
+    User id
+    """
     id: ID!
 
-    """Input to update User"""
+    """
+    Input to update User
+    """
     input: UpdateUserInput!
   ): UserSchema!
 
-  """Create new list"""
+  """
+  Create new list
+  """
   CreateList(
-    """Args to create new List"""
+    """
+    Args to create new List
+    """
     input: CreateListInput!
   ): ListSchema!
 
-  """Update an existing list"""
+  """
+  Update an existing list
+  """
   UpdateList(
-    """List id"""
+    """
+    List id
+    """
     id: ID!
 
-    """Input to update list"""
+    """
+    Input to update list
+    """
     input: UpdateListInput!
   ): ListSchema!
 
-  """Add item to an existing list"""
+  """
+  Add item to an existing list
+  """
   AddItemToList(
-    """Input to add item to list"""
+    """
+    Input to add item to list
+    """
     input: AddItemToListInput!
   ): ListSchema!
 
-  """Remove item from an existing list"""
+  """
+  Remove item from an existing list
+  """
   RemoveItemFromList(
-    """Input to remove item from list"""
+    """
+    Input to remove item from list
+    """
     input: RemoveItemFromListInput!
   ): ListSchema!
 
-  """Update quantity of an item in a list"""
+  """
+  Update quantity of an item in a list
+  """
   UpdateListItemQuantity(
-    """Input to update list item quantity"""
+    """
+    Input to update list item quantity
+    """
     input: UpdateListItemQuantityInput!
   ): ListSchema!
 }
 
-"""Input to create new item"""
+"""
+Input to create new item
+"""
 input CreateItemInput {
-  """Item name"""
+  """
+  Item name
+  """
   name: String!
 
-  """Item quantity"""
+  """
+  Item quantity
+  """
   quantity: Int!
 
-  """Item quantityUnits"""
+  """
+  Item quantityUnits
+  """
   quantityUnits: String!
 
-  """Item userId"""
+  """
+  Item userId
+  """
   userId: String!
 }
 
-"""Input to update an item"""
+"""
+Input to update an item
+"""
 input UpdateItemInput {
-  """Item name"""
+  """
+  Item name
+  """
   name: String
 
-  """Item quantity"""
+  """
+  Item quantity
+  """
   quantity: Int
 
-  """Item quantityUnits"""
+  """
+  Item quantityUnits
+  """
   quantityUnits: String
 
-  """Item userId"""
+  """
+  Item userId
+  """
   userId: String
 }
 
-"""Input to create new user"""
+"""
+Input to create new user
+"""
 input CreateUserInput {
-  """User fullName"""
+  """
+  User fullName
+  """
   fullName: String!
 
-  """User email"""
+  """
+  User email
+  """
   email: String!
 
-  """User password"""
+  """
+  User password
+  """
   password: String!
 
-  """User roles"""
+  """
+  User roles
+  """
   roles: [Role!]!
 
-  """Flag to indicate if the user is block or not"""
+  """
+  Flag to indicate if the user is block or not
+  """
   isActive: Boolean!
 }
 
-"""Input to update an user"""
+"""
+Input to update an user
+"""
 input UpdateUserInput {
-  """User fullName"""
+  """
+  User fullName
+  """
   fullName: String
 
-  """User email"""
+  """
+  User email
+  """
   email: String
 
-  """User roles"""
+  """
+  User roles
+  """
   roles: [Role!]
 
-  """Flag to indicate if the user is block or not"""
+  """
+  Flag to indicate if the user is block or not
+  """
   isActive: Boolean
 }
 
-"""Input to create new list"""
+"""
+Input to create new list
+"""
 input CreateListInput {
-  """List name"""
+  """
+  List name
+  """
   name: String!
 
-  """List userId"""
+  """
+  List userId
+  """
   userId: ID!
 
-  """List items"""
+  """
+  List items
+  """
   items: [CreateListItemInput!]
 }
 
-"""Input to create new list item"""
+"""
+Input to create new list item
+"""
 input CreateListItemInput {
-  """Item id"""
+  """
+  Item id
+  """
   itemId: ID!
 
-  """Item quantity"""
+  """
+  Item quantity
+  """
   quantity: Int!
 }
 
-"""Input to update list"""
+"""
+Input to update list
+"""
 input UpdateListInput {
-  """List name"""
+  """
+  List name
+  """
   name: String
 
-  """List userId"""
+  """
+  List userId
+  """
   userId: ID!
 
-  """List items"""
+  """
+  List items
+  """
   items: [UpdateListItemInput!]
 }
 
-"""Input to update list item"""
+"""
+Input to update list item
+"""
 input UpdateListItemInput {
-  """List item id"""
+  """
+  List item id
+  """
   id: ID!
 
-  """Item id"""
+  """
+  Item id
+  """
   itemId: ID!
 
-  """Item quantity"""
+  """
+  Item quantity
+  """
   quantity: Int!
 }
 
-"""Input to add item to list"""
+"""
+Input to add item to list
+"""
 input AddItemToListInput {
-  """List id"""
+  """
+  List id
+  """
   listId: ID!
 
-  """Item id"""
+  """
+  Item id
+  """
   itemId: ID!
 
-  """Item quantity"""
+  """
+  Item quantity
+  """
   quantity: Int!
 }
 
-"""Input to remove item from list"""
+"""
+Input to remove item from list
+"""
 input RemoveItemFromListInput {
-  """List id"""
+  """
+  List id
+  """
   listId: ID!
 
-  """Item id"""
+  """
+  Item id
+  """
   itemId: ID!
 }
 
-"""Input to update list item quantity"""
+"""
+Input to update list item quantity
+"""
 input UpdateListItemQuantityInput {
-  """List id"""
+  """
+  List id
+  """
   listId: ID!
 
-  """Item id"""
+  """
+  Item id
+  """
   itemId: ID!
 
-  """New quantity"""
+  """
+  New quantity
+  """
   quantity: Int!
 }

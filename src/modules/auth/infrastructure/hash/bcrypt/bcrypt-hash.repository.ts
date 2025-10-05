@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
+import { HashRepository } from '@auth/domain/hash.repository';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import * as bcrypt from 'bcrypt';
-import { HashRepository } from 'src/modules/auth/domain/hash.repository';
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 
 import { BcryptException } from './exceptions/bcrypt.exception';
 

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-import { UserSchema } from 'src/modules/users/infrastructure/http/nestjs/user.schema';
+import { UserSchema } from '@users/infrastructure/http/nestjs/user.schema';
 
 @ObjectType({
   description: 'Schema lists',

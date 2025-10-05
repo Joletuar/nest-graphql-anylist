@@ -12,10 +12,11 @@
     "baseUrl": "./",
     "paths": {
       "@modules/*": ["src/modules/*"],
-      "@users/*": ["src/users/*"],
-      "@auth/*": ["src/auth/*"],
-      "@lists/*": ["src/lists/*"],
-      "@items/*": ["src/items/*"]
+      "@users/*": ["src/modules/users/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@lists/*": ["src/modules/lists/*"],
+      "@items/*": ["src/modules/items/*"],
+      "@shared/*": ["src/modules/shared/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

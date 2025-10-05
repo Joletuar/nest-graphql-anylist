@@ -1,3 +1,4 @@
+import { Role } from '@users/domain/roles.enum';
 import {
   ArrayMinSize,
   IsArray,
@@ -8,7 +9,6 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { Role } from 'src/modules/users/domain/roles.enum';
 
 export class CreateUserDto {
   @IsString()

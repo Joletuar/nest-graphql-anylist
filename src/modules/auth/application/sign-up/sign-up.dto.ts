@@ -1,4 +1,4 @@
-import { Role as UserRole } from 'src/modules/users/domain/roles.enum';
+import { Role as UserRole } from '@users/domain/roles.enum';
 
 export interface SignUpDto {
   fullName: string;

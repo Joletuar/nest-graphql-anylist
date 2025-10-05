@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
-import { HashRepository } from 'src/modules/auth/domain/hash.repository';
-import { TokenRepository } from 'src/modules/auth/domain/token.repository';
-import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
-import { CreatedUserDto } from 'src/modules/users/application/commands/create-user/created-user.dto';
+import { HashRepository } from '@auth/domain/hash.repository';
+import { TokenRepository } from '@auth/domain/token.repository';
+import { CreateUserCommand } from '@users/application/commands/create-user/create-user.command';
+import { CreatedUserDto } from '@users/application/commands/create-user/created-user.dto';
 
 import { SignUpDto } from './sign-up.dto';
 

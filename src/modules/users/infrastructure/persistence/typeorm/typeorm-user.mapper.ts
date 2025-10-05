@@ -1,4 +1,4 @@
-import { User } from 'src/modules/users/domain/user.entity';
+import { User } from '@users/domain/user.entity';
 
 import { UserModel } from './user.model';
 

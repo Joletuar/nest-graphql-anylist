@@ -1,3 +1,6 @@
+import { Criteria } from '@modules/shared/domain/criteria/criteria.interface';
+import { FilterOperator } from '@modules/shared/domain/criteria/filter-operator.enum';
+import { Filter } from '@modules/shared/domain/criteria/filter.interface';
 import {
   FindManyOptions,
   FindOptionsOrder,
@@ -10,9 +13,6 @@ import {
   Not,
 } from 'typeorm';
 
-import { Criteria } from '../../../domain/criteria/criteria.interface';
-import { FilterOperator } from '../../../domain/criteria/filter-operator.enum';
-import { Filter } from '../../../domain/criteria/filter.interface';
 import { TypeOrmCriteriaConverterException } from './exceptions/typeorm-criteria-converter.exception';
 
 export class TypeOrmCriteriaConverter {

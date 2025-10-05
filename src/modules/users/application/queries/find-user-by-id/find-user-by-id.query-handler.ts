@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { UserNotFoundException } from 'src/modules/users/domain/exceptions/user-not-found.exception';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { UserNotFoundException } from '@users/domain/exceptions/user-not-found.exception';
+import { UserRepository } from '@users/domain/user.repository';
 
 import { UserDto } from '../../user.dto';
 import { UserMapper } from '../../user.mapper';

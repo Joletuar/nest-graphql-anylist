@@ -1,6 +1,6 @@
 import { Query } from '@nestjs/cqrs';
 
-import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface';
+import { Criteria } from '@shared/domain/criteria/criteria.interface';
 
 import { PaginatedListItemsDto } from './paginated-list-items.dto';
 

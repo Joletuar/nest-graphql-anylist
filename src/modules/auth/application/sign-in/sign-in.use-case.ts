@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
-import { User } from 'src/modules/users/domain/user.entity';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
+import { User } from '@users/domain/user.entity';
+import { UserRepository } from '@users/domain/user.repository';
 
 import { InvalidCredentialsException } from '../../domain/exceptions/invalid-credentials.exception';
 import { HashRepository } from '../../domain/hash.repository';

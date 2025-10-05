@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ItemNotFoundException } from 'src/modules/items/domain/exceptions/item-not-found.exception';
-import { Item } from 'src/modules/items/domain/item.entity';
-import { ItemRepository } from 'src/modules/items/domain/item.repository';
+import { ItemNotFoundException } from '@items/domain/exceptions/item-not-found.exception';
+import { Item } from '@items/domain/item.entity';
+import { ItemRepository } from '@items/domain/item.repository';
 
 import { ItemDto } from '../../item.dto';
 import { ItemMapper } from '../../item.mapper';

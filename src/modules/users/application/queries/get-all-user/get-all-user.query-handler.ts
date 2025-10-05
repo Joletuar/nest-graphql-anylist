@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { UserRepository } from '@users/domain/user.repository';
 
 import { UserDto } from '../../user.dto';
 import { UserMapper } from '../../user.mapper';

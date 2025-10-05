@@ -1,6 +1,6 @@
 import { Field, ObjectType, OmitType } from '@nestjs/graphql';
 
-import { UserSchema } from 'src/modules/users/infrastructure/http/nestjs/user.schema';
+import { UserSchema } from '@users/infrastructure/http/nestjs/user.schema';
 
 import { ItemSchema } from './item.schema';
 

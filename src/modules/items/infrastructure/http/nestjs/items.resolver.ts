@@ -1,19 +1,19 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
-import { CreateItemCommand } from 'src/modules/items/application/commands/create-item/create-item.command';
-import { UpdateItemCommand } from 'src/modules/items/application/commands/update-item/update-item.command';
-import { ItemDto } from 'src/modules/items/application/item.dto';
-import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
-import { GetAllItemsQuery } from 'src/modules/items/application/queries/get-all-items/get-all-items.query';
-import { QueryItemDto } from 'src/modules/items/application/queries/query-item.dto';
-import { PaginatedItemsDto } from 'src/modules/items/application/queries/search-items-by-criteria/paginated-items.dto';
-import { SearchItemsByCriteriaQuery } from 'src/modules/items/application/queries/search-items-by-criteria/search-items-by-criteria.query';
-import { CriteriaDto } from 'src/modules/shared/infrastructure/http/nestjs/dtos/criteria.dto';
-import { CriteriaInput } from 'src/modules/shared/infrastructure/http/nestjs/inputs/criteria.input';
-import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Auth } from '@auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { CreateItemCommand } from '@items/application/commands/create-item/create-item.command';
+import { UpdateItemCommand } from '@items/application/commands/update-item/update-item.command';
+import { ItemDto } from '@items/application/item.dto';
+import { FindItemByIdQuery } from '@items/application/queries/find-item-by-id/find-item-by-id.query';
+import { GetAllItemsQuery } from '@items/application/queries/get-all-items/get-all-items.query';
+import { QueryItemDto } from '@items/application/queries/query-item.dto';
+import { PaginatedItemsDto } from '@items/application/queries/search-items-by-criteria/paginated-items.dto';
+import { SearchItemsByCriteriaQuery } from '@items/application/queries/search-items-by-criteria/search-items-by-criteria.query';
+import { CriteriaDto } from '@shared/infrastructure/http/nestjs/dtos/criteria.dto';
+import { CriteriaInput } from '@shared/infrastructure/http/nestjs/inputs/criteria.input';
+import { ParseUlidPipe } from '@shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
+import { Role } from '@users/domain/roles.enum';
 
 import { CreateItemDto } from './dtos/create-item.dto';
 import { UpdateItemDto } from './dtos/update-item.dto';

@@ -1,4 +1,4 @@
-import { UserDto } from 'src/modules/users/application/user.dto';
+import { UserDto } from '@users/application/user.dto';
 
 import { Item } from '../domain/item.entity';
 import { ItemDto } from './item.dto';

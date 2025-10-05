@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Item } from 'src/modules/items/domain/item.entity';
-import { ItemRepository } from 'src/modules/items/domain/item.repository';
+import { Item } from '@items/domain/item.entity';
+import { ItemRepository } from '@items/domain/item.repository';
 
 import { ItemNotFoundException } from '../../domain/exceptions/item-not-found.exception';
 import { ListNotFoundException } from '../../domain/exceptions/list-not-found.exception';

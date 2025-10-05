@@ -20,7 +20,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "format:fix": "npx prettier --write .",
-    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm -- migration:generate -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts ./src/modules/shared/infrastructure/persistence/typeorm/migrations/migration",
     "migration:run": "npm run typeorm -- migration:run -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/modules/shared/infrastructure/persistence/typeorm/typeorm-datasource.ts",
@@ -101,10 +101,10 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "@modules/(.*)": "<rootDir>/modules/$1",
-      "@users/(.*)": "<rootDir>/users/$1",
-      "@auth/(.*)": "<rootDir>/auth/$1",
-      "@lists/(.*)": "<rootDir>/lists/$1",
-      "@items/(.*)": "<rootDir>/items/$1"
+      "@users/(.*)": "<rootDir>/modules/users/$1",
+      "@auth/(.*)": "<rootDir>/modules/auth/$1",
+      "@lists/(.*)": "<rootDir>/modules/lists/$1",
+      "@items/(.*)": "<rootDir>/modules/items/$1"
     }
   }
 }

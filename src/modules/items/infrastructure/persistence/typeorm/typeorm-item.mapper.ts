@@ -1,4 +1,4 @@
-import { Item } from 'src/modules/items/domain/item.entity';
+import { Item } from '@items/domain/item.entity';
 
 import { ItemModel } from './item.model';
 

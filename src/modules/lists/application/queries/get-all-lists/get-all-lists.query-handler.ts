@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { ListRespository } from 'src/modules/lists/domain/list.repository';
+import { ListRespository } from '@lists/domain/list.repository';
 
 import { ListDto } from '../../list.dto';
 import { FindListByIdService } from '../../services/find-list-by-id.service';

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Role } from '@users/domain/roles.enum';
 
 @ObjectType({
   description: 'User schema',

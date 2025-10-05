@@ -4,12 +4,11 @@ import 'dotenv/config';
 
 import { TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
+import { ItemModel } from '@items/infrastructure/persistence/typeorm/item.model';
+import { ListItemModel } from '@lists/infrastructure/persistence/typeorm/list-item.model';
+import { ListModel } from '@lists/infrastructure/persistence/typeorm/list.model';
+import { UserModel } from '@users/infrastructure/persistence/typeorm/user.model';
 import { DataSourceOptions } from 'typeorm';
-
-import { ItemModel } from '../../../../items/infrastructure/persistence/typeorm/item.model';
-import { ListItemModel } from '../../../../lists/infrastructure/persistence/typeorm/list-item.model';
-import { ListModel } from '../../../../lists/infrastructure/persistence/typeorm/list.model';
-import { UserModel } from '../../../../users/infrastructure/persistence/typeorm/user.model';
 
 export const typeOrmConfig: TypeOrmOptionsFactory | DataSourceOptions = {
   applicationName: 'NEST_GRAPHQL_ANYLIST',

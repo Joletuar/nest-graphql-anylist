@@ -1,11 +1,11 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { UserNotFoundException } from 'src/modules/items/domain/exceptions/user-not-found.exception';
-import { Item } from 'src/modules/items/domain/item.entity';
-import { ItemRepository } from 'src/modules/items/domain/item.repository';
-import { UserDto } from 'src/modules/users/application/user.dto';
-import { UserMapper } from 'src/modules/users/application/user.mapper';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { UserNotFoundException } from '@items/domain/exceptions/user-not-found.exception';
+import { Item } from '@items/domain/item.entity';
+import { ItemRepository } from '@items/domain/item.repository';
+import { UserDto } from '@users/application/user.dto';
+import { UserMapper } from '@users/application/user.mapper';
+import { UserRepository } from '@users/domain/user.repository';
 
 import { ItemMapper } from '../../item.mapper';
 import { PaginatedItemsDto } from './paginated-items.dto';

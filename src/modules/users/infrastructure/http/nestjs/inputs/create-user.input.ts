@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Role } from '@users/domain/roles.enum';
 
 @InputType({
   description: 'Input to create new user',

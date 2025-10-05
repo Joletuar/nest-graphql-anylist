@@ -1,12 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Item } from 'src/modules/items/domain/item.entity';
-import { ItemRepository } from 'src/modules/items/domain/item.repository';
-import { ItemNotFoundException } from 'src/modules/lists/domain/exceptions/item-not-found.exception';
-import { ListItemNotFoundException } from 'src/modules/lists/domain/exceptions/list-item-not-found.exception';
-import { ListNotFoundException } from 'src/modules/lists/domain/exceptions/list-not-found.exception';
-import { List } from 'src/modules/lists/domain/list.entity';
-import { ListRespository } from 'src/modules/lists/domain/list.repository';
+import { Item } from '@items/domain/item.entity';
+import { ItemRepository } from '@items/domain/item.repository';
+import { ItemNotFoundException } from '@lists/domain/exceptions/item-not-found.exception';
+import { ListItemNotFoundException } from '@lists/domain/exceptions/list-item-not-found.exception';
+import { ListNotFoundException } from '@lists/domain/exceptions/list-not-found.exception';
+import { List } from '@lists/domain/list.entity';
+import { ListRespository } from '@lists/domain/list.repository';
 
 import { ListDto } from '../../list.dto';
 import { ListMapper } from '../../list.mapper';

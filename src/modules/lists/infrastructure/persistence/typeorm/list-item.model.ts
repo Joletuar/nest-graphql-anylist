@@ -1,7 +1,7 @@
+import { ItemModel } from '@items/infrastructure/persistence/typeorm/item.model';
+import { BaseModel } from '@shared/infrastructure/persistence/typeorm/base.model';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { ItemModel } from '../../../../items/infrastructure/persistence/typeorm/item.model';
-import { BaseModel } from '../../../../shared/infrastructure/persistence/typeorm/base.model';
 import { ListModel } from './list.model';
 
 @Entity({ name: 'list_items' })

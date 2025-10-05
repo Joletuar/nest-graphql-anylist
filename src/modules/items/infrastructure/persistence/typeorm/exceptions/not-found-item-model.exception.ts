@@ -1,4 +1,4 @@
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 
 export class NotFoundItemModelException extends InfraestructureException {
   constructor(id: string) {

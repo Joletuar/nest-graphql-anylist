@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { SignIn } from 'src/modules/auth/application/sign-in/sign-in.use-case';
-import { SignUp } from 'src/modules/auth/application/sign-up/sign-up.use-case';
+import { SignIn } from '@auth/application/sign-in/sign-in.use-case';
+import { SignUp } from '@auth/application/sign-up/sign-up.use-case';
 
 import { AuthResponseDto } from './dtos/auth-response.dto';
 import { SignInDto } from './dtos/sign-in.dto';

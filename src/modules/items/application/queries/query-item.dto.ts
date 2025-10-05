@@ -1,4 +1,4 @@
-import { UserDto as BaseUserDto } from 'src/modules/users/application/user.dto';
+import { UserDto as BaseUserDto } from '@users/application/user.dto';
 
 import { ItemDto } from '../item.dto';
 

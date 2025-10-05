@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
-import { UserAlreadyExistsException } from 'src/modules/users/domain/exceptions/user-already-exists.exception';
-import { User } from 'src/modules/users/domain/user.entity';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
+import { UserAlreadyExistsException } from '@users/domain/exceptions/user-already-exists.exception';
+import { User } from '@users/domain/user.entity';
+import { UserRepository } from '@users/domain/user.repository';
 import { ulid } from 'ulidx';
 
 import { UserMapper } from '../../user.mapper';

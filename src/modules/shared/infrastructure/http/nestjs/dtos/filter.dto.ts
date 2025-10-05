@@ -1,5 +1,5 @@
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
 
 export class FilterDto {
   @IsString()

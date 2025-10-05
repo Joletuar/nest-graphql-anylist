@@ -1,4 +1,4 @@
-import { Paginated } from 'src/modules/shared/domain/paginated.entity';
+import { Paginated } from '@shared/domain/paginated.entity';
 
 import { User } from '../domain/user.entity';
 import { PaginatedUsersDto } from './queries/search-user-by-criteria/paginated-users.dto';

@@ -1,6 +1,6 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 
 @InputType({
   description: 'Input type for filtering',

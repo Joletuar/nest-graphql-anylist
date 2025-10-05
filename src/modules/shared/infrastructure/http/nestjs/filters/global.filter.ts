@@ -10,11 +10,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+import { DomainException } from '@shared/domain/exceptions/domain.exception';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { ValidationError } from 'class-validator';
 import { Response } from 'express';
 import { GraphQLError } from 'graphql';
-import { DomainException } from 'src/modules/shared/domain/exceptions/domain.exception';
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
 
 type FormattedError = {
   message: string;

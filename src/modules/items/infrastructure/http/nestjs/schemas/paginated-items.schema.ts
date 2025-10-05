@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { PaginationSchema } from 'src/modules/shared/infrastructure/http/nestjs/schemas/pagination.schema';
+import { PaginationSchema } from '@shared/infrastructure/http/nestjs/schemas/pagination.schema';
 
 import { QueryItemSchema } from './query-item.schema';
 

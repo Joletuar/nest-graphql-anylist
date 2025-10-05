@@ -1,16 +1,16 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
-import { ParseUlidPipe } from 'src/modules/shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
-import { CreateUserCommand } from 'src/modules/users/application/commands/create-user/create-user.command';
-import { CreatedUserDto } from 'src/modules/users/application/commands/create-user/created-user.dto';
-import { UpdateUserCommand } from 'src/modules/users/application/commands/update-user/update-user.command';
-import { UpdatedUserDto } from 'src/modules/users/application/commands/update-user/updated-user.dto';
-import { FindUserByIdQuery } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query';
-import { GetAllUsersQuery } from 'src/modules/users/application/queries/get-all-user/get-all-user.query';
-import { UserDto } from 'src/modules/users/application/user.dto';
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Auth } from '@auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { ParseUlidPipe } from '@shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
+import { CreateUserCommand } from '@users/application/commands/create-user/create-user.command';
+import { CreatedUserDto } from '@users/application/commands/create-user/created-user.dto';
+import { UpdateUserCommand } from '@users/application/commands/update-user/update-user.command';
+import { UpdatedUserDto } from '@users/application/commands/update-user/updated-user.dto';
+import { FindUserByIdQuery } from '@users/application/queries/find-user-by-id/find-user-by-id.query';
+import { GetAllUsersQuery } from '@users/application/queries/get-all-user/get-all-user.query';
+import { UserDto } from '@users/application/user.dto';
+import { Role } from '@users/domain/roles.enum';
 
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';

@@ -1,12 +1,12 @@
 import { QueryBus } from '@nestjs/cqrs';
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 
-import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
-import { ItemDto } from 'src/modules/items/application/item.dto';
-import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
-import { ItemSchema } from 'src/modules/items/infrastructure/http/nestjs/schemas/item.schema';
-import { ListItemDto } from 'src/modules/lists/application/list-item.dto';
-import { Role } from 'src/modules/users/domain/roles.enum';
+import { Auth } from '@auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { ItemDto } from '@items/application/item.dto';
+import { FindItemByIdQuery } from '@items/application/queries/find-item-by-id/find-item-by-id.query';
+import { ItemSchema } from '@items/infrastructure/http/nestjs/schemas/item.schema';
+import { ListItemDto } from '@lists/application/list-item.dto';
+import { Role } from '@users/domain/roles.enum';
 
 import { ListItemSchema } from './schemas/list-item.schema';
 

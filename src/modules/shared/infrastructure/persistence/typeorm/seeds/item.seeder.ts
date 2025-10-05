@@ -1,5 +1,5 @@
-import { ItemModel } from 'src/modules/items/infrastructure/persistence/typeorm/item.model';
-import { UserModel } from 'src/modules/users/infrastructure/persistence/typeorm/user.model';
+import { ItemModel } from '@items/infrastructure/persistence/typeorm/item.model';
+import { UserModel } from '@users/infrastructure/persistence/typeorm/user.model';
 import { ulid } from 'ulidx';
 
 import { Seeder } from './seeder.abstract';

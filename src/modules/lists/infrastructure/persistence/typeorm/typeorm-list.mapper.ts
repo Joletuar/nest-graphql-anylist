@@ -1,4 +1,4 @@
-import { List } from 'src/modules/lists/domain/list.entity';
+import { List } from '@lists/domain/list.entity';
 
 import { ListModel } from './list.model';
 import { TypeOrmListItemMapper } from './typeorm-list-item.mapper';

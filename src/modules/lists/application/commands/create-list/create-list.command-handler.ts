@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Item } from 'src/modules/items/domain/item.entity';
-import { ItemRepository } from 'src/modules/items/domain/item.repository';
-import { ItemNotFoundException } from 'src/modules/lists/domain/exceptions/item-not-found.exception';
-import { ListRespository } from 'src/modules/lists/domain/list.repository';
+import { Item } from '@items/domain/item.entity';
+import { ItemRepository } from '@items/domain/item.repository';
+import { ItemNotFoundException } from '@lists/domain/exceptions/item-not-found.exception';
+import { ListRespository } from '@lists/domain/list.repository';
 import { ulid } from 'ulidx';
 
 import { ListDto } from '../../list.dto';

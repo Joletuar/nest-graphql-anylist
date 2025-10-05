@@ -2,8 +2,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { TokenRepository } from 'src/modules/auth/domain/token.repository';
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
+import { TokenRepository } from '@auth/domain/token.repository';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 
 import { JwtException } from './exceptions/jwt.exception';
 

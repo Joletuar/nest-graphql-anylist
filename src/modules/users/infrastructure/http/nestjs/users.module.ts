@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CreateUserCommandHanlder } from 'src/modules/users/application/commands/create-user/create-user.command-handler';
-import { UpdateUserCommandHanlder } from 'src/modules/users/application/commands/update-user/update-user.command-handler';
-import { FindUserByIdQueryHandler } from 'src/modules/users/application/queries/find-user-by-id/find-user-by-id.query-handler';
-import { GetAllUsersQueryHandler } from 'src/modules/users/application/queries/get-all-user/get-all-user.query-handler';
-import { SearchUserByCriteriaQueryHandler } from 'src/modules/users/application/queries/search-user-by-criteria/search-user.query-handler';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
+import { CreateUserCommandHanlder } from '@users/application/commands/create-user/create-user.command-handler';
+import { UpdateUserCommandHanlder } from '@users/application/commands/update-user/update-user.command-handler';
+import { FindUserByIdQueryHandler } from '@users/application/queries/find-user-by-id/find-user-by-id.query-handler';
+import { GetAllUsersQueryHandler } from '@users/application/queries/get-all-user/get-all-user.query-handler';
+import { SearchUserByCriteriaQueryHandler } from '@users/application/queries/search-user-by-criteria/search-user.query-handler';
+import { UserRepository } from '@users/domain/user.repository';
 
 import { TypeOrmUserRepository } from '../../persistence/typeorm/typeorm-user.repository';
 import { UserModel } from '../../persistence/typeorm/user.model';

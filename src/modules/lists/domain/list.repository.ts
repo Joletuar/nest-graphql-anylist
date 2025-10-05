@@ -1,4 +1,4 @@
-import { Nullable } from 'src/modules/shared/domain/nullable.type';
+import { Nullable } from '@shared/domain/nullable.type';
 
 import { List } from './list.entity';
 

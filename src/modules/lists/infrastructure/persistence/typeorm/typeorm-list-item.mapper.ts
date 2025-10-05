@@ -1,4 +1,4 @@
-import { ListItem } from 'src/modules/lists/domain/list-item.entity';
+import { ListItem } from '@lists/domain/list-item.entity';
 
 import { ListItemModel } from './list-item.model';
 

@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Criteria } from 'src/modules/shared/domain/criteria/criteria.interface';
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
-import { Paginated } from 'src/modules/shared/domain/paginated.entity';
-import { TypeOrmException } from 'src/modules/shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
-import { TypeOrmCriteriaConverter } from 'src/modules/shared/infrastructure/persistence/typeorm/typeorm-criteria-converter';
+import { ListItem } from '@modules/lists/domain/list-item.entity';
+import { ListItemRepository } from '@modules/lists/domain/list-item.repository';
+import { Criteria } from '@shared/domain/criteria/criteria.interface';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { Paginated } from '@shared/domain/paginated.entity';
+import { TypeOrmException } from '@shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
+import { TypeOrmCriteriaConverter } from '@shared/infrastructure/persistence/typeorm/typeorm-criteria-converter';
 import { Repository } from 'typeorm';
 
-import { ListItem } from '../../../domain/list-item.entity';
-import { ListItemRepository } from '../../../domain/list-item.repository';
 import { ListItemModel } from './list-item.model';
 import { TypeOrmListItemMapper } from './typeorm-list-item.mapper';
 

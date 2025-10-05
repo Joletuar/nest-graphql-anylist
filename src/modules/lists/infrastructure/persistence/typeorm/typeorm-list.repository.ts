@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { List } from 'src/modules/lists/domain/list.entity';
-import { ListRespository } from 'src/modules/lists/domain/list.repository';
-import { InfraestructureException } from 'src/modules/shared/domain/exceptions/infraestructure.exception';
-import { Nullable } from 'src/modules/shared/domain/nullable.type';
-import { BaseTypeOrmRepository } from 'src/modules/shared/infrastructure/persistence/typeorm/base-typeorm.repository';
-import { TypeOrmException } from 'src/modules/shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
+import { List } from '@lists/domain/list.entity';
+import { ListRespository } from '@lists/domain/list.repository';
+import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { Nullable } from '@shared/domain/nullable.type';
+import { BaseTypeOrmRepository } from '@shared/infrastructure/persistence/typeorm/base-typeorm.repository';
+import { TypeOrmException } from '@shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
 import { Repository } from 'typeorm';
 
 import { NotFoundListModelException } from './exceptions/not-found-list-model.exception';

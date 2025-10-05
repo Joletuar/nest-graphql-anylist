@@ -1,8 +1,7 @@
+import { ItemModel } from '@items/infrastructure/persistence/typeorm/item.model';
+import { Role } from '@modules/users/domain/roles.enum';
+import { BaseModel } from '@shared/infrastructure/persistence/typeorm/base.model';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-
-import { ItemModel } from '../../../../items/infrastructure/persistence/typeorm/item.model';
-import { BaseModel } from '../../../../shared/infrastructure/persistence/typeorm/base.model';
-import { Role } from '../../../domain/roles.enum';
 
 @Entity({
   name: 'users',

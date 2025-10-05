@@ -7,11 +7,11 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
+import { TokenRepository } from '@auth/domain/token.repository';
+import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
+import { User } from '@users/domain/user.entity';
+import { UserRepository } from '@users/domain/user.repository';
 import { Request } from 'express';
-import { TokenRepository } from 'src/modules/auth/domain/token.repository';
-import { FilterOperator } from 'src/modules/shared/domain/criteria/filter-operator.enum';
-import { User } from 'src/modules/users/domain/user.entity';
-import { UserRepository } from 'src/modules/users/domain/user.repository';
 
 interface UserPayload {
   email: string;

@@ -1,6 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { ListItemRepository } from '../../../domain/list-item.repository';
+import { ListItemRepository } from '@modules/lists/domain/list-item.repository';
+
 import { ListItemMapper } from '../../list-item.mapper';
 import { PaginatedListItemsDto } from './paginated-list-items.dto';
 import { SearchListItemsByCriteriaQuery } from './search-list-items-by-criteria.query';

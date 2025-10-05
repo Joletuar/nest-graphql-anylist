@@ -17,6 +17,8 @@ const config = {
     ' ',
     '<THIRD_PARTY_MODULES>',
     ' ',
+    '^@/(.*)$',
+    ' ',
     '^[./]',
   ],
   importOrderParserPlugins: ['typescript', 'decorators-legacy'],
