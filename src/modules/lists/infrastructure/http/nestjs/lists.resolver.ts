@@ -10,9 +10,6 @@ import {
 } from '@nestjs/graphql';
 
 import { Auth } from 'src/modules/auth/infrastructure/https/nestjs/decorators/auth.decorator';
-import { ItemDto } from 'src/modules/items/application/item.dto';
-import { FindItemByIdQuery } from 'src/modules/items/application/queries/find-item-by-id/find-item-by-id.query';
-import { ItemSchema } from 'src/modules/items/infrastructure/http/nestjs/schemas/item.schema';
 import { AddItemToListCommand } from 'src/modules/lists/application/commands/add-item-to-list/add-item-to-list.command';
 import { CreateListCommand } from 'src/modules/lists/application/commands/create-list/create-list.command';
 import { RemoveItemFromListCommand } from 'src/modules/lists/application/commands/remove-item-from-list/remove-item-from-list.command';
@@ -215,7 +212,10 @@ export class ListsResolver {
     return user;
   }
 
-  @ResolveField('items', () => ListItemSchema)
+  @ResolveField('items', () => [ListItemSchema], {
+    nullable: false,
+    description: 'Items in the list',
+  })
   async getListItems(
     @Parent() list: ListDto,
     @Args({
@@ -243,24 +243,5 @@ export class ListsResolver {
     );
 
     return items;
-  }
-
-  @ResolveField('item', () => ItemSchema)
-  async getItem(@Parent() listItem: ListItemDto): Promise<ItemDto> {
-    const {
-      id,
-      name,
-      quantityUnits,
-      stock,
-      user: { id: userId },
-    } = await this.queryBus.execute(new FindItemByIdQuery(listItem.itemId));
-
-    return {
-      id,
-      name,
-      quantityUnits,
-      stock,
-      userId,
-    };
   }
 }

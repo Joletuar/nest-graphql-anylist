@@ -2,8 +2,6 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 import { UserSchema } from 'src/modules/users/infrastructure/http/nestjs/user.schema';
 
-import { ListItemSchema } from './list-item.schema';
-
 @ObjectType({
   description: 'Schema lists',
 })
@@ -28,11 +26,4 @@ export class ListSchema {
     nullable: false,
   })
   user: UserSchema;
-
-  @Field(() => [ListItemSchema], {
-    name: 'items',
-    description: 'List items',
-    nullable: false,
-  })
-  items: ListItemSchema[];
 }

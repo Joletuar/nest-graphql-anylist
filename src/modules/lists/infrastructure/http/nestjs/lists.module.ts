@@ -19,6 +19,7 @@ import { ListItemModel } from '../../persistence/typeorm/list-item.model';
 import { ListModel } from '../../persistence/typeorm/list.model';
 import { TypeOrmListItemRepository } from '../../persistence/typeorm/typeorm-list-item.repository';
 import { TypeOrmListRepository } from '../../persistence/typeorm/typeorm-list.repository';
+import { ListItemsResolver } from './list-items.resolver';
 import { ListsResolver } from './lists.resolver';
 
 @Module({
@@ -31,6 +32,7 @@ import { ListsResolver } from './lists.resolver';
   providers: [
     // Resolvers
     ListsResolver,
+    ListItemsResolver,
 
     // Repositories
     TypeOrmListRepository,
