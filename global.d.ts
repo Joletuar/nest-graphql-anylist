@@ -9,6 +9,8 @@ declare global {
       TYPE_ORM_USERNAME: string;
       TYPE_ORM_PASSWORD: string;
       TYPE_ORM_DATABASE: string;
+
+      SECRET_TOKEN: string;
     }
   }
 }
@@ -16,11 +18,12 @@ declare global {
 declare module 'express' {
   interface Request {
     trackId?: string;
+
     user?: {
       id: string;
       fullName: string;
       email: string;
-      roles: Role[];
+      roles: string[];
       isActive: boolean;
     };
   }
