@@ -8,6 +8,7 @@ import { SharedModule } from './modules/shared/infrastructure/http/nestjs/shared
 import { UsersModule } from './modules/users/infrastructure/http/nestjs/users.module';
 
 describe('AppModule', () => {
+  let moduleRef: TestingModule;
   let sharedModule: SharedModule;
   let itemsModule: ItemsModule;
   let usersModule: UsersModule;
@@ -15,7 +16,7 @@ describe('AppModule', () => {
   let listsModule: ListsModule;
 
   beforeEach(async () => {
-    const moduleRef: TestingModule = await Test.createTestingModule({
+    moduleRef = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
@@ -24,6 +25,10 @@ describe('AppModule', () => {
     usersModule = moduleRef.get<UsersModule>(UsersModule);
     authModule = moduleRef.get<AuthModule>(AuthModule);
     listsModule = moduleRef.get<ListsModule>(ListsModule);
+  });
+
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should be defined all modules', () => {
