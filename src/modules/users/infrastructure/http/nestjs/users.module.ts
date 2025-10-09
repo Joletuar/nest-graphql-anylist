@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CreateUserCommandHanlder } from '@users/application/commands/create-user/create-user.command-handler';
+import { CreateUserCommandHandler } from '@users/application/commands/create-user/create-user.command-handler';
 import { UpdateUserCommandHanlder } from '@users/application/commands/update-user/update-user.command-handler';
 import { FindUserByIdQueryHandler } from '@users/application/queries/find-user-by-id/find-user-by-id.query-handler';
 import { GetAllUsersQueryHandler } from '@users/application/queries/get-all-user/get-all-user.query-handler';
@@ -26,7 +26,7 @@ import { UsersResolver } from './users.resolver';
     },
 
     // Command Handlers
-    CreateUserCommandHanlder,
+    CreateUserCommandHandler,
     UpdateUserCommandHanlder,
 
     // Query Handlers

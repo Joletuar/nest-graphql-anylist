@@ -11,7 +11,7 @@ import { CreateUserCommand } from './create-user.command';
 import { CreatedUserDto } from './created-user.dto';
 
 @CommandHandler(CreateUserCommand)
-export class CreateUserCommandHanlder
+export class CreateUserCommandHandler
   implements ICommandHandler<CreateUserCommand>
 {
   constructor(private readonly repository: UserRepository) {}
