@@ -8,7 +8,7 @@
 - **Autenticación JWT** con sistema de roles (Admin/Guest)
 - **Gestión de elementos** con inventario y unidades
 - **Listas personalizables** con elementos y cantidades
-- **Arquitectura hexagonal** con CQRS
+- **Arquitectura hexagonal** con CQRS simplificado
 - **Base de datos PostgreSQL** con TypeORM
 
 ## 📁 Arquitectura
