@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { SharedModule } from '@modules/shared/infrastructure/http/nestjs/shared.module';
 import { CreateUserCommandHandler } from '@users/application/commands/create-user/create-user.command-handler';
 import { UpdateUserCommandHanlder } from '@users/application/commands/update-user/update-user.command-handler';
 import { FindUserByIdQueryHandler } from '@users/application/queries/find-user-by-id/find-user-by-id.query-handler';
@@ -13,7 +14,7 @@ import { UserModel } from '../../persistence/typeorm/user.model';
 import { UsersResolver } from './users.resolver';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserModel])],
+  imports: [TypeOrmModule.forFeature([UserModel]), SharedModule],
 
   providers: [
     // Resolvers

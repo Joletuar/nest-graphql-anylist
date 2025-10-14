@@ -1,5 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { CacheService } from '@modules/shared/application/cache/cache-service.interface';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
 import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
@@ -19,9 +20,12 @@ export class TypeOrmUserRepository
   extends BaseTypeOrmRepository<UserModel>
   implements UserRepository
 {
+  private readonly GET_ALL_USERS_CACHE_KEY = 'GET_ALL_USERS' as const;
+
   constructor(
     @InjectRepository(UserModel)
     repository: Repository<UserModel>,
+    private readonly cacheService: CacheService,
   ) {
     super(repository);
   }
@@ -38,7 +42,11 @@ export class TypeOrmUserRepository
 
       if (!createdUser) throw new NotFoundUserModelException(user.id);
 
-      return TypeOrmUserMapper.toDomain(createdUser);
+      const domainUser = TypeOrmUserMapper.toDomain(createdUser);
+
+      await this.setInCache(domainUser.id, domainUser);
+
+      return domainUser;
     } catch (error) {
       this.handlerError(error);
     }
@@ -56,29 +64,51 @@ export class TypeOrmUserRepository
 
       if (!updatedUser) throw new NotFoundUserModelException(user.id);
 
-      return TypeOrmUserMapper.toDomain(updatedUser);
+      const domainUser = TypeOrmUserMapper.toDomain(updatedUser);
+
+      await this.setInCache(domainUser.id, domainUser);
+
+      return domainUser;
     } catch (error) {
       this.handlerError(error);
     }
   }
 
   async getAll(): Promise<User[]> {
+    const cachedUsers = await this.getFromCache<User[]>(
+      this.GET_ALL_USERS_CACHE_KEY,
+    );
+
+    if (cachedUsers) return cachedUsers;
+
     try {
       const users = await this.repository.find();
 
-      return TypeOrmUserMapper.toDomainList(users);
+      const domainUsers = TypeOrmUserMapper.toDomainList(users);
+
+      await this.setInCache(this.GET_ALL_USERS_CACHE_KEY, domainUsers);
+
+      return domainUsers;
     } catch (error) {
       this.handlerError(error);
     }
   }
 
   async findById(id: string): Promise<Nullable<User>> {
+    const cachedUser = await this.getFromCache<User>(id);
+
+    if (cachedUser) return cachedUser;
+
     try {
       const user = await this.repository.findOneBy({ id });
 
       if (!user) return null;
 
-      return TypeOrmUserMapper.toDomain(user);
+      const domainUser = TypeOrmUserMapper.toDomain(user);
+
+      await this.setInCache(id, domainUser);
+
+      return domainUser;
     } catch (error) {
       this.handlerError(error);
     }
@@ -113,5 +143,34 @@ export class TypeOrmUserRepository
     }
 
     throw new TypeOrmException(error);
+  }
+
+  private async setInCache(
+    key: string,
+    value: User | User[] | Paginated<User>,
+  ): Promise<void> {
+    try {
+      await this.cacheService.setValue<User | User[] | Paginated<User>>(
+        key,
+        value,
+        {
+          ttl: 5000,
+        },
+      );
+    } catch {
+      // TODO: we need to manage the errors without affecting the normal flow of repo, but keeping in mind that we must be aware of the error in the cache service
+
+      return;
+    }
+  }
+
+  private async getFromCache<T>(key: string): Promise<Nullable<T>> {
+    try {
+      const result = await this.cacheService.getValue<T>(key);
+
+      return result;
+    } catch {
+      return null;
+    }
   }
 }
