@@ -1,12 +1,17 @@
 import { join } from 'node:path';
 
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import KeyvRedis from '@keyv/redis';
+import { CacheService } from '@modules/shared/application/cache/cache-service.interface';
+
+import { RedisCacheService } from '../../caching/redis/redis-cache.service';
 import { createTypeOrmConfig } from '../../persistence/typeorm/nest-typeorm.config';
 import { HealthCheckController } from './controllers/health-check.controller';
 
@@ -37,12 +42,32 @@ import { HealthCheckController } from './controllers/health-check.controller';
     }),
 
     CqrsModule.forRoot({ rethrowUnhandled: true }),
+
+    CacheModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const host = configService.get<string>('CACHE_HOST');
+        const port = configService.get<number>('CACHE_PORT');
+        const URL = `redis://${host}:${port}`;
+
+        return {
+          stores: [new KeyvRedis(URL)],
+        };
+      },
+    }),
   ],
 
-  providers: [],
+  providers: [
+    RedisCacheService,
+
+    {
+      provide: CacheService,
+      useClass: RedisCacheService,
+    },
+  ],
 
   controllers: [HealthCheckController],
 
-  exports: [],
+  exports: [CacheService],
 })
 export class SharedModule {}
