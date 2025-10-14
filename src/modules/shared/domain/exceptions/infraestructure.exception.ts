@@ -1,6 +1,6 @@
 import { ErrorObject } from '../base.error';
 
-interface InfraestructureErrorObject extends ErrorObject {
+export interface InfraestructureErrorObject extends ErrorObject {
   originalError: unknown;
 }
 
