@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   CacheService,
   Options,
-} from '@modules/shared/application/cache/cache-service.interface';
+} from '@modules/shared/application/cache/cache.service';
 import { Nullable } from '@modules/shared/domain/nullable.type';
 
 import { RedisCacheServiceException } from './exceptions/redis-cache-service.exception';

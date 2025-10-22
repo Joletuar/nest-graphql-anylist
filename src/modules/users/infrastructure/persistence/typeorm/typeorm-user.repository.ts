@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CacheService } from '@modules/shared/application/cache/cache-service.interface';
+import { CacheService } from '@modules/shared/application/cache/cache.service';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
 import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
