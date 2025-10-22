@@ -9,7 +9,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import KeyvRedis from '@keyv/redis';
-import { CacheService } from '@modules/shared/application/cache/cache-service.interface';
+import { CacheService } from '@modules/shared/application/cache/cache.service';
+import { LoggerModule } from 'nestjs-pino';
 
 import { RedisCacheService } from '../../caching/redis/redis-cache.service';
 import { createTypeOrmConfig } from '../../persistence/typeorm/nest-typeorm.config';
@@ -19,6 +20,24 @@ import { HealthCheckController } from './controllers/health-check.controller';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+
+    LoggerModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const env = configService.get<
+          'local' | 'production' | 'development' | 'testing'
+        >('NODE_ENV');
+
+        const isProduction = env === 'production';
+
+        return {
+          pinoHttp: {
+            level: isProduction ? 'info' : 'debug',
+            transport: isProduction ? undefined : { target: 'pino-pretty' },
+          },
+        };
+      },
     }),
 
     TypeOrmModule.forRootAsync({
