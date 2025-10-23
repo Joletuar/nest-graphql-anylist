@@ -36,6 +36,7 @@ import { HealthCheckController } from './controllers/health-check.controller';
           pinoHttp: {
             level: isProduction ? 'info' : 'debug',
             transport: isProduction ? undefined : { target: 'pino-pretty' },
+
             genReqId: (req: Request, res): string => {
               const existingID = req.trackId!;
 
@@ -43,6 +44,17 @@ import { HealthCheckController } from './controllers/health-check.controller';
 
               return existingID;
             },
+
+            customReceivedMessage: (req): string => {
+              return `${req.method} ${req.url} received`;
+            },
+
+            customSuccessMessage: (req, res): string => {
+              if (res.statusCode === 404) return 'Resource not found';
+
+              return `${req.method} ${req.url} completed`;
+            },
+
             serializers: {
               req: (req: Request): Record<string, any> => ({
                 trackId: req.id,
@@ -56,6 +68,7 @@ import { HealthCheckController } from './controllers/health-check.controller';
                     : undefined,
                 },
               }),
+
               res: (res: Response): Record<string, any> => ({
                 statusCode: res.statusCode,
               }),
