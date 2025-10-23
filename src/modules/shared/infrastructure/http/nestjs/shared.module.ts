@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import KeyvRedis from '@keyv/redis';
 import { CacheService } from '@modules/shared/application/cache/cache.service';
+import { Request, Response } from 'express';
 import { LoggerModule } from 'nestjs-pino';
 
 import { RedisCacheService } from '../../caching/redis/redis-cache.service';
@@ -35,6 +36,30 @@ import { HealthCheckController } from './controllers/health-check.controller';
           pinoHttp: {
             level: isProduction ? 'info' : 'debug',
             transport: isProduction ? undefined : { target: 'pino-pretty' },
+            genReqId: (req: Request, res): string => {
+              const existingID = req.trackId!;
+
+              res.setHeader('X-Track-Id', existingID ?? 'NO_TRACK_ID');
+
+              return existingID;
+            },
+            serializers: {
+              req: (req: Request): Record<string, any> => ({
+                trackId: req.id,
+                method: req.method,
+                url: req.url,
+                headers: {
+                  'user-agent': req.headers['user-agent'],
+                  'content-type': req.headers['content-type'],
+                  'authorization': req.headers.authorization
+                    ? '[HIDDEN]'
+                    : undefined,
+                },
+              }),
+              res: (res: Response): Record<string, any> => ({
+                statusCode: res.statusCode,
+              }),
+            },
           },
         };
       },
