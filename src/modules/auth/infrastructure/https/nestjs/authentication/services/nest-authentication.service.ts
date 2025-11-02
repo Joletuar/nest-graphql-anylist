@@ -9,8 +9,6 @@ import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 import { User } from '@users/domain/user.entity';
 import { UserRepository } from '@users/domain/user.repository';
 
-// TODO: implement caching for user retrieval to enhance performance
-
 @Injectable()
 export class NestAuthenticationService extends AuthenticationService {
   constructor(

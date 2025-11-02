@@ -14,7 +14,6 @@ export class SignIn {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly hashRepository: HashRepository,
-
     private readonly tokenRepository: TokenRepository,
   ) {}
 
