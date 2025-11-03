@@ -271,8 +271,8 @@ input CreateItemInput {
   """Item name"""
   name: String!
 
-  """Item quantity"""
-  quantity: Int!
+  """Item stock"""
+  stock: Int!
 
   """Item quantityUnits"""
   quantityUnits: String!
@@ -286,8 +286,8 @@ input UpdateItemInput {
   """Item name"""
   name: String
 
-  """Item quantity"""
-  quantity: Int
+  """Item stock"""
+  stock: Int
 
   """Item quantityUnits"""
   quantityUnits: String
