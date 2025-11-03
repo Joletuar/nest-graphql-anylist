@@ -2,10 +2,10 @@ import { QueryItemDto } from '../query-item.dto';
 
 export interface PaginatedItemsDto {
   items: QueryItemDto[];
-  pagination: Pagination;
+  pagination: PaginationDto;
 }
 
-export interface Pagination {
+export interface PaginationDto {
   page: number;
   perPage: number;
   total: number;
