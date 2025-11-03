@@ -75,10 +75,10 @@ export class ItemsResolver {
     })
     createItemInput: CreateItemDto,
   ): Promise<ItemDto> {
-    const { name, quantity, quantityUnits, userId } = createItemInput;
+    const { name, stock, quantityUnits, userId } = createItemInput;
 
     const createdItem = await this.commandBus.execute(
-      new CreateItemCommand(name, quantity, quantityUnits, userId),
+      new CreateItemCommand({ name, stock, quantityUnits, userId }),
     );
 
     return createdItem;
@@ -107,10 +107,10 @@ export class ItemsResolver {
     })
     updateItemInput: UpdateItemDto,
   ): Promise<ItemDto> {
-    const { name, quantity, quantityUnits, userId } = updateItemInput;
+    const { name, stock, quantityUnits, userId } = updateItemInput;
 
     const updatedItem = await this.commandBus.execute(
-      new UpdateItemCommand(id, name, quantity, quantityUnits, userId),
+      new UpdateItemCommand({ id, name, stock, quantityUnits, userId }),
     );
 
     return updatedItem;

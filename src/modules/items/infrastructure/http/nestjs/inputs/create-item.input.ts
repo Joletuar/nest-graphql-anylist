@@ -11,10 +11,10 @@ export class CreateItemInput {
   name: string;
 
   @Field(() => Int, {
-    description: 'Item quantity',
+    description: 'Item stock',
     nullable: false,
   })
-  quantity: number;
+  stock: number;
 
   @Field(() => String, {
     description: 'Item quantityUnits',

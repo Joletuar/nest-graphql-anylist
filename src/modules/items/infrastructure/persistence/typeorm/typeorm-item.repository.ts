@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Item } from '@items/domain/item.entity';
 import { ItemRepository } from '@items/domain/item.repository';
+import { ItemId } from '@modules/items/domain/value-objects/item-id.value-object';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
 import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
@@ -38,10 +39,10 @@ export class TypeOrmItemRepository
     }
   }
 
-  async findById(id: string): Promise<Nullable<Item>> {
+  async findById(id: ItemId): Promise<Nullable<Item>> {
     try {
       const item = await this.repository.findOneBy({
-        id,
+        id: id.value,
       });
 
       if (!item) return null;
@@ -54,15 +55,15 @@ export class TypeOrmItemRepository
 
   async create(item: Item): Promise<Item> {
     try {
-      const instance = this.repository.create(item);
+      const instance = this.repository.create(item.toPrimitives());
 
       await this.repository.insert(instance);
 
       const createdItem = await this.repository.findOneBy({
-        id: item.id,
+        id: item.idValue,
       });
 
-      if (!createdItem) throw new NotFoundItemModelException(item.id);
+      if (!createdItem) throw new NotFoundItemModelException(item.idValue);
 
       return TypeOrmItemMapper.toDomain(createdItem);
     } catch (error) {
@@ -72,17 +73,17 @@ export class TypeOrmItemRepository
 
   async update(item: Item): Promise<Item> {
     try {
-      const itemToUpdate = await this.repository.preload(item);
+      const itemToUpdate = await this.repository.preload(item.toPrimitives());
 
-      if (!itemToUpdate) throw new NotFoundItemModelException(item.id);
+      if (!itemToUpdate) throw new NotFoundItemModelException(item.idValue);
 
       await this.repository.update(itemToUpdate.id, itemToUpdate);
 
       const updatedItem = await this.repository.findOneBy({
-        id: item.id,
+        id: item.idValue,
       });
 
-      if (!updatedItem) throw new NotFoundItemModelException(item.id);
+      if (!updatedItem) throw new NotFoundItemModelException(item.idValue);
 
       return TypeOrmItemMapper.toDomain(updatedItem);
     } catch (error) {

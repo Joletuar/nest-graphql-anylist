@@ -6,13 +6,13 @@ export class TypeOrmItemMapper {
   static toDomain(model: ItemModel): Item {
     const { id, name, stock, quantityUnits, userId } = model;
 
-    return {
+    return Item.fromPrimitives({
       id,
       name,
       stock,
       quantityUnits,
       userId,
-    };
+    });
   }
 
   static toDomainList(models: ItemModel[]): Item[] {

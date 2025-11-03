@@ -15,7 +15,7 @@ export class CreateItemDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  quantity: number;
+  stock: number;
 
   @IsString()
   @IsNotEmpty()
