@@ -3,11 +3,12 @@ import { Nullable } from '@shared/domain/nullable.type';
 import { Paginated } from '@shared/domain/paginated.entity';
 
 import { Item } from './item.entity';
+import { ItemId } from './value-objects/item-id.value-object';
 
 export abstract class ItemRepository {
   abstract getAll(): Promise<Item[]>;
 
-  abstract findById(id: string): Promise<Nullable<Item>>;
+  abstract findById(id: ItemId): Promise<Nullable<Item>>;
 
   abstract create(item: Item): Promise<Item>;
 
