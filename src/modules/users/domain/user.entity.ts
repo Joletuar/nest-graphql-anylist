@@ -62,6 +62,10 @@ export class User extends RootAggregate {
     };
   }
 
+  get id(): UserId {
+    return this.props.id;
+  }
+
   get idValue(): string {
     return this.props.id.value;
   }
