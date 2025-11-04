@@ -23,6 +23,13 @@ export class ItemMapper {
 
   static toQueryDto(entity: Item, user: User): QueryItemDto {
     const { id, name, stock, quantityUnits } = entity.toPrimitives();
+    const {
+      id: userId,
+      fullName: userFullName,
+      email: userEmail,
+      isActive: userIsActive,
+      roles: userRoles,
+    } = user.toPrimitives();
 
     return {
       id,
@@ -30,18 +37,18 @@ export class ItemMapper {
       stock,
       quantityUnits,
       user: {
-        id: user.id,
-        fullName: user.fullName,
-        email: user.email,
-        isActive: user.isActive,
-        roles: user.roles,
+        id: userId,
+        fullName: userFullName,
+        email: userEmail,
+        isActive: userIsActive,
+        roles: userRoles,
       },
     };
   }
 
   static toQueryDtoList(entities: Item[], users: User[]): QueryItemDto[] {
     return entities.map((entity) => {
-      const user = users.find((u) => entity.userId.isEquals(u.id));
+      const user = users.find((user) => entity.userId.isEquals(user.id));
 
       if (!user) {
         throw new Error(`User with ID ${entity.userIdValue} not found`);

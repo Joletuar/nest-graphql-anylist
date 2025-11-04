@@ -21,6 +21,7 @@ export class UpdateItemCommandHandler
     const currentItem = await this.ensureExistsItem(id);
     const primitiveItem = currentItem.toPrimitives();
 
+    // TODO: fix this
     const itemToUpdate = Item.fromPrimitives({
       id,
       name: name ?? primitiveItem.name,

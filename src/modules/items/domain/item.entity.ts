@@ -1,5 +1,5 @@
+import { Primitives } from '@modules/shared/domain/primitves.type';
 import { RootAggregate } from '@modules/shared/domain/root.aggegate';
-import { RootValueObject } from '@modules/shared/domain/value-objects/root.value-object';
 
 import { ItemId } from './value-objects/item-id.value-object';
 import { ItemName } from './value-objects/item-name.value-object';
@@ -7,7 +7,7 @@ import { ItemQuantityUnits } from './value-objects/item-quantity-units.value-obj
 import { ItemStock } from './value-objects/item-stock.value-object';
 import { ItemUserId } from './value-objects/item-user-id.value-object';
 
-type Props = {
+type ItemProps = {
   id: ItemId;
 
   name: ItemName;
@@ -19,14 +19,10 @@ type Props = {
   userId: ItemUserId;
 };
 
-type Primitives = {
-  [prop in keyof Props]: Props[prop] extends RootValueObject<infer U>
-    ? U
-    : unknown;
-};
+type ItemPrimitives = Primitives<ItemProps>;
 
 export class Item extends RootAggregate {
-  static fromPrimitives(primitives: Primitives): Item {
+  static fromPrimitives(primitives: ItemPrimitives): Item {
     const { id, name, stock, quantityUnits, userId } = primitives;
 
     return new this({
@@ -38,7 +34,7 @@ export class Item extends RootAggregate {
     });
   }
 
-  constructor(private props: Props) {
+  constructor(private props: ItemProps) {
     super();
   }
 
@@ -54,7 +50,7 @@ export class Item extends RootAggregate {
     return this.props.userId.value;
   }
 
-  toPrimitives(): Primitives {
+  toPrimitives(): ItemPrimitives {
     return {
       id: this.props.id.value,
       name: this.props.name.value,

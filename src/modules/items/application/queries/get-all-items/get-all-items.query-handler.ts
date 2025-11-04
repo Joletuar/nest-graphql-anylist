@@ -4,6 +4,7 @@ import { UserNotFoundException } from '@items/domain/exceptions/user-not-found.e
 import { Item } from '@items/domain/item.entity';
 import { ItemRepository } from '@modules/items/domain/item.repository';
 import { User } from '@modules/users/domain/user.entity';
+import { UserId } from '@modules/users/domain/value-objects/user-id.value-object';
 import { UserRepository } from '@users/domain/user.repository';
 
 import { ItemMapper } from '../../item.mapper';
@@ -42,7 +43,7 @@ export class GetAllItemsQueryHandler
   }
 
   private async findUser(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
+    const user = await this.userRepository.findById(new UserId(id));
 
     if (!user) throw new UserNotFoundException(id);
 
