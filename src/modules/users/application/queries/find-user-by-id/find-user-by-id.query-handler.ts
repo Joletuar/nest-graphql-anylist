@@ -1,5 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
+import { UserId } from '@modules/users/domain/value-objects/user-id.value-object';
 import { UserNotFoundException } from '@users/domain/exceptions/user-not-found.exception';
 import { UserRepository } from '@users/domain/user.repository';
 
@@ -14,7 +15,7 @@ export class FindUserByIdQueryHandler
   constructor(private readonly repository: UserRepository) {}
 
   async execute(query: FindUserByIdQuery): Promise<UserDto> {
-    const user = await this.repository.findById(query.id);
+    const user = await this.repository.findById(new UserId(query.id));
 
     if (!user) throw new UserNotFoundException(query.id);
 

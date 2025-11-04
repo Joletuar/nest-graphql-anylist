@@ -1,14 +1,14 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
+import { UlidValueObject } from '@modules/shared/domain/value-objects/ulid.valu-object';
 import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 import { UserAlreadyExistsException } from '@users/domain/exceptions/user-already-exists.exception';
 import { User } from '@users/domain/user.entity';
 import { UserRepository } from '@users/domain/user.repository';
-import { ulid } from 'ulidx';
 
+import { UserWithoutPasswordDto } from '../../user-without-password.dto';
 import { UserMapper } from '../../user.mapper';
 import { CreateUserCommand } from './create-user.command';
-import { CreatedUserDto } from './created-user.dto';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler
@@ -16,21 +16,23 @@ export class CreateUserCommandHandler
 {
   constructor(private readonly repository: UserRepository) {}
 
-  async execute(command: CreateUserCommand): Promise<CreatedUserDto> {
-    const { email, fullName, password, roles, isActive } = command;
+  async execute(command: CreateUserCommand): Promise<UserWithoutPasswordDto> {
+    const { email, fullName, password, roles, isActive } = command.dto;
 
     const userAlreadyExists = await this.findUserByEmail(email);
 
     if (userAlreadyExists) throw new UserAlreadyExistsException(email);
 
-    const createdUser = await this.repository.create({
-      id: ulid(),
+    const newUser = User.fromPrimitives({
+      id: UlidValueObject.generateUlid(),
       fullName,
       email,
       password,
       roles,
       isActive,
     });
+
+    const createdUser = await this.repository.create(newUser);
 
     return UserMapper.toDtoWithoutPassword(createdUser);
   }

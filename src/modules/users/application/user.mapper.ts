@@ -6,7 +6,8 @@ import { UserDto } from './user.dto';
 
 export class UserMapper {
   static toDto(user: User): UserDto {
-    const { id, fullName, email, password, roles, isActive } = user;
+    const { id, fullName, email, password, roles, isActive } =
+      user.toPrimitives();
 
     return {
       id,
@@ -33,7 +34,7 @@ export class UserMapper {
 
   static toDtoWithoutPassword(user: User): Omit<UserDto, 'password'> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userWithoutPassword } = user;
+    const { password, ...userWithoutPassword } = user.toPrimitives();
 
     return {
       ...userWithoutPassword,

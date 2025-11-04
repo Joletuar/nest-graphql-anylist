@@ -1,15 +1,10 @@
 import { Command } from '@nestjs/cqrs';
 
-import { UpdatedUserDto } from './updated-user.dto';
+import { UserWithoutPasswordDto } from '../../user-without-password.dto';
+import { UpdateUserDto } from './update-user.dto';
 
-export class UpdateUserCommand extends Command<UpdatedUserDto> {
-  constructor(
-    readonly id: string,
-    readonly fullName?: string,
-    readonly email?: string,
-    readonly roles?: string[],
-    readonly isActive?: boolean,
-  ) {
+export class UpdateUserCommand extends Command<UserWithoutPasswordDto> {
+  constructor(readonly dto: UpdateUserDto) {
     super();
   }
 }
