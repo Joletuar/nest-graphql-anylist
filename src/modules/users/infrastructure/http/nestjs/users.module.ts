@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { SharedModule } from '@modules/shared/infrastructure/http/nestjs/shared.module';
 import { CreateUserCommandHandler } from '@users/application/commands/create-user/create-user.command-handler';
-import { UpdateUserCommandHanlder } from '@users/application/commands/update-user/update-user.command-handler';
+import { UpdateUserCommandHandler } from '@users/application/commands/update-user/update-user.command-handler';
 import { FindUserByIdQueryHandler } from '@users/application/queries/find-user-by-id/find-user-by-id.query-handler';
 import { GetAllUsersQueryHandler } from '@users/application/queries/get-all-user/get-all-user.query-handler';
 import { SearchUserByCriteriaQueryHandler } from '@users/application/queries/search-user-by-criteria/search-user.query-handler';
@@ -28,7 +28,7 @@ import { UsersResolver } from './users.resolver';
 
     // Command Handlers
     CreateUserCommandHandler,
-    UpdateUserCommandHanlder,
+    UpdateUserCommandHandler,
 
     // Query Handlers
     FindUserByIdQueryHandler,

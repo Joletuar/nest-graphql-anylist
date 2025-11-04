@@ -2,11 +2,10 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Auth } from '@auth/infrastructure/https/nestjs/decorators/auth.decorator';
+import { UserWithoutPasswordDto } from '@modules/users/application/user-without-password.dto';
 import { ParseUlidPipe } from '@shared/infrastructure/http/nestjs/pipes/parse-ulid.pipe';
 import { CreateUserCommand } from '@users/application/commands/create-user/create-user.command';
-import { CreatedUserDto } from '@users/application/commands/create-user/created-user.dto';
 import { UpdateUserCommand } from '@users/application/commands/update-user/update-user.command';
-import { UpdatedUserDto } from '@users/application/commands/update-user/updated-user.dto';
 import { FindUserByIdQuery } from '@users/application/queries/find-user-by-id/find-user-by-id.query';
 import { GetAllUsersQuery } from '@users/application/queries/get-all-user/get-all-user.query';
 import { UserDto } from '@users/application/user.dto';
@@ -69,11 +68,11 @@ export class UsersResolver {
       description: 'Args to create new User',
     })
     createUserInput: CreateUserDto,
-  ): Promise<CreatedUserDto> {
+  ): Promise<UserWithoutPasswordDto> {
     const { fullName, email, password, roles, isActive } = createUserInput;
 
     const createdUser = await this.commandBus.execute(
-      new CreateUserCommand(fullName, email, password, roles, isActive),
+      new CreateUserCommand({ fullName, email, password, roles, isActive }),
     );
 
     return createdUser;
@@ -101,11 +100,11 @@ export class UsersResolver {
       description: 'Input to update User',
     })
     updateUserInput: UpdateUserDto,
-  ): Promise<UpdatedUserDto> {
+  ): Promise<UserWithoutPasswordDto> {
     const { fullName, email, roles, isActive } = updateUserInput;
 
     const updatedUser = await this.commandBus.execute(
-      new UpdateUserCommand(id, fullName, email, roles, isActive),
+      new UpdateUserCommand({ id, fullName, email, roles, isActive }),
     );
 
     return updatedUser;

@@ -6,7 +6,14 @@ export class TypeOrmUserMapper {
   static toDomain(model: UserModel): User {
     const { id, fullName, email, password, roles, isActive } = model;
 
-    return { id, fullName, email, password, roles, isActive };
+    return User.fromPrimitives({
+      id,
+      fullName,
+      email,
+      password,
+      roles,
+      isActive,
+    });
   }
 
   static toDomainList(models: UserModel[]): User[] {

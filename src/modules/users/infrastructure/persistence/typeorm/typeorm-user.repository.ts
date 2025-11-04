@@ -1,6 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CacheService } from '@modules/shared/application/cache/cache.service';
+import { UserId } from '@modules/users/domain/value-objects/user-id.value-object';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
 import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
@@ -32,19 +33,19 @@ export class TypeOrmUserRepository
 
   async create(user: User): Promise<User> {
     try {
-      const instance = this.repository.create(user);
+      const instance = this.repository.create(user.toPrimitives());
 
       await this.repository.insert(instance);
 
       const createdUser = await this.repository.findOneBy({
-        id: user.id,
+        id: user.idValue,
       });
 
-      if (!createdUser) throw new NotFoundUserModelException(user.id);
+      if (!createdUser) throw new NotFoundUserModelException(user.idValue);
 
       const domainUser = TypeOrmUserMapper.toDomain(createdUser);
 
-      await this.setInCache(domainUser.id, domainUser);
+      await this.setInCache(domainUser.idValue, domainUser);
 
       return domainUser;
     } catch (error) {
@@ -54,19 +55,19 @@ export class TypeOrmUserRepository
 
   async update(user: User): Promise<User> {
     try {
-      const currentUser = await this.repository.preload(user);
+      const currentUser = await this.repository.preload(user.toPrimitives());
 
-      if (!currentUser) throw new NotFoundUserModelException(user.id);
+      if (!currentUser) throw new NotFoundUserModelException(user.idValue);
 
-      await this.repository.update(user.id, currentUser);
+      await this.repository.update(user.idValue, currentUser);
 
-      const updatedUser = await this.repository.findOneBy({ id: user.id });
+      const updatedUser = await this.repository.findOneBy({ id: user.idValue });
 
-      if (!updatedUser) throw new NotFoundUserModelException(user.id);
+      if (!updatedUser) throw new NotFoundUserModelException(user.idValue);
 
       const domainUser = TypeOrmUserMapper.toDomain(updatedUser);
 
-      await this.setInCache(domainUser.id, domainUser);
+      await this.setInCache(domainUser.idValue, domainUser);
 
       return domainUser;
     } catch (error) {
@@ -94,19 +95,19 @@ export class TypeOrmUserRepository
     }
   }
 
-  async findById(id: string): Promise<Nullable<User>> {
-    const cachedUser = await this.getFromCache<User>(id);
+  async findById(id: UserId): Promise<Nullable<User>> {
+    const cachedUser = await this.getFromCache<User>(id.value);
 
     if (cachedUser) return cachedUser;
 
     try {
-      const user = await this.repository.findOneBy({ id });
+      const user = await this.repository.findOneBy({ id: id.value });
 
       if (!user) return null;
 
       const domainUser = TypeOrmUserMapper.toDomain(user);
 
-      await this.setInCache(id, domainUser);
+      await this.setInCache(id.value, domainUser);
 
       return domainUser;
     } catch (error) {
