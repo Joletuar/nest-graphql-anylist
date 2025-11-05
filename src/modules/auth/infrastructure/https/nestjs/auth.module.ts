@@ -6,12 +6,12 @@ import { PassportModule } from '@nestjs/passport';
 import { SignIn } from '@auth/application/sign-in/sign-in.use-case';
 import { SignUp } from '@auth/application/sign-up/sign-up.use-case';
 import { AuthenticationService } from '@auth/domain/authentication.service';
-import { HashRepository } from '@auth/domain/hash.repository';
-import { TokenRepository } from '@auth/domain/token.repository';
+import { PasswordHasherService } from '@modules/auth/domain/password-hasher.service';
+import { TokenProvider } from '@modules/auth/domain/token.provider';
 import { UsersModule } from '@users/infrastructure/http/nestjs/users.module';
 
-import { BcryptHashRepository } from '../../hash/bcrypt/bcrypt-hash.repository';
-import { JwtTokenRepository } from '../../token/jwt/jwt-token-repository.repository';
+import { BcryptPasswordHasherService } from '../../password-hasher/bcrypt/bcrypt-password-hasher.provider';
+import { JwtTokenProvider } from '../../token-provider/jwt/jwt-token.provider';
 import { AuthController } from './auth.controller';
 import { NestAuthenticationService } from './authentication/services/nest-authentication.service';
 import { JwtStrategy } from './authentication/strategies/jwt.strategy';
@@ -52,12 +52,12 @@ import { RolesGuard } from './guards/roles.guard';
 
     // Repositories
     {
-      provide: HashRepository,
-      useClass: BcryptHashRepository,
+      provide: PasswordHasherService,
+      useClass: BcryptPasswordHasherService,
     },
     {
-      provide: TokenRepository,
-      useClass: JwtTokenRepository,
+      provide: TokenProvider,
+      useClass: JwtTokenProvider,
     },
 
     // Passport strategy

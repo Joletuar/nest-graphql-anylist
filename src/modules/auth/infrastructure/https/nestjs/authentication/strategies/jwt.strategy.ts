@@ -6,7 +6,7 @@ import {
   AuthenticationService,
   UserTokenPayload,
 } from '@modules/auth/domain/authentication.service';
-import { User } from '@users/domain/user.entity';
+import { UserPrimitives } from '@users/domain/user.entity';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
@@ -28,13 +28,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: UserTokenPayload): Promise<Omit<User, 'password'>> {
+  async validate(
+    payload: UserTokenPayload,
+  ): Promise<Omit<UserPrimitives, 'password'>> {
     try {
       const user =
         await this.authenticationService.validateUserFromPayload(payload);
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } = user;
+      const { password: _, ...userWithoutPassword } = user.toPrimitives();
 
       return userWithoutPassword;
     } catch {

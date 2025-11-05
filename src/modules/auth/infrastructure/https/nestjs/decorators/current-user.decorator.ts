@@ -7,11 +7,11 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { Role } from '@modules/users/domain/roles.enum';
-import { User } from '@users/domain/user.entity';
+import { UserPrimitives } from '@users/domain/user.entity';
 import { Request } from 'express';
 
 export const CurrentUser = createParamDecorator(
-  (_: unknown, context: ExecutionContext): Omit<User, 'password'> => {
+  (_: unknown, context: ExecutionContext): Omit<UserPrimitives, 'password'> => {
     const ctx = GqlExecutionContext.create(context);
     const req = ctx.getContext().req as Request;
 
@@ -19,12 +19,14 @@ export const CurrentUser = createParamDecorator(
       throw new ForbiddenException('User not found in request');
     }
 
+    const user = req.user;
+
     return {
-      id: req.user.id,
-      email: req.user.email,
-      fullName: req.user.fullName,
-      isActive: req.user.isActive,
-      roles: req.user.roles as Role[],
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      isActive: user.isActive,
+      roles: user.roles as Role[],
     };
   },
 );

@@ -2,13 +2,13 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { TokenRepository } from '@auth/domain/token.repository';
+import { TokenProvider } from '@modules/auth/domain/token.provider';
 import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 
 import { JwtException } from './exceptions/jwt.exception';
 
 @Injectable()
-export class JwtTokenRepository implements TokenRepository {
+export class JwtTokenProvider implements TokenProvider {
   constructor(private readonly jwtService: JwtService) {}
 
   async generate(payload: Record<string, any>): Promise<string> {

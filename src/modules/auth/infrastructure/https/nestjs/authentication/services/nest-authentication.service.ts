@@ -4,7 +4,7 @@ import {
   AuthenticationService,
   UserTokenPayload,
 } from '@modules/auth/domain/authentication.service';
-import { TokenRepository } from '@modules/auth/domain/token.repository';
+import { TokenProvider } from '@modules/auth/domain/token.provider';
 import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 import { User } from '@users/domain/user.entity';
 import { UserRepository } from '@users/domain/user.repository';
@@ -13,14 +13,13 @@ import { UserRepository } from '@users/domain/user.repository';
 export class NestAuthenticationService extends AuthenticationService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly tokenRepository: TokenRepository,
+    private readonly tokenProvider: TokenProvider,
   ) {
     super();
   }
 
   async validateToken(token: string): Promise<User> {
-    const payload =
-      await this.tokenRepository.validate<UserTokenPayload>(token);
+    const payload = await this.tokenProvider.validate<UserTokenPayload>(token);
 
     return await this.validateUserFromPayload(payload);
   }

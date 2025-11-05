@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
-import { TokenRepository } from '@auth/domain/token.repository';
+import { TokenProvider } from '@modules/auth/domain/token.provider';
 import { FilterOperator } from '@shared/domain/criteria/filter-operator.enum';
 import { User } from '@users/domain/user.entity';
 import { UserRepository } from '@users/domain/user.repository';
@@ -21,7 +21,7 @@ interface UserPayload {
 export class TokenGuard implements CanActivate {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly tokenRepository: TokenRepository,
+    private readonly tokenProvider: TokenProvider,
   ) {}
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
@@ -33,7 +33,7 @@ export class TokenGuard implements CanActivate {
 
     const user = await this.ensureExistsUser(payload.email);
 
-    req.user = user;
+    req.user = user.toPrimitives();
 
     return true;
   }
@@ -47,9 +47,9 @@ export class TokenGuard implements CanActivate {
 
     if (!token) throw new UnauthorizedException();
 
-    const payalod = await this.tokenRepository.validate<UserPayload>(token);
+    const payload = await this.tokenProvider.validate<UserPayload>(token);
 
-    return payalod;
+    return payload;
   }
 
   private async ensureExistsUser(email: string): Promise<User> {
