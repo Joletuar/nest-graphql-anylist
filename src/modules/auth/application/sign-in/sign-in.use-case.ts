@@ -5,30 +5,31 @@ import { User } from '@users/domain/user.entity';
 import { UserRepository } from '@users/domain/user.repository';
 
 import { InvalidCredentialsException } from '../../domain/exceptions/invalid-credentials.exception';
-import { HashRepository } from '../../domain/hash.repository';
-import { TokenRepository } from '../../domain/token.repository';
+import { PasswordHasherService } from '../../domain/password-hasher.service';
+import { TokenProvider } from '../../domain/token.provider';
 import { SignInDto } from './sign-in.dto';
 
 @Injectable()
 export class SignIn {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly hashRepository: HashRepository,
-    private readonly tokenRepository: TokenRepository,
+    private readonly passwordHasherService: PasswordHasherService,
+    private readonly tokenProvider: TokenProvider,
   ) {}
 
   async execute(signInDto: SignInDto): Promise<string> {
-    const userDto = await this.ensureExistsUser(signInDto.email);
+    const user = await this.ensureExistsUser(signInDto.email);
+    const { email, password } = user.toPrimitives();
 
     await this.ensureHasCorrectPassword(
-      userDto.password,
+      password,
       signInDto.password,
       signInDto.email,
     );
 
     await this.ensureExistsUser(signInDto.email);
 
-    const token = await this.generateToken({ email: userDto.email });
+    const token = await this.generateToken({ email });
 
     return token;
   }
@@ -62,7 +63,7 @@ export class SignIn {
     originalPassword: string,
     email: string,
   ): Promise<void> {
-    const isValid = await this.hashRepository.validate(
+    const isValid = await this.passwordHasherService.validate(
       hashedPassword,
       originalPassword,
     );
@@ -73,7 +74,7 @@ export class SignIn {
   }
 
   private async generateToken(payload: { email: string }): Promise<string> {
-    const token = await this.tokenRepository.generate(payload);
+    const token = await this.tokenProvider.generate(payload);
 
     return token;
   }
