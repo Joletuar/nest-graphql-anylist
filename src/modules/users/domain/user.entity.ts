@@ -25,7 +25,7 @@ type UserProps = {
   isActive: UserIsActive;
 };
 
-type UserPrimitives = Omit<Primitives<UserProps>, 'roles'> & {
+export type UserPrimitives = Omit<Primitives<UserProps>, 'roles'> & {
   roles: Role[];
 };
 
