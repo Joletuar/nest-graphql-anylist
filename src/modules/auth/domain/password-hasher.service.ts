@@ -1,4 +1,4 @@
-export abstract class HashRepository {
+export abstract class PasswordHasherService {
   abstract hash(value: string): Promise<string>;
 
   abstract validate(

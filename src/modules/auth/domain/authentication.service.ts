@@ -2,8 +2,6 @@ import { User } from '@users/domain/user.entity';
 
 export interface UserTokenPayload {
   email: string;
-  iat?: number;
-  exp?: number;
 }
 
 export abstract class AuthenticationService {
