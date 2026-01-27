@@ -34,7 +34,7 @@ export class TypeOrmItemRepository
 
       return TypeOrmItemMapper.toDomainList(items);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -48,7 +48,7 @@ export class TypeOrmItemRepository
 
       return TypeOrmItemMapper.toDomain(item);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -66,7 +66,7 @@ export class TypeOrmItemRepository
 
       return TypeOrmItemMapper.toDomain(createdItem);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -86,7 +86,7 @@ export class TypeOrmItemRepository
 
       return TypeOrmItemMapper.toDomain(updatedItem);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -109,11 +109,11 @@ export class TypeOrmItemRepository
         },
       };
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  protected handlerError(error: unknown): never {
+  protected errorHandler(error: unknown): never {
     // TODO: improve this handler exception
 
     if (error instanceof InfrastructureException) throw error;

@@ -17,7 +17,7 @@ export class JwtTokenRepository implements TokenRepository {
 
       return token;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -27,11 +27,11 @@ export class JwtTokenRepository implements TokenRepository {
 
       return payload;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  private handlerError(error: unknown): never {
+  private errorHandler(error: unknown): never {
     if (error instanceof InfrastructureException) throw error;
 
     throw new JwtException(error);

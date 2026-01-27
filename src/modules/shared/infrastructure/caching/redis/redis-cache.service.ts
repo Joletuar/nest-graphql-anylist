@@ -25,7 +25,7 @@ export class RedisCacheService extends CacheService {
 
       await this.cacheManager.set(key, value, Number(ttl));
     } catch (error: unknown) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -37,11 +37,11 @@ export class RedisCacheService extends CacheService {
 
       return value;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  private handlerError(error: unknown): never {
+  private errorHandler(error: unknown): never {
     throw new RedisCacheServiceException(error);
   }
 }

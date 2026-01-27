@@ -3,7 +3,7 @@ import { DataSource, EntityManager, QueryRunner, Repository } from 'typeorm';
 import { BaseModel } from './base.model';
 
 export abstract class BaseTypeOrmRepository<T extends BaseModel> {
-  protected abstract handlerError(error: unknown): never;
+  protected abstract errorHandler(error: unknown): never;
 
   constructor(protected readonly repository: Repository<T>) {}
 

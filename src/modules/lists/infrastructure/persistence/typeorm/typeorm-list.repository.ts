@@ -36,7 +36,7 @@ export class TypeOrmListRepository
 
       return await TypeOrmListMapper.toDomainList(lists);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -53,7 +53,7 @@ export class TypeOrmListRepository
 
       return await TypeOrmListMapper.toDomain(list);
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -107,7 +107,7 @@ export class TypeOrmListRepository
         await queryRunner.release();
       }
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -166,11 +166,11 @@ export class TypeOrmListRepository
         await queryRunner.release();
       }
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  protected handlerError(error: unknown): never {
+  protected errorHandler(error: unknown): never {
     // TODO: improve this handler exception
 
     if (error instanceof InfrastructureException) throw error;

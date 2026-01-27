@@ -16,7 +16,7 @@ export class BcryptHashRepository implements HashRepository {
 
       return hashedValue;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -26,11 +26,11 @@ export class BcryptHashRepository implements HashRepository {
 
       return isValid;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  private handlerError(error: unknown): never {
+  private errorHandler(error: unknown): never {
     if (error instanceof InfrastructureException) throw error;
 
     throw new BcryptException(error);

@@ -48,7 +48,7 @@ export class TypeOrmUserRepository
 
       return domainUser;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -70,7 +70,7 @@ export class TypeOrmUserRepository
 
       return domainUser;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -90,7 +90,7 @@ export class TypeOrmUserRepository
 
       return domainUsers;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -110,7 +110,7 @@ export class TypeOrmUserRepository
 
       return domainUser;
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
@@ -133,11 +133,11 @@ export class TypeOrmUserRepository
         },
       };
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  protected handlerError(error: unknown): never {
+  protected errorHandler(error: unknown): never {
     if (error instanceof InfrastructureException) {
       throw error;
     }

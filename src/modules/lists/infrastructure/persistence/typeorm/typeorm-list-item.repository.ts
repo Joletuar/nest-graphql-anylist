@@ -41,11 +41,11 @@ export class TypeOrmListItemRepository extends ListItemRepository {
         },
       };
     } catch (error) {
-      this.handlerError(error);
+      this.errorHandler(error);
     }
   }
 
-  protected handlerError(error: unknown): never {
+  protected errorHandler(error: unknown): never {
     // TODO: improve this handler exception
 
     if (error instanceof InfrastructureException) throw error;
