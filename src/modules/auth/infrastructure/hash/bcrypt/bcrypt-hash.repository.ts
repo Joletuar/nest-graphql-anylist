@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { HashRepository } from '@auth/domain/hash.repository';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import * as bcrypt from 'bcrypt';
 
 import { BcryptException } from './exceptions/bcrypt.exception';
@@ -31,7 +31,7 @@ export class BcryptHashRepository implements HashRepository {
   }
 
   private handlerError(error: unknown): never {
-    if (error instanceof InfraestructureException) throw error;
+    if (error instanceof InfrastructureException) throw error;
 
     throw new BcryptException(error);
   }

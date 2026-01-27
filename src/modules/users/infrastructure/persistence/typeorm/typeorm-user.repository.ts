@@ -1,8 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CacheService } from '@modules/shared/application/cache/cache.service';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
 import { Paginated } from '@shared/domain/paginated.entity';
 import { BaseTypeOrmRepository } from '@shared/infrastructure/persistence/typeorm/base-typeorm.repository';
@@ -138,7 +138,7 @@ export class TypeOrmUserRepository
   }
 
   protected handlerError(error: unknown): never {
-    if (error instanceof InfraestructureException) {
+    if (error instanceof InfrastructureException) {
       throw error;
     }
 

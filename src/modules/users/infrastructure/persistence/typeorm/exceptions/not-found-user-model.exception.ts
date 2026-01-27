@@ -1,6 +1,6 @@
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 
-export class NotFoundUserModelException extends InfraestructureException {
+export class NotFoundUserModelException extends InfrastructureException {
   constructor(id: string) {
     super({
       originalError: null,

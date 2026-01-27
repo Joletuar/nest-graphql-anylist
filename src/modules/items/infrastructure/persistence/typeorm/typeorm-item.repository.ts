@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Item } from '@items/domain/item.entity';
 import { ItemRepository } from '@items/domain/item.repository';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
 import { Paginated } from '@shared/domain/paginated.entity';
 import { BaseTypeOrmRepository } from '@shared/infrastructure/persistence/typeorm/base-typeorm.repository';
@@ -116,7 +116,7 @@ export class TypeOrmItemRepository
   protected handlerError(error: unknown): never {
     // TODO: improve this handler exception
 
-    if (error instanceof InfraestructureException) throw error;
+    if (error instanceof InfrastructureException) throw error;
 
     throw new TypeOrmException(error);
   }

@@ -1,6 +1,6 @@
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 
-export class BcryptException extends InfraestructureException {
+export class BcryptException extends InfrastructureException {
   constructor(error: unknown) {
     super({
       message: 'Bcrypt error',

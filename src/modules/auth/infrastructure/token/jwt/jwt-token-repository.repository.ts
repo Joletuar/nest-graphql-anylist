@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { TokenRepository } from '@auth/domain/token.repository';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 
 import { JwtException } from './exceptions/jwt.exception';
 
@@ -32,7 +32,7 @@ export class JwtTokenRepository implements TokenRepository {
   }
 
   private handlerError(error: unknown): never {
-    if (error instanceof InfraestructureException) throw error;
+    if (error instanceof InfrastructureException) throw error;
 
     throw new JwtException(error);
   }

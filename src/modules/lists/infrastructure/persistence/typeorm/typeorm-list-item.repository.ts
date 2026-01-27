@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { ListItem } from '@modules/lists/domain/list-item.entity';
 import { ListItemRepository } from '@modules/lists/domain/list-item.repository';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import { Criteria } from '@shared/domain/criteria/criteria.interface';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { Paginated } from '@shared/domain/paginated.entity';
 import { TypeOrmException } from '@shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
 import { TypeOrmCriteriaConverter } from '@shared/infrastructure/persistence/typeorm/typeorm-criteria-converter';
@@ -48,7 +48,7 @@ export class TypeOrmListItemRepository extends ListItemRepository {
   protected handlerError(error: unknown): never {
     // TODO: improve this handler exception
 
-    if (error instanceof InfraestructureException) throw error;
+    if (error instanceof InfrastructureException) throw error;
 
     throw new TypeOrmException(error);
   }

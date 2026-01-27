@@ -10,8 +10,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import { DomainException } from '@shared/domain/exceptions/domain.exception';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
 import { ValidationError } from 'class-validator';
 import { Response } from 'express';
 import { GraphQLError } from 'graphql';
@@ -110,7 +110,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       };
     }
 
-    if (exception instanceof InfraestructureException) {
+    if (exception instanceof InfrastructureException) {
       const { errorObject, message } = exception;
 
       formattedError = {

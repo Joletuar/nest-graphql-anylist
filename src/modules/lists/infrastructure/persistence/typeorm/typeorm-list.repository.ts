@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { List } from '@lists/domain/list.entity';
 import { ListRespository } from '@lists/domain/list.repository';
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 import { Nullable } from '@shared/domain/nullable.type';
 import { BaseTypeOrmRepository } from '@shared/infrastructure/persistence/typeorm/base-typeorm.repository';
 import { TypeOrmException } from '@shared/infrastructure/persistence/typeorm/exceptions/typeorm.exception';
@@ -173,7 +173,7 @@ export class TypeOrmListRepository
   protected handlerError(error: unknown): never {
     // TODO: improve this handler exception
 
-    if (error instanceof InfraestructureException) throw error;
+    if (error instanceof InfrastructureException) throw error;
 
     throw new TypeOrmException(error);
   }

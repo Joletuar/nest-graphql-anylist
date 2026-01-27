@@ -1,12 +1,12 @@
 import {
-  InfraestructureErrorObject,
-  InfraestructureException,
-} from '@modules/shared/domain/exceptions/infraestructure.exception';
+  InfrastructureErrorObject,
+  InfrastructureException,
+} from '@modules/shared/domain/exceptions/infrastructure.exception';
 
-export class CacheServiceException extends InfraestructureException {
+export class CacheServiceException extends InfrastructureException {
   constructor(
     originalError: unknown,
-    details: InfraestructureErrorObject['details'],
+    details: InfrastructureErrorObject['details'],
   ) {
     super({
       message: 'CacheService error',

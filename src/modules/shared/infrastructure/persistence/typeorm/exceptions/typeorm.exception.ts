@@ -1,6 +1,6 @@
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 
-export class TypeOrmException extends InfraestructureException {
+export class TypeOrmException extends InfrastructureException {
   constructor(originalError: unknown) {
     // TODO: here we need to map typeorm errors to graceful errors to client
 

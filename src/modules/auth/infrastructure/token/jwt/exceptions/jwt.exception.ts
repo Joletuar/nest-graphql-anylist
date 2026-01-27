@@ -1,6 +1,6 @@
-import { InfraestructureException } from '@shared/domain/exceptions/infraestructure.exception';
+import { InfrastructureException } from '@modules/shared/domain/exceptions/infrastructure.exception';
 
-export class JwtException extends InfraestructureException {
+export class JwtException extends InfrastructureException {
   constructor(error: unknown) {
     super({
       message: 'Jwt error',
