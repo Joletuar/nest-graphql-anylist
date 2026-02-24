@@ -1,11 +1,11 @@
-name: "nest_graphql_anylist"
+name: 'nest_graphql_anylist'
 
 services:
   postgres:
     image: postgres:alpine
     ports:
       - ${TYPE_ORM_PORT}:${TYPE_ORM_PORT}
-    container_name: "postgres"
+    container_name: 'postgres'
     environment:
       POSTGRES_USER: ${TYPE_ORM_USERNAME}
       POSTGRES_PASSWORD: ${TYPE_ORM_PASSWORD}
@@ -20,7 +20,7 @@ services:
     image: redis:8.0-alpine
     ports:
       - ${CACHE_PORT}:6379
-    container_name: "redis"
+    container_name: 'redis'
     volumes:
       - redis_volume:/data
     networks:
