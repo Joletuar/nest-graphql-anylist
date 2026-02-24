@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Role } from '@modules/users/domain/roles.enum';
-import { User } from '@modules/users/domain/user.entity';
 import { UserRepository } from '@modules/users/domain/user.repository';
+import { createMockUserRepository } from '@users/__tests__/mocks/user-repository.mock';
+import { UserMother } from '@users/__tests__/mothers/user.mother';
+import { UserNotFoundException } from '@users/domain/exceptions/user-not-found.exception';
 import { ulid } from 'ulidx';
 
 import { UserDto } from '../../user.dto';
@@ -22,13 +22,7 @@ describe('FindUserByIdQueryHandler', () => {
         FindUserByIdQueryHandler,
         {
           provide: UserRepository,
-          useValue: {
-            create: jest.fn(),
-            update: jest.fn(),
-            getAll: jest.fn(),
-            findById: jest.fn(),
-            search: jest.fn(),
-          },
+          useValue: createMockUserRepository(),
         },
       ],
     }).compile();
@@ -57,14 +51,7 @@ describe('FindUserByIdQueryHandler', () => {
     // Arrange
     const userId = ulid();
     const query = new FindUserByIdQuery(userId);
-    const mockUser: User = {
-      id: userId,
-      fullName: 'Johan Tuarez',
-      email: 'johan_tuarez@hotmail.com',
-      isActive: true,
-      password: '12345',
-      roles: [Role.ADMIN],
-    };
+    const mockUser = UserMother.create({ id: userId });
     const expectedUserDto: UserDto = UserMapper.toDto(mockUser);
     userRepository.findById.mockResolvedValue(mockUser);
 
@@ -75,5 +62,17 @@ describe('FindUserByIdQueryHandler', () => {
     expect(userRepository.findById).toHaveBeenCalledWith(userId);
     expect(userDto).toBeDefined();
     expect(userDto).toEqual(expectedUserDto);
+  });
+
+  it('should throw UserNotFoundException when user does not exist', async () => {
+    // Arrange
+    const userId = ulid();
+    const query = new FindUserByIdQuery(userId);
+    userRepository.findById.mockResolvedValue(null);
+
+    // Act & Assert
+    await expect(findUserByIdQueryHandler.execute(query)).rejects.toThrow(
+      UserNotFoundException,
+    );
   });
 });
